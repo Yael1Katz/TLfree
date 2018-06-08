@@ -1,9 +1,3 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 
@@ -14,9 +8,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-default.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-osx-dashboard.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-default.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-osx-dashboard.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css"
+        media="all" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
@@ -105,7 +102,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="reservation">
                     <form>
                         <div class="form-text">
-                            <input type="date" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}">
+                            <input id="calendar" type="date" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}"
+                                onchange="dateChanged(this)">
                         </div>
                         <div class="clear"></div>
                     </form>
@@ -232,91 +230,125 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </div>
                         <div class="clear"></div>
                     </div>*/
-
+        var allEvents = [];
         getAllEvents();
         function getAllEvents() {
 
             $.getJSON("https://tlfree-4b9bf.firebaseio.com/.json", function (result) {
                 var items = result.db_tlfree;
-                var itemsCounter = 1;
-                var wrap = document.getElementsByClassName("wrap")[2];
-                var sectionGroup = document.createElement("div");
-                sectionGroup.setAttribute("calss", "section group");
                 $.each(items, function (k, v) {
-                    //result += k + " , " + v + "\n";
-                    console.log("banner_uri : " + v.banner_uri);
-                    console.log("day : " + v.day);
-                    console.log("full_date : " + v.full_date);
-                    console.log("message_text : " + v.message_text);
-                    console.log("month : " + v.month);
-                    console.log("title : " + v.title);
-                    //link_value
-                    console.log("----------------------------------------------------");
+                    //console.log("banner_uri : " + v.banner_uri);
+                    //console.log("day : " + v.day);
+                    //console.log("full_date : " + v.full_date);
+                    //console.log("message_text : " + v.message_text);
+                    //console.log("month : " + v.month);
+                    //console.log("title : " + v.title);
+                    //console.log("----------------------------------------------------");
 
-                    if (itemsCounter % 4 != 0) {
-                        var eventCard = document.createElement("div");
-                        eventCard.setAttribute("class", "col_1_of_3 span_1_of_3");
-                        var img = document.createElement("img");
-                        img.src = v.banner_uri;
-                        eventCard.appendChild(img);
-                        /*var ul = document.createElement("ul");
-                        ul.setAttribute("class", "m_fb");
-                        var li = document.createElement("li");
-                        ul.appendChild(li);
-                        var span = document.createElement("span");
-                        span.setAttribute("class", "m_22");
-                        var a = document.createElement("a");
-                        img = document.createElement("img");
-                        img.src = "images/fb.png";
-                        li.appendChild(span);
-                        span.appendChild(a);
-                        a.appendChild(img);
-                        span = document.createElement("span");
-                        span.setAttribute("class", "middle");
-                        span.innerHTML = v.full_date;
-                        li.appendChild(span);
-                        span = document.createElement("span");
-                        span.setAttribute("class", "m_23");
-                        a = document.createElement("a");
-                        img = document.createElement("img");
-                        img.src = "images/heart.png";
-                        li.appendChild(span);
-                        span.appendChild(a);
-                        a.appendChild(img);
-                        eventCard.appendChild(ul);
-                        var clear = document.createElement("div");
-                        clear.setAttribute("class", "clear");
-                        li.appendChild(clear);*/
-                        var desc = document.createElement("div");
-                        desc.setAttribute("class", "desc");
-                        var h3 = document.createElement("h3");
-                        a = document.createElement("a");
-                        a.href = v.link_value;
-                        a.innerHTML = v.title;
-                        var p = document.createElement("p");
-                        p.innerHTML = v.message_text;
-                        h3.appendChild(a);
-                        desc.appendChild(h3);
-                        desc.appendChild(p);
-                        eventCard.appendChild(desc);
-                        sectionGroup.appendChild(eventCard);
-                    }
-                    else {
-                        wrap.appendChild(sectionGroup);
-                        clear = document.createElement("div");
-                        clear.setAttribute("class", "clear");
-                        wrap.appendChild(clear);
-                        sectionGroup = document.createElement("div");
-                        sectionGroup.setAttribute("calss", "section group");
-                    }
-                    itemsCounter++;
+                    var date = Date.parse(v.full_date).toDateString();
+                    date = getFormatedDate(date);
+                    var event = {
+                        title: v.title, banner_uri: v.banner_uri,
+                        date: date, message_text: v.message_text, link_value: v.link_value
+                    };
+                    allEvents.push(event);
                 });
+                allEvents.sort(function (a, b) {
+                    return new Date(b.date).getTime() - new Date(a.date).getTime();
+                });
+                createEvents(allEvents);
+
+
 
             });
 
-
-
-
+        }
+        function getFormatedDate(date) {
+            var month = date.toString().split(' ')[1];
+            var dayNumber = date.toString().split(' ')[2];
+            var year = date.toString().split(' ')[3];
+            return dayNumber + "-" + month + "-" + year;
+        }
+        function dateChanged(selectedDate) {
+            selectedDate = new Date(selectedDate.value).toDateString();
+            //debugger;
+            selectedDate = getFormatedDate(selectedDate);
+            var eventsByDateSelected = [];
+            allEvents.forEach(event => {
+                if(event.date == selectedDate)
+                {
+                    eventsByDateSelected.push(event);
+                }
+            });
+            createEvents(eventsByDateSelected);
+        }
+        function createEvents(events) {
+            var itemsCounter = 0;
+            var wrap = document.getElementsByClassName("wrap")[2];
+            wrap.innerHTML = "";
+            var sectionGroup = document.createElement("div");
+            sectionGroup.setAttribute("calss", "section group");
+            events.forEach(event => {
+                if (itemsCounter % 3 == 0) {
+                    wrap.appendChild(sectionGroup);
+                    clear = document.createElement("div");
+                    clear.setAttribute("class", "clear");
+                    wrap.appendChild(clear);
+                    sectionGroup = document.createElement("div");
+                    sectionGroup.setAttribute("calss", "section group");
+                }
+                var eventCard = document.createElement("div");
+                eventCard.setAttribute("class", "col_1_of_3 span_1_of_3");
+                var img = document.createElement("img");
+                img.src = event.banner_uri;
+                eventCard.appendChild(img);
+                /*var ul = document.createElement("ul");
+                ul.setAttribute("class", "m_fb");
+                var li = document.createElement("li");
+                ul.appendChild(li);
+                var span = document.createElement("span");
+                span.setAttribute("class", "m_22");
+                var a = document.createElement("a");
+                img = document.createElement("img");
+                img.src = "images/fb.png";
+                li.appendChild(span);
+                span.appendChild(a);
+                a.appendChild(img);
+                span = document.createElement("span");
+                span.setAttribute("class", "middle");
+                span.innerHTML = v.full_date;
+                li.appendChild(span);
+                span = document.createElement("span");
+                span.setAttribute("class", "m_23");
+                a = document.createElement("a");
+                img = document.createElement("img");
+                img.src = "images/heart.png";
+                li.appendChild(span);
+                span.appendChild(a);
+                a.appendChild(img);
+                eventCard.appendChild(ul);
+                var clear = document.createElement("div");
+                clear.setAttribute("class", "clear");
+                li.appendChild(clear);*/
+                var desc = document.createElement("div");
+                desc.setAttribute("class", "desc");
+                var h3 = document.createElement("h3");
+                a = document.createElement("a");
+                a.href = event.link_value;
+                a.innerHTML = event.title;
+                var p = document.createElement("p");
+                p.innerHTML = event.message_text;
+                h3.appendChild(a);
+                var h4 = document.createElement("h4");
+                h4.setAttribute("class", "m_2");
+                h4.innerHTML = event.date;
+                desc.appendChild(h4);
+                desc.appendChild(h3);
+                desc.appendChild(p);
+                eventCard.appendChild(desc);
+                sectionGroup.appendChild(eventCard);
+                itemsCounter++;
+            });
         }
     </script>
 </body>

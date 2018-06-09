@@ -125,8 +125,7 @@
                 <div class="reservation">
                     <form>
                         <div class="form-text">
-                            <input id="calendar" type="date" value="Select date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Select date';}"
-                                onchange="dateChanged(this)">
+                            <input id="calendar" type="date" onchange="dateChanged(this)">
                         </div>
                         <div class="clear"></div>
                     </form>
@@ -287,9 +286,6 @@
                     return new Date(b.date).getTime() - new Date(a.date).getTime();
                 });
                 createEvents(allEvents);
-
-
-
             });
 
         }
@@ -300,29 +296,28 @@
             return dayNumber + "-" + month + "-" + year;
         }
         function dateChanged(selectedDate) {
-            selectedDate = new Date(selectedDate.value).toDateString();
-            //debugger;
-            selectedDate = getFormatedDate(selectedDate);
-            var eventsByDateSelected = [];
-            allEvents.forEach(event => {
+            if (selectedDate.value != "") {
+                selectedDate = new Date(selectedDate.value).toDateString();
+                selectedDate = getFormatedDate(selectedDate);
+                var eventsByDateSelected = [];
+                allEvents.forEach(event => {
 
-                if (event.date == selectedDate) {
-                    eventsByDateSelected.push(event);
-                }
-            });
-            createEvents(eventsByDateSelected);
+                    if (event.date == selectedDate) {
+                        eventsByDateSelected.push(event);
+                    }
+                });
+                createEvents(eventsByDateSelected);
+            }
+            else{
+                createEvents(allEvents);
+            }
+
         }
         function createEvents(events) {
             var itemsCounter = 0;
             var wrap = document.getElementsByClassName("wrap")[2];
             wrap.innerHTML = "";
             var sectionGroup;
-            //var sectionGroup = document.createElement("div");
-            //sectionGroup.setAttribute("calss", "section group");
-            //wrap.appendChild(sectionGroup);
-            // var clear = document.createElement("div");
-            //clear.setAttribute("class", "clear");
-            //wrap.appendChild(clear);
             events.forEach(event => {
                 if (itemsCounter % 3 == 0) {
                     sectionGroup = document.createElement("div");

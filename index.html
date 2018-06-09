@@ -275,8 +275,8 @@
             selectedDate = getFormatedDate(selectedDate);
             var eventsByDateSelected = [];
             allEvents.forEach(event => {
-                if(event.date == selectedDate)
-                {
+
+                if (event.date == selectedDate) {
                     eventsByDateSelected.push(event);
                 }
             });
@@ -286,16 +286,21 @@
             var itemsCounter = 0;
             var wrap = document.getElementsByClassName("wrap")[2];
             wrap.innerHTML = "";
-            var sectionGroup = document.createElement("div");
-            sectionGroup.setAttribute("calss", "section group");
+            var sectionGroup;
+            //var sectionGroup = document.createElement("div");
+            //sectionGroup.setAttribute("calss", "section group");
+            //wrap.appendChild(sectionGroup);
+           // var clear = document.createElement("div");
+            //clear.setAttribute("class", "clear");
+            //wrap.appendChild(clear);
             events.forEach(event => {
                 if (itemsCounter % 3 == 0) {
+                    sectionGroup = document.createElement("div");
+                    sectionGroup.setAttribute("calss", "section group");
                     wrap.appendChild(sectionGroup);
                     clear = document.createElement("div");
                     clear.setAttribute("class", "clear");
                     wrap.appendChild(clear);
-                    sectionGroup = document.createElement("div");
-                    sectionGroup.setAttribute("calss", "section group");
                 }
                 var eventCard = document.createElement("div");
                 eventCard.setAttribute("class", "col_1_of_3 span_1_of_3");

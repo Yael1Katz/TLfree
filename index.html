@@ -264,8 +264,9 @@
         function getAllEvents() {
 
             $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
-                var items = result.db_tlfree;
-                $.each(items, function (k, v) {
+                //var items = result.db_tlfree;
+                debugger;
+                $.each(result, function (k, v) {
                     //console.log("banner_uri : " + v.banner_uri);
                     //console.log("day : " + v.day);
                     //console.log("full_date : " + v.full_date);

@@ -263,7 +263,7 @@
         getAllEvents();
         function getAllEvents() {
 
-            $.getJSON("https://tlfree-4b9bf.firebaseio.com/.json", function (result) {
+            $.getJSON("https://tlfree-4b9bf.firebaseio.com/.json?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mjg1NDg4ODMsImV4cCI6MTUyODU1MjQ4MywidiI6MCwiYWRtaW4iOiJyZWFkIn0.UDScb38GZHuZUM5r0D-rLYDuaVhJDo7DVXk6PGww7zQ", function (result) {
                 var items = result.db_tlfree;
                 $.each(items, function (k, v) {
                     //console.log("banner_uri : " + v.banner_uri);

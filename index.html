@@ -28,6 +28,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
+        i {
+            background: #f4f4f4;
+            border-radius: 20px;
+            font-size: 20px;
+            text-align: center;
+            /*margin-right: 10px;*/
+            border-radius: 50%;
+            display: inline-block;
+            padding: 5px;
+        }
     </style>
 </head>
 
@@ -85,16 +95,18 @@
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
-            
+
             <h2 class="head">Find the
                 <span class="m_1">next event </span>You'll want
                 <span class="m_1">to attend</span>
             </h2>
         </div>
     </div>
+    <!--
     <div class="map">
-        <img src="images/map1.jpg" alt="" />
+        <img src="images/map.jpg" alt="" />
     </div>
+    -->
     <div class="content-box">
         <div class="wrap">
             <ul class="events">
@@ -125,6 +137,7 @@
     </div>
     <div class="main">
         <div class="wrap">
+
         </div>
     </div>
     <div class="footer">
@@ -173,13 +186,15 @@
                         <a href="http://w3layouts.com" target="_blank"> w3layouts</a>
                     </p>
                 </div>
+                -->
                 <div class="social">
                     <ul>
                         <li class="facebook">
-                            <a href="#">
+                            <a href="https://www.facebook.com/TLfree-196181621210411/">
                                 <span> </span>
                             </a>
                         </li>
+                        <!--
                         <li class="twitter">
                             <a href="#">
                                 <span> </span>
@@ -205,46 +220,46 @@
                                 <span> </span>
                             </a>
                         </li>
+                        -->
                     </ul>
                 </div>
                 <div class="clear"></div>
-                -->
+
             </div>
         </div>
     </div>
     <script>
 
         /*<div class="section group">
-                        <div class="col_1_of_3 span_1_of_3">
-                            <img src="images/pic3.jpg" alt="">
-                            <ul class="m_fb">
-                                <li>
-                                    <span class="m_22">
-                                        <a href="#">
-                                            <img src="images/fb.png" alt="">
-                                        </a>
-                                    </span>
-                                    <span class="middle">Aug 17, 2013 02:00pm-08-00pm IST</span>
-                                    <span class="m_23">
-                                        <a href="#">
-                                            <img src="images/heart.png" alt="">
-                                        </a>
-                                    </span>
-                                    <div class="clear"></div>
-                                </li>
-                            </ul>
-                            <div class="desc">
-                                <h3>
-                                    <a href="#">Lorem Ipsum is simply dummy</a>
-                                </h3>
-                                <h4 class="m_2">consectetur adipisicing elit, sed do</h4>
-                                <h5 class="m_3">sed do eiusmod tempor incididunt ut labore</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                    et dolore magna aliqua.</p>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>*/
+                <div class="col_1_of_3 span_1_of_3">
+                    <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg" alt="">
+                    <ul class="m_fb">
+                        <li>
+                            <span class="m_23">
+                                <i>
+                                    <img src="images/food.png" width="30" />
+                                </i>
+                            </span>
+                            <span class="m_23">
+                                <i>
+                                    <img src="images/hq.png" width="30" />
+                                </i>
+                            </span>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
+                    <div class="desc">
+                        <h3>
+                            <a href="#">Lorem Ipsum is simply dummy</a>
+                        </h3>
+                        <h4 class="m_2">consectetur adipisicing elit, sed do</h4>
+                        <h5 class="m_3">sed do eiusmod tempor incididunt ut labore</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                            et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>*/
         var allEvents = [];
         getAllEvents();
         function getAllEvents() {
@@ -264,7 +279,7 @@
                     date = getFormatedDate(date);
                     var event = {
                         title: v.title, banner_uri: v.banner_uri,
-                        date: date, message_text: v.message_text, link_value: v.link_value
+                        date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
                     };
                     allEvents.push(event);
                 });
@@ -305,7 +320,7 @@
             //var sectionGroup = document.createElement("div");
             //sectionGroup.setAttribute("calss", "section group");
             //wrap.appendChild(sectionGroup);
-           // var clear = document.createElement("div");
+            // var clear = document.createElement("div");
             //clear.setAttribute("class", "clear");
             //wrap.appendChild(clear);
             events.forEach(event => {
@@ -322,6 +337,65 @@
                 var img = document.createElement("img");
                 img.src = event.banner_uri;
                 eventCard.appendChild(img);
+
+                if (event.labels != 0) {
+                    var ul = document.createElement("ul");
+                    ul.setAttribute("class", "m_fb");
+                    var li = document.createElement("li");
+
+                    var span = document.createElement("span");
+                    span.setAttribute("class", "m_23");
+                    var i = document.createElement("i");
+                    var img = document.createElement("img");
+                    img.width = "30";
+                    i.appendChild(img);
+                    span.appendChild(i);
+                    li.appendChild(span);
+                    if (event.labels == 1) {
+                        img.src = "images/food.png";
+                    }
+                    else if (event.labels == 2) {
+                        img.src = "images/hq.png";
+                    }
+                    else if (event.labels == 3) {
+                        img.src = "images/hq.png";
+                        li.appendChild(span);
+
+                        span = document.createElement("span");
+                        span.setAttribute("class", "m_23");
+                        i = document.createElement("i");
+                        img = document.createElement("img");
+                        img.src = "images/food.png";
+                        img.width = "30";
+                        i.appendChild(img);
+                        span.appendChild(i);
+                        li.appendChild(span);
+                    }
+                    else if (event.labels == 4) {
+                        img.src = "images/ic_90_percent_discount.png";
+                    }
+                    else if (event.labels == 10) {
+                        img.src = "images/hq.png";
+                        li.appendChild(span);
+
+                        span = document.createElement("span");
+                        span.setAttribute("class", "m_23");
+                        i = document.createElement("i");
+                        img = document.createElement("img");
+                        img.src = "images/ic_editors_choice.png";
+                        img.width = "30";
+                        i.appendChild(img);
+                        span.appendChild(i);
+                        li.appendChild(span);
+                    }
+                    else if (event.labels == 11) {
+                        img.src = "images/ic_editors_choice.png";
+                    }
+
+                    ul.appendChild(li);
+                    eventCard.appendChild(ul);
+                }
+
                 /*var ul = document.createElement("ul");
                 ul.setAttribute("class", "m_fb");
                 var li = document.createElement("li");
@@ -355,6 +429,7 @@
                 var h3 = document.createElement("h3");
                 a = document.createElement("a");
                 a.href = event.link_value;
+                a.target = "_blank";
                 a.innerHTML = event.title;
                 var p = document.createElement("p");
                 p.innerHTML = event.message_text;

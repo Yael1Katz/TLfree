@@ -275,8 +275,8 @@
                     //console.log("----------------------------------------------------");
                     var date = Date.parse(v.full_date).toDateString();
                     date = getFormatedDate(date);
-                    var currentDate = new Date();
-                    if (currentDate - new Date(date) >= 0) {
+                    var currentDate = getFormatedDate(new Date().toDateString());
+                    if (new Date(currentDate) - new Date(date) <= 0) {
                         var event = {
                             title: v.title, banner_uri: v.banner_uri,
                             date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
@@ -285,7 +285,7 @@
                     }
                 });
                 allEvents.sort(function (a, b) {
-                    return new Date(b.date).getTime() - new Date(a.date).getTime();
+                    return new Date(a.date).getTime() - new Date(b.date).getTime();
                 });
                 createEvents(allEvents);
             });

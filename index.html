@@ -265,7 +265,6 @@
 
             $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
                 //var items = result.db_tlfree;
-                debugger;
                 $.each(result, function (k, v) {
                     //console.log("banner_uri : " + v.banner_uri);
                     //console.log("day : " + v.day);
@@ -274,14 +273,16 @@
                     //console.log("month : " + v.month);
                     //console.log("title : " + v.title);
                     //console.log("----------------------------------------------------");
-
                     var date = Date.parse(v.full_date).toDateString();
                     date = getFormatedDate(date);
-                    var event = {
-                        title: v.title, banner_uri: v.banner_uri,
-                        date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
-                    };
-                    allEvents.push(event);
+                    var currentDate = new Date();
+                    if (currentDate - new Date(date) >= 0) {
+                        var event = {
+                            title: v.title, banner_uri: v.banner_uri,
+                            date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
+                        };
+                        allEvents.push(event);
+                    }
                 });
                 allEvents.sort(function (a, b) {
                     return new Date(b.date).getTime() - new Date(a.date).getTime();

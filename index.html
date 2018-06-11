@@ -293,7 +293,10 @@
                 <div class="clear"></div>
             </div>*/
             var allEvents = [];
+            var favoritesEventsGUIDs = [];
+            var favoritesEvents = [];
             getAllEvents();
+            var tabSelected = "eventsTab";
             function getAllEvents() {
 
                 $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
@@ -312,7 +315,8 @@
                     allEvents.sort(function (a, b) {
                         return new Date(a.date).getTime() - new Date(b.date).getTime();
                     });
-                    createEvents(allEvents);
+                    initFavorites();
+                    createEvents(allEvents);                   
                 });
 
             }
@@ -327,12 +331,23 @@
                     selectedDate = new Date(selectedDate.value).toDateString();
                     selectedDate = getFormatedDate(selectedDate);
                     var eventsByDateSelected = [];
-                    allEvents.forEach(event => {
 
-                        if (event.date == selectedDate) {
-                            eventsByDateSelected.push(event);
-                        }
-                    });
+                    if (tabSelected == "eventsTab") {
+                        allEvents.forEach(event => {
+                            if (event.date == selectedDate) {
+                                eventsByDateSelected.push(event);
+                            }
+                        });
+                    }
+                    else {
+                        favoritesEvents.forEach(event => {
+                            if (event.date == selectedDate) {
+                                eventsByDateSelected.push(event);
+                            }
+                        });
+                    }
+
+
                     createEvents(eventsByDateSelected);
                 }
                 else {
@@ -341,7 +356,6 @@
 
             }
             function createEvents(events) {
-                var favorites = localStorage.getItem("favorites") == null ? new Array() : JSON.parse(localStorage.getItem("favorites"));
                 var itemsCounter = 0;
                 var wrap = document.getElementsByClassName("wrap")[2];
                 wrap.innerHTML = "";
@@ -423,7 +437,7 @@
                         span = document.createElement("span");
                         span.setAttribute("class", "m_22 favorite");
                         var div = document.createElement("div");
-                        if (favorites.indexOf(event.guid) > -1) {
+                        if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
                             div.setAttribute("class", "star glyphicon glyphicon-star");
                         }
                         else {
@@ -485,47 +499,48 @@
                 });
 
                 $(".star.glyphicon").click(function () {
-                    var favorites = localStorage.getItem("favorites");
                     var eventGUID = $(this).parent().parent().parent().parent().children()[0].innerHTML;
                     //add to favorite
                     if ($(this)[0].getAttribute("class") == "star glyphicon glyphicon-star-empty") {
                         debugger;
-                        if (favorites == null) {
-                            var arr = [];
-                            localStorage.setItem("favorites", JSON.stringify(arr));
-                            favorites = localStorage.getItem("favorites");
-                        }
-                        favorites = JSON.parse(favorites);
-                        favorites.push(eventGUID);
+                        favoritesEventsGUIDs.push(eventGUID);
                     }
                     //remove from favorites
                     else {
                         debugger;
-                        favorites = JSON.parse(favorites);
-                        var index = favorites.indexOf(eventGUID);
+                        var index = favoritesEventsGUIDs.indexOf(eventGUID);
                         if (index > -1) {
-                            favorites.splice(index, 1);
+                            favoritesEventsGUIDs.splice(index, 1);
                         }
                     }
-                    localStorage.setItem("favorites", JSON.stringify(favorites));
+                    localStorage.setItem("favorites", JSON.stringify(favoritesEventsGUIDs));
                     $(this).toggleClass("glyphicon-star glyphicon-star-empty");
 
                 });
             }
-            function favoritesTab() {
+            function initFavorites() {
                 var favorites = localStorage.getItem("favorites");
                 if (favorites != null) {
                     favorites = JSON.parse(favorites);
-                    var favoritesEvents = [];
                     allEvents.forEach(event => {
-                        if(favorites.indexOf(event.guid) > -1){
-                            favoritesEvents.push(event);
+                        if (favorites.indexOf(event.guid) > -1) {
+                            favoritesEventsGUIDs.push(event.guid);
                         }
                     });
-                    createEvents(favoritesEvents);
                 }
             }
-            function eventsTab(){
+            function favoritesTab() {
+                tabSelected = "favoritesTab";
+                favoritesEvents = [];
+                allEvents.forEach(event => {
+                    if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
+                        favoritesEvents.push(event);
+                    }
+                });
+                createEvents(favoritesEvents);
+            }
+            function eventsTab() {
+                tabSelected = "eventsTab";
                 createEvents(allEvents);
             }
             $(function () {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Document</title>
+    <style>
+        .star {
+            font-size: 25px;
+            color: gold;
+        }
+
+    </style>
+</head>
+
+<body>
+   
+        
+    <script>
+        var div = document.createElement("div");
+        div.setAttribute("class", "star glyphicon glyphicon-star-empty");
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(div);
+        $(".star.glyphicon").click(function () {
+            debugger;
+            $(this).toggleClass("glyphicon-star glyphicon-star-empty");
+        });
+    </script>
+</body>
+
+</html>

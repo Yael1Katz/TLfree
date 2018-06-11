@@ -14,7 +14,6 @@
         media="all" />
     <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css"
         media="all" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/calendar-eightysix-v1.0.1.js"></script>
@@ -27,6 +26,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
         i {
             background: #f4f4f4;
@@ -38,15 +55,28 @@
             display: inline-block;
             padding: 5px;
         }
+
+        .star {
+            font-size: 25px;
+            color: gold;
+        }
+
+        span.m_22.favorite {
+            margin: 22px 0px 0px 2px;
+        }
+
+        .eventGUID {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="header-top">
         <div class="wrap">
-            <div>
+            <div style="align-items: center; display: flex;justify-content: center">
                 <a href="index.html">
-                    <img width="240px" height="120px" src="images/tlfree feature graphic.png" alt="" />
+                    <img width="280px" height="120px" src="images/tlfree feature graphic.png" alt="" />
                 </a>
             </div>
             <!--
@@ -138,11 +168,10 @@
         <div class="wrap">
 
         </div>
-    </div>
-    <div class="footer">
-        <div class="wrap">
-            <div class="footer-menu">
-                <!--
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer-menu">
+                    <!--
                 <ul>
                     <li class="active">
                         <a href="index.html">Home</a>
@@ -177,18 +206,18 @@
                     <div class="clear"></div>
                 </ul>
                 -->
-            </div>
-            <div class="footer-bottom">
-                <!--
+                </div>
+                <div class="footer-bottom">
+                    <!--
                 <div class="copy">
                     <p>© 2014 Template by
                         <a href="http://w3layouts.com" target="_blank"> w3layouts</a>
                     </p>
                 </div>
                 -->
-                <div class="social">
-                    <ul>
-                        <!--
+                    <div class="social">
+                        <ul>
+                            <!--
                         <li class="facebook">
                             <a href="https://www.facebook.com/TLfree-196181621210411/">
                                 <span> </span>
@@ -220,17 +249,18 @@
                             </a>
                         </li>
                         -->
-                    </ul>
-                </div>
-                <div class="clear"></div>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
 
+                </div>
             </div>
         </div>
-    </div>
-    <script>
+        <script>
 
-        /*<div class="section group">
+            /*<div class="section group">
                 <div class="col_1_of_3 span_1_of_3">
+                    <div class="eventGUID"></div>
                     <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg" alt="">
                     <ul class="m_fb">
                         <li>
@@ -243,6 +273,9 @@
                                 <i>
                                     <img src="images/hq.png" width="30" />
                                 </i>
+                            </span>
+                            <span class="m_22 favorite">
+                                <div class="star glyphicon glyphicon-star-empty"></div>
                             </span>
                             <div class="clear"></div>
                         </li>
@@ -259,190 +292,228 @@
                 </div>
                 <div class="clear"></div>
             </div>*/
-        var allEvents = [];
-        getAllEvents();
-        function getAllEvents() {
+            var allEvents = [];
+            getAllEvents();
+            function getAllEvents() {
 
-            $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
-                //var items = result.db_tlfree;
-                $.each(result, function (k, v) {
-                    //console.log("banner_uri : " + v.banner_uri);
-                    //console.log("day : " + v.day);
-                    //console.log("full_date : " + v.full_date);
-                    //console.log("message_text : " + v.message_text);
-                    //console.log("month : " + v.month);
-                    //console.log("title : " + v.title);
-                    //console.log("----------------------------------------------------");
-                    var date = Date.parse(v.full_date).toDateString();
-                    date = getFormatedDate(date);
-                    var currentDate = getFormatedDate(new Date().toDateString());
-                    if (new Date(currentDate) - new Date(date) <= 0) {
-                        var event = {
-                            title: v.title, banner_uri: v.banner_uri,
-                            date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
-                        };
-                        allEvents.push(event);
-                    }
+                $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
+                    $.each(result, function (k, v) {
+                        var date = Date.parse(v.full_date).toDateString();
+                        date = getFormatedDate(date);
+                        var currentDate = getFormatedDate(new Date().toDateString());
+                        if (new Date(currentDate) - new Date(date) <= 0) {
+                            var event = {
+                                guid: k, title: v.title, banner_uri: v.banner_uri,
+                                date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
+                            };
+                            allEvents.push(event);
+                        }
+                    });
+                    allEvents.sort(function (a, b) {
+                        return new Date(a.date).getTime() - new Date(b.date).getTime();
+                    });
+                    createEvents(allEvents);
                 });
-                allEvents.sort(function (a, b) {
-                    return new Date(a.date).getTime() - new Date(b.date).getTime();
-                });
-                createEvents(allEvents);
-            });
 
-        }
-        function getFormatedDate(date) {
-            var month = date.toString().split(' ')[1];
-            var dayNumber = date.toString().split(' ')[2];
-            var year = date.toString().split(' ')[3];
-            return dayNumber + "-" + month + "-" + year;
-        }
-        function dateChanged(selectedDate) {
-            if (selectedDate.value != "") {
-                selectedDate = new Date(selectedDate.value).toDateString();
-                selectedDate = getFormatedDate(selectedDate);
-                var eventsByDateSelected = [];
-                allEvents.forEach(event => {
-
-                    if (event.date == selectedDate) {
-                        eventsByDateSelected.push(event);
-                    }
-                });
-                createEvents(eventsByDateSelected);
             }
-            else {
-                createEvents(allEvents);
+            function getFormatedDate(date) {
+                var month = date.toString().split(' ')[1];
+                var dayNumber = date.toString().split(' ')[2];
+                var year = date.toString().split(' ')[3];
+                return dayNumber + "-" + month + "-" + year;
             }
+            function dateChanged(selectedDate) {
+                if (selectedDate.value != "") {
+                    selectedDate = new Date(selectedDate.value).toDateString();
+                    selectedDate = getFormatedDate(selectedDate);
+                    var eventsByDateSelected = [];
+                    allEvents.forEach(event => {
 
-        }
-        function createEvents(events) {
-            var itemsCounter = 0;
-            var wrap = document.getElementsByClassName("wrap")[2];
-            wrap.innerHTML = "";
-            var sectionGroup;
-            events.forEach(event => {
-                if (itemsCounter % 3 == 0) {
-                    sectionGroup = document.createElement("div");
-                    sectionGroup.setAttribute("calss", "section group");
-                    wrap.appendChild(sectionGroup);
-                    clear = document.createElement("div");
-                    clear.setAttribute("class", "clear");
-                    wrap.appendChild(clear);
+                        if (event.date == selectedDate) {
+                            eventsByDateSelected.push(event);
+                        }
+                    });
+                    createEvents(eventsByDateSelected);
                 }
-                var eventCard = document.createElement("div");
-                eventCard.setAttribute("class", "col_1_of_3 span_1_of_3");
-                var img = document.createElement("img");
-                img.src = event.banner_uri;
-                eventCard.appendChild(img);
+                else {
+                    createEvents(allEvents);
+                }
 
-                if (event.labels != 0) {
-                    var ul = document.createElement("ul");
+            }
+            function createEvents(events) {
+                var favorites = localStorage.getItem("favorites") == null ? new Array() : JSON.parse(localStorage.getItem("favorites"));
+                var itemsCounter = 0;
+                var wrap = document.getElementsByClassName("wrap")[2];
+                wrap.innerHTML = "";
+                var sectionGroup;
+                events.forEach(event => {
+                    if (itemsCounter % 3 == 0) {
+                        sectionGroup = document.createElement("div");
+                        sectionGroup.setAttribute("calss", "section group");
+                        wrap.appendChild(sectionGroup);
+                        clear = document.createElement("div");
+                        clear.setAttribute("class", "clear");
+                        wrap.appendChild(clear);
+                    }
+                    var eventCard = document.createElement("div");
+                    eventCard.setAttribute("class", "col_1_of_3 span_1_of_3");
+                    var div = document.createElement("div");
+                    div.setAttribute("class", "eventGUID");
+                    div.innerHTML = event.guid;
+                    eventCard.appendChild(div);
+                    var img = document.createElement("img");
+                    img.src = event.banner_uri;
+                    eventCard.appendChild(img);
+
+                    if (event.labels != 0) {
+                        var ul = document.createElement("ul");
+                        ul.setAttribute("class", "m_fb");
+                        var li = document.createElement("li");
+
+                        var span = document.createElement("span");
+                        span.setAttribute("class", "m_23");
+                        var i = document.createElement("i");
+                        var img = document.createElement("img");
+                        img.width = "30";
+                        i.appendChild(img);
+                        span.appendChild(i);
+                        li.appendChild(span);
+                        if (event.labels == 1) {
+                            img.src = "images/food.png";
+                        }
+                        else if (event.labels == 2) {
+                            img.src = "images/hq.png";
+                        }
+                        else if (event.labels == 3) {
+                            img.src = "images/hq.png";
+                            li.appendChild(span);
+
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/food.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
+                        }
+                        else if (event.labels == 4) {
+                            img.src = "images/ic_90_percent_discount.png";
+                        }
+                        else if (event.labels == 10) {
+                            img.src = "images/hq.png";
+                            li.appendChild(span);
+
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/ic_editors_choice.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
+                        }
+                        else if (event.labels == 11) {
+                            img.src = "images/ic_editors_choice.png";
+                        }
+
+
+                        span = document.createElement("span");
+                        span.setAttribute("class", "m_22 favorite");
+                        var div = document.createElement("div");
+                        if(favorites.indexOf(event.guid) > -1){
+                            div.setAttribute("class", "star glyphicon glyphicon-star");
+                        }
+                        else{
+                            div.setAttribute("class", "star glyphicon glyphicon-star-empty");
+                        }                       
+                        span.appendChild(div);
+                        li.appendChild(span);
+                        ul.appendChild(li);
+                        eventCard.appendChild(ul);
+                    }
+
+                    /*var ul = document.createElement("ul");
                     ul.setAttribute("class", "m_fb");
                     var li = document.createElement("li");
-
-                    var span = document.createElement("span");
-                    span.setAttribute("class", "m_23");
-                    var i = document.createElement("i");
-                    var img = document.createElement("img");
-                    img.width = "30";
-                    i.appendChild(img);
-                    span.appendChild(i);
-                    li.appendChild(span);
-                    if (event.labels == 1) {
-                        img.src = "images/food.png";
-                    }
-                    else if (event.labels == 2) {
-                        img.src = "images/hq.png";
-                    }
-                    else if (event.labels == 3) {
-                        img.src = "images/hq.png";
-                        li.appendChild(span);
-
-                        span = document.createElement("span");
-                        span.setAttribute("class", "m_23");
-                        i = document.createElement("i");
-                        img = document.createElement("img");
-                        img.src = "images/food.png";
-                        img.width = "30";
-                        i.appendChild(img);
-                        span.appendChild(i);
-                        li.appendChild(span);
-                    }
-                    else if (event.labels == 4) {
-                        img.src = "images/ic_90_percent_discount.png";
-                    }
-                    else if (event.labels == 10) {
-                        img.src = "images/hq.png";
-                        li.appendChild(span);
-
-                        span = document.createElement("span");
-                        span.setAttribute("class", "m_23");
-                        i = document.createElement("i");
-                        img = document.createElement("img");
-                        img.src = "images/ic_editors_choice.png";
-                        img.width = "30";
-                        i.appendChild(img);
-                        span.appendChild(i);
-                        li.appendChild(span);
-                    }
-                    else if (event.labels == 11) {
-                        img.src = "images/ic_editors_choice.png";
-                    }
-
                     ul.appendChild(li);
+                    var span = document.createElement("span");
+                    span.setAttribute("class", "m_22");
+                    var a = document.createElement("a");
+                    img = document.createElement("img");
+                    img.src = "images/fb.png";
+                    li.appendChild(span);
+                    span.appendChild(a);
+                    a.appendChild(img);
+                    span = document.createElement("span");
+                    span.setAttribute("class", "middle");
+                    span.innerHTML = v.full_date;
+                    li.appendChild(span);
+                    span = document.createElement("span");
+                    span.setAttribute("class", "m_23");
+                    a = document.createElement("a");
+                    img = document.createElement("img");
+                    img.src = "images/heart.png";
+                    li.appendChild(span);
+                    span.appendChild(a);
+                    a.appendChild(img);
                     eventCard.appendChild(ul);
-                }
+                    var clear = document.createElement("div");
+                    clear.setAttribute("class", "clear");
+                    li.appendChild(clear);*/
+                    var desc = document.createElement("div");
+                    desc.setAttribute("class", "desc");
+                    var h3 = document.createElement("h3");
+                    a = document.createElement("a");
+                    a.href = event.link_value;
+                    a.target = "_blank";
+                    a.innerHTML = event.title;
+                    var p = document.createElement("p");
+                    p.innerHTML = event.message_text;
+                    h3.appendChild(a);
+                    var h4 = document.createElement("h4");
+                    h4.setAttribute("class", "m_2");
+                    h4.innerHTML = event.date;
+                    desc.appendChild(h4);
+                    desc.appendChild(h3);
+                    desc.appendChild(p);
+                    eventCard.appendChild(desc);
+                    sectionGroup.appendChild(eventCard);
+                    itemsCounter++;
+                });
 
-                /*var ul = document.createElement("ul");
-                ul.setAttribute("class", "m_fb");
-                var li = document.createElement("li");
-                ul.appendChild(li);
-                var span = document.createElement("span");
-                span.setAttribute("class", "m_22");
-                var a = document.createElement("a");
-                img = document.createElement("img");
-                img.src = "images/fb.png";
-                li.appendChild(span);
-                span.appendChild(a);
-                a.appendChild(img);
-                span = document.createElement("span");
-                span.setAttribute("class", "middle");
-                span.innerHTML = v.full_date;
-                li.appendChild(span);
-                span = document.createElement("span");
-                span.setAttribute("class", "m_23");
-                a = document.createElement("a");
-                img = document.createElement("img");
-                img.src = "images/heart.png";
-                li.appendChild(span);
-                span.appendChild(a);
-                a.appendChild(img);
-                eventCard.appendChild(ul);
-                var clear = document.createElement("div");
-                clear.setAttribute("class", "clear");
-                li.appendChild(clear);*/
-                var desc = document.createElement("div");
-                desc.setAttribute("class", "desc");
-                var h3 = document.createElement("h3");
-                a = document.createElement("a");
-                a.href = event.link_value;
-                a.target = "_blank";
-                a.innerHTML = event.title;
-                var p = document.createElement("p");
-                p.innerHTML = event.message_text;
-                h3.appendChild(a);
-                var h4 = document.createElement("h4");
-                h4.setAttribute("class", "m_2");
-                h4.innerHTML = event.date;
-                desc.appendChild(h4);
-                desc.appendChild(h3);
-                desc.appendChild(p);
-                eventCard.appendChild(desc);
-                sectionGroup.appendChild(eventCard);
-                itemsCounter++;
-            });
-        }
-    </script>
+                $(".star.glyphicon").click(function () {
+                    var favorites = localStorage.getItem("favorites");
+                    var eventGUID = $(this).parent().parent().parent().parent().children()[0].innerHTML;
+                    //add to favorite
+                    if ($(this)[0].getAttribute("class") == "star glyphicon glyphicon-star-empty") {
+                        debugger;
+                        if (favorites == null) {
+                            var arr = [];
+                            localStorage.setItem("favorites", JSON.stringify(arr));
+                            favorites = localStorage.getItem("favorites");
+                        }
+                        favorites = JSON.parse(favorites);
+                        favorites.push(eventGUID);
+                    }
+                    //remove from favorites
+                    else {
+                        debugger;
+                        favorites = JSON.parse(favorites);
+                        var index = favorites.indexOf(eventGUID);
+                        if (index > -1) {
+                            favorites.splice(index, 1);
+                        }
+                    }
+                    localStorage.setItem("favorites", JSON.stringify(favorites));
+                    $(this).toggleClass("glyphicon-star glyphicon-star-empty");
+
+                });
+            }
+
+        </script>
 </body>
 
 </html>

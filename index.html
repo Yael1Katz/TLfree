@@ -141,13 +141,13 @@
         <div class="wrap">
             <ul class="events">
                 <li class="active">
-                    <a href="index.html">Hot Events</a>
+                    <a href="" onclick="eventsTab();return false;">Hot Events</a>
                 </li>
-                <!--
+
                 <li>
-                    <a href="">Trending Events</a>
+                    <a href="" onclick="favoritesTab();return false;">Favorites</a>
                 </li>
-                -->
+
             </ul>
             <div class="content-box-right">
 
@@ -423,12 +423,12 @@
                         span = document.createElement("span");
                         span.setAttribute("class", "m_22 favorite");
                         var div = document.createElement("div");
-                        if(favorites.indexOf(event.guid) > -1){
+                        if (favorites.indexOf(event.guid) > -1) {
                             div.setAttribute("class", "star glyphicon glyphicon-star");
                         }
-                        else{
+                        else {
                             div.setAttribute("class", "star glyphicon glyphicon-star-empty");
-                        }                       
+                        }
                         span.appendChild(div);
                         li.appendChild(span);
                         ul.appendChild(li);
@@ -512,7 +512,28 @@
 
                 });
             }
-
+            function favoritesTab() {
+                var favorites = localStorage.getItem("favorites");
+                if (favorites != null) {
+                    favorites = JSON.parse(favorites);
+                    var favoritesEvents = [];
+                    allEvents.forEach(event => {
+                        if(favorites.indexOf(event.guid) > -1){
+                            favoritesEvents.push(event);
+                        }
+                    });
+                    createEvents(favoritesEvents);
+                }
+            }
+            function eventsTab(){
+                createEvents(allEvents);
+            }
+            $(function () {
+                $('li').click(function () {
+                    $('li.active').removeClass('active');
+                    $(this).addClass('active');
+                });
+            });
         </script>
 </body>
 

@@ -88,38 +88,49 @@
 </head>
 
 <body>
-    <!--<div id="map"></div>-->
-    <button id="myBtn">Open Modal</button>
+    <div id="map"></div>
+    <!--<button id="myBtn">Open Modal</button>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
+    <div 
         <div class="modal-content">
             <span class="close">&times;</span>
-            <!-- <div id="map"></div>-->
-
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843"
              width="100%" height="95%" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
-
-    </div>
+    </div>-->
     <script>
         var map;
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 32.084950, lng: 34.788825 },
-                zoom: 15
+                center: { lat: 32.069396, lng: 34.7869129 },
+                zoom: 13.5
             });
 
             var marker = new google.maps.Marker({
                 position: { lat: 32.084950, lng: 34.788825 },
                 map: map,
-                title: 'Hello World!',
+                title: '1',
                 icon: 'images/pin.png',
-                animation: google.maps.Animation.BOUNCE,
+                animation: google.maps.Animation.DROP,
                 draggable: false,
             });
+
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(32.1154887, 34.8393053),
+                map: map,
+                title: '2',
+                icon: 'images/pin.png',
+                animation: google.maps.Animation.DROP,
+                draggable: false,
+                post_id1: "sdfsdf"
+                //url: 'www.ynet.co.il',
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                debugger;
+                var test = marker.post_id1;
+                //window.location.href = marker.url;
+            });
+            //32.1154887,34.8393053
 
         }
         // Get the modal

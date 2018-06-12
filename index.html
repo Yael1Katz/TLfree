@@ -43,8 +43,14 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo" type="text/javascript"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        #map {
+            height: 90%;
+            width: 100%;
+        }
+
         .mapLink {
             float: right;
         }
@@ -199,11 +205,12 @@
                 <li class="active">
                     <a href="" onclick="eventsTab();return false;">Hot Events</a>
                 </li>
-
                 <li>
                     <a href="" onclick="favoritesTab();return false;">Favorites</a>
                 </li>
-
+                <li>
+                    <a href="" onclick="mapTab();return false;">Map</a>
+                </li>
             </ul>
             <div class="content-box-right">
 
@@ -229,6 +236,8 @@
             </div>
         </div>
         <div class="wrap">
+
+
         </div>
         <div class="footer">
             <div class="wrap">
@@ -356,6 +365,7 @@
                 </div>
                 <div class="clear"></div>
             </div>*/
+            var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
             var span = document.getElementsByClassName("close")[0];
             var allEvents = [];
@@ -373,11 +383,14 @@
                         date = getFormatedDate(date);
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {
-                            var location = eventsLocation[k] == null ? null : eventsLocation[k];
+                            debugger;
+                            var location = eventsLocation[k] == null ? null : eventsLocation[k].location;
+                            var lat = location == null ? null : eventsLocation[k].lat;
+                            var lng = location == null ? null : eventsLocation[k].lng;
                             var event = {
                                 guid: k, title: v.title, banner_uri: v.banner_uri,
                                 date: date, message_text: v.message_text, link_value: v.link_value,
-                                labels: v.labels, location: location
+                                labels: v.labels, location: location, lat: lat, lng: lng
                             };
                             allEvents.push(event);
                         }
@@ -427,7 +440,6 @@
             }
             function createEvents(events) {
                 var itemsCounter = 0;
-                var wrap = document.getElementsByClassName("wrap")[2];
                 wrap.innerHTML = "";
                 var sectionGroup;
                 events.forEach(event => {
@@ -567,6 +579,7 @@
                         a = document.createElement("a");
                         a.href = "#";
                         a.innerHTML = "Show map";
+                        a.setAttribute("class", "mapLink");
                         a.setAttribute("onclick", "showMap('" + event.location + "');return false;");
                         desc.appendChild(a);
                     }
@@ -574,17 +587,20 @@
                     sectionGroup.appendChild(eventCard);
                     itemsCounter++;
                 });
+                
+                favoriteClicked();
 
+                
+            }
+            function favoriteClicked(){
                 $(".star.glyphicon").click(function () {
                     var eventGUID = $(this).parent().parent().parent().parent().children()[0].innerHTML;
                     //add to favorite
                     if ($(this)[0].getAttribute("class") == "star glyphicon glyphicon-star-empty") {
-                        debugger;
                         favoritesEventsGUIDs.push(eventGUID);
                     }
                     //remove from favorites
                     else {
-                        debugger;
                         var index = favoritesEventsGUIDs.indexOf(eventGUID);
                         if (index > -1) {
                             favoritesEventsGUIDs.splice(index, 1);
@@ -609,11 +625,7 @@
             function favoritesTab() {
                 tabSelected = "favoritesTab";
                 favoritesEvents = [];
-                //var selectedDate = document.getElementById("calendar").value;
-                //if (selectedDate != null) {
-                //selectedDate = new Date(selectedDate.value).toDateString();
-                //selectedDate = getFormatedDate(selectedDate);
-                //}
+                document.getElementById("calendar").value = "";
 
                 allEvents.forEach(event => {
                     if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
@@ -624,7 +636,33 @@
             }
             function eventsTab() {
                 tabSelected = "eventsTab";
+                document.getElementById("calendar").value = "";
                 createEvents(allEvents);
+            }
+            function mapTab() {
+                tabSelected = "mapTab";
+
+                wrap.innerHTML = "";
+                var raw = document.createElement("div");
+                raw.setAttribute("class", "raw");
+                var div = document.createElement("div");
+                div.setAttribute("class", "col-sm-8");
+                div.style.height = "600px";
+                var map = document.createElement("div");
+                map.setAttribute("id", "map");
+                raw.appendChild(div);
+                div.appendChild(map);
+                div = document.createElement("div");
+                div.setAttribute("class", "col-sm-4");
+                div.setAttribute("id", "selectedPinEvent");
+                raw.appendChild(div);
+                div = document.createElement("div");
+                div.setAttribute("class", "clear");
+                raw.appendChild(div);
+                wrap.appendChild(raw);
+
+                initMap();
+                addMarkers();
             }
             function showMap(location) {
                 var src = "https://www.google.com/maps/embed?pb=" + location;
@@ -633,9 +671,11 @@
                 modal.style.display = "block";
             }
             function createEventLocationList() {
-                eventsLocation["-L5rMe7lCLKgfxXx3nu5"] = "!1m18!1m12!1m3!1d3380.9203186518075!2d34.78876458545406!3d32.071403826935075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9d186b421b%3A0x60e5dde3b18dd62b!2z15DXnNeV16Mg16fXnNee158g157XktefIDMsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528799562652";
-                eventsLocation["-LDa0U5oVq-48KAEMdzf"] = "!1m18!1m12!1m3!1d3379.289290325738!2d34.843682685452926!3d32.11548872472807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49c093892a3f%3A0x54146c9cc1926e4!2z16jXkNeV15wg15XXnNeg15HXqNeSIDM2LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528799687037";
-                eventsLocation["-LDa-itPesSJQUaFfkK5"] = "!1m18!1m12!1m3!1d3380.969083740343!2d34.79633328545414!3d32.07008492700109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528799915609";
+                eventsLocation["-LDa0U5oVq-48KAEMdzf"] = { location: "!1m18!1m12!1m3!1d3379.289290325738!2d34.843682685452926!3d32.11548872472807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49c093892a3f%3A0x54146c9cc1926e4!2z16jXkNeV15wg15XXnNeg15HXqNeSIDM2LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528799687037", lat: 32.115484, lng: 34.841494 };
+                eventsLocation["-LDa-itPesSJQUaFfkK5"] = { location: "!1m18!1m12!1m3!1d3380.969083740343!2d34.79633328545414!3d32.07008492700109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528799915609", lat: 32.07008, lng: 34.794145 };
+                eventsLocation["-LEciqtP5QbrGze63PQ6"] = { location: "!1m18!1m12!1m3!1d3380.9203186518075!2d34.78876458545406!3d32.071403826935075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9d186b421b%3A0x60e5dde3b18dd62b!2z15DXnNeV16Mg16fXnNee158g157XktefIDMsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528802118042", lat: 32.0713993, lng: 34.7865759 };
+                eventsLocation["-LEOOW31fTlt9XVGQl5c"] = { location: "!1m18!1m12!1m3!1d3380.560805260893!2d34.77591678545382!3d32.08112572644863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c787e8a4a85%3A0x4843d52a818277bb!2z15PXmdeW15kg16TXqNeZ16nXk9eV158!5e0!3m2!1siw!2sil!4v1528802300558", lat: 32.081121, lng: 34.773728 };
+                eventsLocation["-LEONgi_M67Q_kOS62o3"] = { location: "!1m18!1m12!1m3!1d3379.361444308298!2d34.84459878545291!3d32.11353962482573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49c04f87fd6b%3A0xacfaecc06fdc0135!2z15PXkdeV16jXlCDXlNeg15HXmdeQ15QgMTIxLCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528802503110", lat: 32.113535, lng: 34.84241 };
             }
             $(function () {
                 $('li').click(function () {
@@ -651,6 +691,148 @@
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
+            }
+            var map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 32.069396, lng: 34.7869129 },
+                    zoom: 13.5
+                });
+            }
+
+            function addMarkers() {
+                allEvents.forEach(event => {
+                    if (event.location != null) {
+                        var marker = new google.maps.Marker({
+                            position: { lat: event.lat, lng: event.lng },
+                            map: map,
+                            title: event.title,
+                            icon: 'images/pin.png',
+                            animation: google.maps.Animation.DROP,
+                            draggable: false,
+                            event: event
+                        });
+                        google.maps.event.addListener(marker, 'click', function () {
+                            debugger;
+                            var event = marker.event;
+
+                            var sectionGroup = document.createElement("div");
+                            sectionGroup.setAttribute("calss", "section group");
+
+                            var eventCard = document.createElement("div");
+                            eventCard.setAttribute("class", "col_1_of_3");
+                            var div = document.createElement("div");
+                            div.setAttribute("class", "eventGUID");
+                            div.innerHTML = event.guid;
+                            eventCard.appendChild(div);
+                            var img = document.createElement("img");
+                            img.src = event.banner_uri;
+                            eventCard.appendChild(img);
+
+                            if (event.labels != 0) {
+                                var ul = document.createElement("ul");
+                                ul.setAttribute("class", "m_fb");
+                                var li = document.createElement("li");
+
+                                var span = document.createElement("span");
+                                span.setAttribute("class", "m_23");
+                                var i = document.createElement("i");
+                                var img = document.createElement("img");
+                                img.width = "30";
+                                i.appendChild(img);
+                                span.appendChild(i);
+                                li.appendChild(span);
+                                if (event.labels == 1) {
+                                    img.src = "images/food.png";
+                                }
+                                else if (event.labels == 2) {
+                                    img.src = "images/hq.png";
+                                }
+                                else if (event.labels == 3) {
+                                    img.src = "images/hq.png";
+                                    li.appendChild(span);
+
+                                    span = document.createElement("span");
+                                    span.setAttribute("class", "m_23");
+                                    i = document.createElement("i");
+                                    img = document.createElement("img");
+                                    img.src = "images/food.png";
+                                    img.width = "30";
+                                    i.appendChild(img);
+                                    span.appendChild(i);
+                                    li.appendChild(span);
+                                }
+                                else if (event.labels == 4) {
+                                    img.src = "images/ic_90_percent_discount.png";
+                                }
+                                else if (event.labels == 10) {
+                                    img.src = "images/hq.png";
+                                    li.appendChild(span);
+
+                                    span = document.createElement("span");
+                                    span.setAttribute("class", "m_23");
+                                    i = document.createElement("i");
+                                    img = document.createElement("img");
+                                    img.src = "images/ic_editors_choice.png";
+                                    img.width = "30";
+                                    i.appendChild(img);
+                                    span.appendChild(i);
+                                    li.appendChild(span);
+                                }
+                                else if (event.labels == 11) {
+                                    img.src = "images/ic_editors_choice.png";
+                                }
+
+
+                                span = document.createElement("span");
+                                span.setAttribute("class", "m_22 favorite");
+                                var div = document.createElement("div");
+                                if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
+                                    div.setAttribute("class", "star glyphicon glyphicon-star");
+                                }
+                                else {
+                                    div.setAttribute("class", "star glyphicon glyphicon-star-empty");
+                                }
+                                span.appendChild(div);
+                                li.appendChild(span);
+                                ul.appendChild(li);
+                                eventCard.appendChild(ul);
+                            }
+                            var desc = document.createElement("div");
+                            desc.setAttribute("class", "desc");
+                            var h3 = document.createElement("h3");
+                            a = document.createElement("a");
+                            a.href = event.link_value;
+                            a.target = "_blank";
+                            a.innerHTML = event.title;
+                            var p = document.createElement("p");
+                            p.innerHTML = event.message_text;
+                            h3.appendChild(a);
+                            var h4 = document.createElement("h4");
+                            h4.setAttribute("class", "m_2");
+                            h4.innerHTML = event.date;
+                            desc.appendChild(h4);
+                            desc.appendChild(h3);
+                            desc.appendChild(p);
+                            if (event.location != null) {
+                                a = document.createElement("a");
+                                a.href = "#";
+                                a.innerHTML = "Show map";
+                                a.setAttribute("class", "mapLink");
+                                a.setAttribute("onclick", "showMap('" + event.location + "');return false;");
+                                desc.appendChild(a);
+                            }
+                            eventCard.appendChild(desc);
+                            sectionGroup.appendChild(eventCard);
+
+                            var div = document.getElementById("selectedPinEvent");
+                            div.innerHTML = "";
+                            div.appendChild(sectionGroup);
+                            favoriteClicked();
+                        });
+                        
+                    }
+                });
             }
         </script>
 </body>

@@ -45,6 +45,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        .mapLink {
+            float: right;
+        }
+
         i {
             background: #f4f4f4;
             border-radius: 20px;
@@ -67,6 +71,58 @@
 
         .eventGUID {
             display: none;
+        }
+
+        /* The Modal (background) */
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 10px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 95%;
+            height: 95%;
+        }
+
+        /* The Close Button */
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -165,8 +221,14 @@
         </div>
     </div>
     <div class="main">
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe id="googleMapsWindow" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843"
+                    width="100%" height="95%" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
         <div class="wrap">
-
         </div>
         <div class="footer">
             <div class="wrap">
@@ -288,13 +350,19 @@
                         <h5 class="m_3">sed do eiusmod tempor incididunt ut labore</h5>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
                             et dolore magna aliqua.</p>
+                        <a class="mapLink" href="#" onclick="showMap('!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843');return false">Show map</a>
                     </div>
+
                 </div>
                 <div class="clear"></div>
             </div>*/
+            var modal = document.getElementById('myModal');
+            var span = document.getElementsByClassName("close")[0];
             var allEvents = [];
             var favoritesEventsGUIDs = [];
             var favoritesEvents = [];
+            var eventsLocation = {};
+            createEventLocationList();
             getAllEvents();
             var tabSelected = "eventsTab";
             function getAllEvents() {
@@ -305,9 +373,11 @@
                         date = getFormatedDate(date);
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {
+                            var location = eventsLocation[k] == null ? null : eventsLocation[k];
                             var event = {
                                 guid: k, title: v.title, banner_uri: v.banner_uri,
-                                date: date, message_text: v.message_text, link_value: v.link_value, labels: v.labels
+                                date: date, message_text: v.message_text, link_value: v.link_value,
+                                labels: v.labels, location: location
                             };
                             allEvents.push(event);
                         }
@@ -316,7 +386,7 @@
                         return new Date(a.date).getTime() - new Date(b.date).getTime();
                     });
                     initFavorites();
-                    createEvents(allEvents);                   
+                    createEvents(allEvents);
                 });
 
             }
@@ -493,6 +563,13 @@
                     desc.appendChild(h4);
                     desc.appendChild(h3);
                     desc.appendChild(p);
+                    if (event.location != null) {
+                        a = document.createElement("a");
+                        a.href = "#";
+                        a.innerHTML = "Show map";
+                        a.setAttribute("onclick", "showMap('" + event.location + "');return false;");
+                        desc.appendChild(a);
+                    }
                     eventCard.appendChild(desc);
                     sectionGroup.appendChild(eventCard);
                     itemsCounter++;
@@ -532,6 +609,12 @@
             function favoritesTab() {
                 tabSelected = "favoritesTab";
                 favoritesEvents = [];
+                //var selectedDate = document.getElementById("calendar").value;
+                //if (selectedDate != null) {
+                //selectedDate = new Date(selectedDate.value).toDateString();
+                //selectedDate = getFormatedDate(selectedDate);
+                //}
+
                 allEvents.forEach(event => {
                     if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
                         favoritesEvents.push(event);
@@ -543,12 +626,32 @@
                 tabSelected = "eventsTab";
                 createEvents(allEvents);
             }
+            function showMap(location) {
+                var src = "https://www.google.com/maps/embed?pb=" + location;
+                var googleMapsWindow = document.getElementById("googleMapsWindow");
+                googleMapsWindow.src = src;
+                modal.style.display = "block";
+            }
+            function createEventLocationList() {
+                eventsLocation["-L5rMe7lCLKgfxXx3nu5"] = "!1m18!1m12!1m3!1d3380.9203186518075!2d34.78876458545406!3d32.071403826935075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9d186b421b%3A0x60e5dde3b18dd62b!2z15DXnNeV16Mg16fXnNee158g157XktefIDMsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528799562652";
+                eventsLocation["-LDa0U5oVq-48KAEMdzf"] = "!1m18!1m12!1m3!1d3379.289290325738!2d34.843682685452926!3d32.11548872472807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49c093892a3f%3A0x54146c9cc1926e4!2z16jXkNeV15wg15XXnNeg15HXqNeSIDM2LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528799687037";
+                eventsLocation["-LDa-itPesSJQUaFfkK5"] = "!1m18!1m12!1m3!1d3380.969083740343!2d34.79633328545414!3d32.07008492700109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528799915609";
+            }
             $(function () {
                 $('li').click(function () {
                     $('li.active').removeClass('active');
                     $(this).addClass('active');
                 });
             });
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
         </script>
 </body>
 

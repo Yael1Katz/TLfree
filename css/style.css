@@ -135,9 +135,6 @@ body{
 							}
 		@media only screen and ( max-width: 62.5em ) /* 1000 */
 		{
-			.btn-group{
-				margin-top: 10px;
-			}
 			#nav
 			{
 				width: 100%;
@@ -148,9 +145,6 @@ body{
 
 		@media only screen and ( max-width: 40em ) /* 640 */
 		{
-			.btn-group{
-				margin-top: 10px;
-			}
 		 #nav
 			{
 				position: relative;
@@ -499,9 +493,6 @@ h5.m_3{
 }
 /*  GO FULL WIDTH AT LESS THAN 640 PIXELS */
 @media only screen and (max-width: 640px) and (min-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -514,9 +505,7 @@ h5.m_3{
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
+     
      .wrap{
 		width:95%;
 	}		
@@ -1075,9 +1064,6 @@ h4.m_5{
 }
 /*  GO FULL WIDTH AT LESS THAN 640 PIXELS */
 @media only screen and (max-width: 640px) and (min-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -1092,9 +1078,6 @@ h4.m_5{
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -1171,9 +1154,6 @@ p.m_6{
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -1742,9 +1722,6 @@ margin-left: 10px;
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -1835,9 +1812,6 @@ h3.head2 {
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -2018,9 +1992,6 @@ h5.m_12 a:hover{
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
      
      .wrap{
 		width:95%;
@@ -2177,9 +2148,6 @@ p.f-text1 {
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.wrap{
 		width:95%;
 	}
@@ -2350,9 +2318,6 @@ h2.resp-accordion:hover{
 	color: #FFF;
 }
 @media only screen and (max-width:480px) {
-	.btn-group{
-		margin-top: 10px;
-	}
 	.sap_tabs{
 		padding-top:0;
 	}

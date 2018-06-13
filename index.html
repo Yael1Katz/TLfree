@@ -45,6 +45,20 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        .dateclass {
+            width: 100%;
+        }
+
+        .dateclass.placeholderclass::before {
+            width: 100%;
+            content: attr(placeholder);
+        }
+
+        .dateclass.placeholderclass:hover::before {
+            width: 0%;
+            content: "";
+        }
+
         .btn-group {
             display: block;
         }
@@ -246,7 +260,7 @@
             <div class="content-box-right">
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <input class="form-control" id="calendar" placeholder="Select date.." type="date" onchange="filterChanged()">
+                        <input class="form-control dateclass placeholderclass" id="calendar" placeholder="Select date.." type="date" onchange="filterChanged()" onClick="$(this).removeClass('placeholderclass')">
                     </div>
                     <div class="col-md-9">
                         <div class="btn-group">

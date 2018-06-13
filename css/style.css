@@ -499,6 +499,9 @@ h5.m_3{
 }
 /*  GO FULL WIDTH AT LESS THAN 640 PIXELS */
 @media only screen and (max-width: 640px) and (min-width: 480px) {
+	.btn-group{
+		margin-top: 10px;
+	}
 	.wrap{
 		width:95%;
 	}
@@ -511,7 +514,9 @@ h5.m_3{
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-     
+	.btn-group{
+		margin-top: 10px;
+	}
      .wrap{
 		width:95%;
 	}		

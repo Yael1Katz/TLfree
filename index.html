@@ -46,9 +46,10 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo" type="text/javascript"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
-        .btn-group{
+        .btn-group {
             display: block;
         }
+
         #searchinput {
             width: 100%;
         }
@@ -246,11 +247,11 @@
             <div class="content-box-right">
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <input class="form-control"  id="calendar" type="date" onchange="dateChanged(this)" >
+                        <input class="form-control" id="calendar" type="date" onchange="filterChanged()">
                     </div>
                     <div class="col-md-9">
                         <div class="btn-group">
-                            <input id="searchinput" type="search" placeholder="Search..." class="form-control">
+                            <input id="searchinput" type="search" placeholder="Search..." class="form-control" onkeyup="filterChanged()">
                             <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
                         </div>
                     </div>
@@ -399,7 +400,7 @@
 
                 </div>
                 <div class="clear"></div>
-            </div>*/
+            </div>*/          
             var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
             var span = document.getElementsByClassName("close")[0];
@@ -443,34 +444,38 @@
                 var year = date.toString().split(' ')[3];
                 return dayNumber + "-" + month + "-" + year;
             }
-            function dateChanged(selectedDate) {
-                if (selectedDate.value != "") {
-                    selectedDate = new Date(selectedDate.value).toDateString();
-                    selectedDate = getFormatedDate(selectedDate);
-                    var eventsByDateSelected = [];
+            function filterChanged() {
+                var filteredEvents = [];
 
-                    if (tabSelected == "eventsTab") {
-                        allEvents.forEach(event => {
-                            if (event.date == selectedDate) {
-                                eventsByDateSelected.push(event);
-                            }
-                        });
-                    }
-                    else {
-                        favoritesEvents.forEach(event => {
-                            if (event.date == selectedDate) {
-                                eventsByDateSelected.push(event);
-                            }
-                        });
-                    }
+                var searchTerm = document.getElementById("searchinput").value.toUpperCase();
+                var selectedDate = document.getElementById("calendar").value;
 
-
-                    createEvents(eventsByDateSelected);
+                if (tabSelected == "eventsTab") {
+                    addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents);
                 }
                 else {
-                    createEvents(allEvents);
+                    addEventsToFilteredList(favoritesEvents, selectedDate, searchTerm, filteredEvents);
                 }
 
+                createEvents(filteredEvents);
+            }
+            function addEventsToFilteredList(events, selectedDate, searchTerm, filteredEvents) {
+                events.forEach(event => {
+                    if (event.title.toUpperCase().indexOf(searchTerm) > -1
+                        || event.message_text.toUpperCase().indexOf(searchTerm) > -1) {
+                        if (selectedDate != "") {
+                            selectedDate = new Date(selectedDate).toDateString();
+                            selectedDate = getFormatedDate(selectedDate);
+                            if (event.date == selectedDate) {
+                                filteredEvents.push(event);
+                            }
+                        }
+                        else {
+                            filteredEvents.push(event);
+                        }
+
+                    }
+                });
             }
             function createEvents(events) {
                 var itemsCounter = 0;
@@ -660,6 +665,7 @@
                 tabSelected = "favoritesTab";
                 favoritesEvents = [];
                 document.getElementById("calendar").value = "";
+                $("#searchinput").val('');
 
                 allEvents.forEach(event => {
                     if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
@@ -675,7 +681,8 @@
             }
             function mapTab() {
                 tabSelected = "mapTab";
-
+                $("#searchinput").val('');
+                
                 wrap.innerHTML = "";
                 var raw = document.createElement("div");
                 raw.setAttribute("class", "raw");
@@ -869,6 +876,7 @@
             });
             $("#searchclear").click(function () {
                 $("#searchinput").val('');
+                filterChanged();
             });
         </script>
 </body>

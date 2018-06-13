@@ -5,7 +5,24 @@
     <title>Free Steam Website Template | Home :: w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-default.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-osx-dashboard.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/calendar-eightysix-v1.0.1.js"></script>
+    <script type="text/javascript">
+        window.addEvent('domready', function () {
+            new CalendarEightysix('exampleI', { 'offsetY': -4 });
+            new CalendarEightysix('exampleII', { 'startMonday': true, 'format': '%m.%d.%Y', 'slideTransition': Fx.Transitions.Back.easeOut, 'draggable': true, 'offsetY': -4 });
+        });	
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -26,33 +43,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-default.css" rel="stylesheet" type="text/css"
-        media="all" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-osx-dashboard.css" rel="stylesheet" type="text/css"
-        media="all" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css"
-        media="all" />
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/calendar-eightysix-v1.0.1.js"></script>
-    <script type="text/javascript">
-        window.addEvent('domready', function () {
-            new CalendarEightysix('exampleI', { 'offsetY': -4 });
-            new CalendarEightysix('exampleII', { 'startMonday': true, 'format': '%m.%d.%Y', 'slideTransition': Fx.Transitions.Back.easeOut, 'draggable': true, 'offsetY': -4 });
-        });	
-    </script>
-
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo" type="text/javascript"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
-        .btn-group {
+        .btn-group{
             display: block;
         }
-
         #searchinput {
             width: 100%;
         }
@@ -250,7 +246,7 @@
             <div class="content-box-right">
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <input class="form-control" id="calendar" type="date" onchange="dateChanged(this)">
+                        <input class="form-control"  id="calendar" type="date" onchange="dateChanged(this)" >
                     </div>
                     <div class="col-md-9">
                         <div class="btn-group">

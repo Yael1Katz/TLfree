@@ -2148,6 +2148,9 @@ p.f-text1 {
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
+	.btn-group{
+		margin-top: 10px;
+	}
 	.wrap{
 		width:95%;
 	}

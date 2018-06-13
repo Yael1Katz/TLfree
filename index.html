@@ -5,24 +5,7 @@
     <title>Free Steam Website Template | Home :: w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-default.css" rel="stylesheet" type="text/css"
-        media="all" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-osx-dashboard.css" rel="stylesheet" type="text/css"
-        media="all" />
-    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css"
-        media="all" />
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/calendar-eightysix-v1.0.1.js"></script>
-    <script type="text/javascript">
-        window.addEvent('domready', function () {
-            new CalendarEightysix('exampleI', { 'offsetY': -4 });
-            new CalendarEightysix('exampleII', { 'startMonday': true, 'format': '%m.%d.%Y', 'slideTransition': Fx.Transitions.Back.easeOut, 'draggable': true, 'offsetY': -4 });
-        });	
-    </script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -43,9 +26,61 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-default.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-osx-dashboard.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/calendar-eightysix-vista.css" rel="stylesheet" type="text/css"
+        media="all" />
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/calendar-eightysix-v1.0.1.js"></script>
+    <script type="text/javascript">
+        window.addEvent('domready', function () {
+            new CalendarEightysix('exampleI', { 'offsetY': -4 });
+            new CalendarEightysix('exampleII', { 'startMonday': true, 'format': '%m.%d.%Y', 'slideTransition': Fx.Transitions.Back.easeOut, 'draggable': true, 'offsetY': -4 });
+        });	
+    </script>
+
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo" type="text/javascript"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        .btn-group {
+            display: block;
+        }
+
+        #searchinput {
+            width: 100%;
+        }
+
+        #searchclear {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            bottom: 0;
+            height: 14px;
+            margin: auto;
+            font-size: 14px;
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        /*input[type=text] {
+            width: 130px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+
+        
+
+        input[type=text]:focus {
+            width: 70%;
+        }*/
+
         #map {
             height: 90%;
             width: 100%;
@@ -213,15 +248,19 @@
                 </li>
             </ul>
             <div class="content-box-right">
-
-
-                <div class="reservation">
-                    <form>
-                        <div class="form-text">
-                            <input id="calendar" type="date" onchange="dateChanged(this)">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <input class="form-control" id="calendar" type="date" onchange="dateChanged(this)">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="btn-group">
+                            <input id="searchinput" type="search" placeholder="Search..." class="form-control">
+                            <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
                         </div>
-                        <div class="clear"></div>
-                    </form>
+                    </div>
+                    <div class="col-md-0">
+
+                    </div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -383,7 +422,6 @@
                         date = getFormatedDate(date);
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {
-                            debugger;
                             var location = eventsLocation[k] == null ? null : eventsLocation[k].location;
                             var lat = location == null ? null : eventsLocation[k].lat;
                             var lng = location == null ? null : eventsLocation[k].lng;
@@ -587,12 +625,12 @@
                     sectionGroup.appendChild(eventCard);
                     itemsCounter++;
                 });
-                
+
                 favoriteClicked();
 
-                
+
             }
-            function favoriteClicked(){
+            function favoriteClicked() {
                 $(".star.glyphicon").click(function () {
                     var eventGUID = $(this).parent().parent().parent().parent().children()[0].innerHTML;
                     //add to favorite
@@ -677,12 +715,6 @@
                 eventsLocation["-LEOOW31fTlt9XVGQl5c"] = { location: "!1m18!1m12!1m3!1d3380.560805260893!2d34.77591678545382!3d32.08112572644863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c787e8a4a85%3A0x4843d52a818277bb!2z15PXmdeW15kg16TXqNeZ16nXk9eV158!5e0!3m2!1siw!2sil!4v1528802300558", lat: 32.081121, lng: 34.773728 };
                 eventsLocation["-LEONgi_M67Q_kOS62o3"] = { location: "!1m18!1m12!1m3!1d3379.361444308298!2d34.84459878545291!3d32.11353962482573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49c04f87fd6b%3A0xacfaecc06fdc0135!2z15PXkdeV16jXlCDXlNeg15HXmdeQ15QgMTIxLCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528802503110", lat: 32.113535, lng: 34.84241 };
             }
-            $(function () {
-                $('li').click(function () {
-                    $('li.active').removeClass('active');
-                    $(this).addClass('active');
-                });
-            });
             span.onclick = function () {
                 modal.style.display = "none";
             }
@@ -713,7 +745,6 @@
                             event: event
                         });
                         google.maps.event.addListener(marker, 'click', function () {
-                            debugger;
                             var event = marker.event;
 
                             var sectionGroup = document.createElement("div");
@@ -830,10 +861,19 @@
                             div.appendChild(sectionGroup);
                             favoriteClicked();
                         });
-                        
+
                     }
                 });
             }
+            $(function () {
+                $('li').click(function () {
+                    $('li.active').removeClass('active');
+                    $(this).addClass('active');
+                });
+            });
+            $("#searchclear").click(function () {
+                $("#searchinput").val('');
+            });
         </script>
 </body>
 

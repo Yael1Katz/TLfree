@@ -43,7 +43,6 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo" type="text/javascript"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
         .btn-group {
@@ -247,7 +246,7 @@
             <div class="content-box-right">
                 <div class="form-group row">
                     <div class="col-md-3">
-                        <input class="form-control" id="calendar" type="date" onchange="filterChanged()">
+                        <input class="form-control" id="calendar" placeholder="Select date.." type="text" onblur="(this.type='text')" onfocus="(this.type='date')"s onchange="filterChanged()">
                     </div>
                     <div class="col-md-9">
                         <div class="btn-group">
@@ -400,17 +399,22 @@
 
                 </div>
                 <div class="clear"></div>
-            </div>*/          
+            </div>*/
+            var map;
+            var markers = [];
             var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
             var span = document.getElementsByClassName("close")[0];
             var allEvents = [];
             var favoritesEventsGUIDs = [];
             var favoritesEvents = [];
+            var filteredEvents = [];
             var eventsLocation = {};
+            var mapDiv = document.createElement("div");
+            mapDiv.setAttribute("id", "map");
             createEventLocationList();
             getAllEvents();
-            var tabSelected = "eventsTab";
+            var selectedTab = "eventsTab";
             function getAllEvents() {
 
                 $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
@@ -434,6 +438,7 @@
                         return new Date(a.date).getTime() - new Date(b.date).getTime();
                     });
                     initFavorites();
+                    initFilteredEvents();
                     createEvents(allEvents);
                 });
 
@@ -445,19 +450,25 @@
                 return dayNumber + "-" + month + "-" + year;
             }
             function filterChanged() {
-                var filteredEvents = [];
-
+                filteredEvents = [];
                 var searchTerm = document.getElementById("searchinput").value.toUpperCase();
                 var selectedDate = document.getElementById("calendar").value;
 
-                if (tabSelected == "eventsTab") {
-                    addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents);
-                }
-                else {
+                if (selectedTab == "favoritesTab") {
                     addEventsToFilteredList(favoritesEvents, selectedDate, searchTerm, filteredEvents);
                 }
+                else {
+                    addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents);
+                }
 
-                createEvents(filteredEvents);
+                if (selectedTab == "mapTab") {
+                    removeMarkers();
+                    addMarkers();
+                    document.getElementById("selectedPinEvent").innerHTML = "";
+                }
+                else {
+                    createEvents(filteredEvents);
+                }
             }
             function addEventsToFilteredList(events, selectedDate, searchTerm, filteredEvents) {
                 events.forEach(event => {
@@ -473,7 +484,6 @@
                         else {
                             filteredEvents.push(event);
                         }
-
                     }
                 });
             }
@@ -661,38 +671,40 @@
                     });
                 }
             }
+            function initFilteredEvents() {
+                allEvents.forEach(event => {
+                    filteredEvents.push(event);
+
+                });
+            }
             function favoritesTab() {
-                tabSelected = "favoritesTab";
+                selectedTab = "favoritesTab";
                 favoritesEvents = [];
-                document.getElementById("calendar").value = "";
-                $("#searchinput").val('');
 
                 allEvents.forEach(event => {
                     if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
                         favoritesEvents.push(event);
                     }
                 });
-                createEvents(favoritesEvents);
+                filterChanged();
+                createEvents(filteredEvents);
             }
             function eventsTab() {
-                tabSelected = "eventsTab";
-                document.getElementById("calendar").value = "";
-                createEvents(allEvents);
+                selectedTab = "eventsTab";
+                filterChanged();
+                createEvents(filteredEvents);
             }
             function mapTab() {
-                tabSelected = "mapTab";
-                $("#searchinput").val('');
-                
+                selectedTab = "mapTab";
+
                 wrap.innerHTML = "";
                 var raw = document.createElement("div");
                 raw.setAttribute("class", "raw");
                 var div = document.createElement("div");
                 div.setAttribute("class", "col-sm-8");
                 div.style.height = "600px";
-                var map = document.createElement("div");
-                map.setAttribute("id", "map");
                 raw.appendChild(div);
-                div.appendChild(map);
+                div.appendChild(mapDiv);
                 div = document.createElement("div");
                 div.setAttribute("class", "col-sm-4");
                 div.setAttribute("id", "selectedPinEvent");
@@ -702,8 +714,14 @@
                 raw.appendChild(div);
                 wrap.appendChild(raw);
 
-                initMap();
-                addMarkers();
+                //initMap();
+                filterChanged();
+                //initMap();
+                //addMarkers();
+            }
+            function clearFilters() {
+                $("#searchinput").val('');
+                document.getElementById("calendar").value = "";
             }
             function showMap(location) {
                 var src = "https://www.google.com/maps/embed?pb=" + location;
@@ -717,6 +735,9 @@
                 eventsLocation["-LEciqtP5QbrGze63PQ6"] = { location: "!1m18!1m12!1m3!1d3380.9203186518075!2d34.78876458545406!3d32.071403826935075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9d186b421b%3A0x60e5dde3b18dd62b!2z15DXnNeV16Mg16fXnNee158g157XktefIDMsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528802118042", lat: 32.0713993, lng: 34.7865759 };
                 eventsLocation["-LEOOW31fTlt9XVGQl5c"] = { location: "!1m18!1m12!1m3!1d3380.560805260893!2d34.77591678545382!3d32.08112572644863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c787e8a4a85%3A0x4843d52a818277bb!2z15PXmdeW15kg16TXqNeZ16nXk9eV158!5e0!3m2!1siw!2sil!4v1528802300558", lat: 32.081121, lng: 34.773728 };
                 eventsLocation["-LEONgi_M67Q_kOS62o3"] = { location: "!1m18!1m12!1m3!1d3379.361444308298!2d34.84459878545291!3d32.11353962482573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49c04f87fd6b%3A0xacfaecc06fdc0135!2z15PXkdeV16jXlCDXlNeg15HXmdeQ15QgMTIxLCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528802503110", lat: 32.113535, lng: 34.84241 };
+                eventsLocation["-LEONronsGashM2ClIM5"] = { location: "!1m18!1m12!1m3!1d3380.847077066869!2d34.77255858545405!3d32.073384626835946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c809312a84f%3A0xffe89fd7337aad6e!2z15DXmdeT15zXodeV158gMjksINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528895905434", lat: 32.0733846, lng: 34.7725586 };
+                eventsLocation["-LEsTmP4lf7yjRixAINf"] = { location: "!1m18!1m12!1m3!1d3381.1710354705956!2d34.776298585454306!3d32.06462242727433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b7d600773df%3A0xf30f6be72f932829!2z15DXl9eTINeU16LXnSA1NCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1528896049539", lat: 32.0646224, lng: 34.7762986 };
+                eventsLocation["-LEsTX5ALg4PumiV4RWK"] = { location: "!1m18!1m12!1m3!1d3380.905402957983!2d34.79121218545413!3d32.071807226915006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9c46209285%3A0x4aa8c0e33c2116d8!2z15PXqNeaINee16DXl9edINeR15LXmdefIDEyMSwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1528896213629", lat: 32.0718072, lng: 34.7912122 };
             }
             span.onclick = function () {
                 modal.style.display = "none";
@@ -727,16 +748,17 @@
                     modal.style.display = "none";
                 }
             }
-            var map;
+
             function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
+                map = new google.maps.Map(mapDiv, {
                     center: { lat: 32.069396, lng: 34.7869129 },
                     zoom: 13.5
                 });
             }
 
             function addMarkers() {
-                allEvents.forEach(event => {
+                //markers = [];
+                filteredEvents.forEach(event => {
                     if (event.location != null) {
                         var marker = new google.maps.Marker({
                             position: { lat: event.lat, lng: event.lng },
@@ -864,10 +886,17 @@
                             div.appendChild(sectionGroup);
                             favoriteClicked();
                         });
-
+                        markers.push(marker);
                     }
                 });
             }
+            function removeMarkers() {
+                //Loop through all the markers and remove
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+                markers = [];
+            };
             $(function () {
                 $('li').click(function () {
                     $('li.active').removeClass('active');
@@ -879,6 +908,8 @@
                 filterChanged();
             });
         </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&callback=initMap"
+            type="text/javascript"></script>
 </body>
 
 </html>

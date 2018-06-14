@@ -44,6 +44,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120811908-1"></script>
+
     <style>
         .dateclass {
             width: 100%;
@@ -930,27 +933,15 @@
                 $("#searchinput").val('');
                 filterChanged();
             });
+            //Google analytics
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-120811908-1');
         </script>
 
-        <!-- Google Analytics -->
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-            debugger;
-            ga('create', 'UA-120811908-1', 'auto');
-            ga('send', 'pageview');
-            ga('send', {
-                hitType: 'event',
-                eventCategory: 'Video',
-                eventAction: 'play',
-                eventLabel: 'cats.mp4'
-            });
-        </script>
-        <!-- End Google Analytics -->
+
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&callback=initMap"
             type="text/javascript"></script>
 </body>

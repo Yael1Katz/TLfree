@@ -350,41 +350,41 @@
         <script>
 
             /*<div class="section group">
-                <div class="col_1_of_3 span_1_of_3">
-                    <div class="eventGUID"></div>
-                    <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg" alt="">
-                    <ul class="m_fb">
-                        <li>
-                            <span class="m_23">
-                                <i>
-                                    <img src="images/food.png" width="30" />
-                                </i>
-                            </span>
-                            <span class="m_23">
-                                <i>
-                                    <img src="images/hq.png" width="30" />
-                                </i>
-                            </span>
-                            <span class="m_22 favorite">
-                                <div class="star glyphicon glyphicon-star-empty"></div>
-                            </span>
-                            <div class="clear"></div>
-                        </li>
-                    </ul>
-                    <div class="desc">
-                        <h3>
-                            <a href="#">Lorem Ipsum is simply dummy</a>
-                        </h3>
-                        <h4 class="m_2">consectetur adipisicing elit, sed do</h4>
-                        <h5 class="m_3">sed do eiusmod tempor incididunt ut labore</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua.</p>
-                        <a class="mapLink" href="#" onclick="showMap('!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843');return false">Show map</a>
-                    </div>
-
-                </div>
-                <div class="clear"></div>
-            </div>*/
+                        <div class="col_1_of_3 span_1_of_3">
+                            <div class="eventGUID"></div>
+                            <a href="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg"> <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg" alt=""></a>
+                            <ul class="m_fb">
+                                <li>
+                                    <span class="m_23">
+                                        <i>
+                                            <img src="images/food.png" width="30" />
+                                        </i>
+                                    </span>
+                                    <span class="m_23">
+                                        <i>
+                                            <img src="images/hq.png" width="30" />
+                                        </i>
+                                    </span>
+                                    <span class="m_22 favorite">
+                                        <div class="star glyphicon glyphicon-star-empty"></div>
+                                    </span>
+                                    <div class="clear"></div>
+                                </li>
+                            </ul>
+                            <div class="desc">
+                                <h3>
+                                    <a href="#">Lorem Ipsum is simply dummy</a>
+                                </h3>
+                                <h4 class="m_2">consectetur adipisicing elit, sed do</h4>
+                                <h5 class="m_3">sed do eiusmod tempor incididunt ut labore</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                                    et dolore magna aliqua.</p>
+                                <a class="mapLink" href="#" onclick="showMap('!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843');return false">Show map</a>
+                            </div>
+        
+                        </div>
+                        <div class="clear"></div>
+                    </div>*/
             var foodFilterChecked;
             var hqFilterChecked;
             var filter90Checked;
@@ -504,7 +504,7 @@
                     //label += 8;
                     //labels.push(label);
                 }
-                if(allFilterChecked){
+                if (allFilterChecked) {
                     iconFilterSelected = true;
                 }
                 if (selectedTab == "favoritesTab") {
@@ -567,9 +567,13 @@
                     div.setAttribute("class", "eventGUID");
                     div.innerHTML = event.guid;
                     eventCard.appendChild(div);
+                    var a = document.createElement("a");
+                    a.href = event.link_value;
+                    a.target = "_blank";
                     var img = document.createElement("img");
                     img.src = event.banner_uri;
-                    eventCard.appendChild(img);
+                    a.appendChild(img)
+                    eventCard.appendChild(a);
 
                     if (event.label != 0) {
                         var ul = document.createElement("ul");
@@ -853,12 +857,12 @@
                 eventsLocation["-LDBIF7XlYztfucX91rP"] = { location: "!1m18!1m12!1m3!1d3379.3696252887576!2d34.806576385453006!3d32.11331862483683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4965df760bfb%3A0x59bd1a3ce25e6def!2z15DXldeg15nXkdeo16HXmdeY16og16rXnC3XkNeR15nXkQ!5e0!3m2!1siw!2sil!4v1528962886468", lat: 32.1133186, lng: 34.8065764 };
                 eventsLocation["-LDgqqUuwtUiKbpAxHjS"] = { location: "!1m18!1m12!1m3!1d3381.2998618436395!2d34.78441578545436!3d32.06113742744866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b7b2a7e8771%3A0xbdb07fc508bd8590!2z16nXkdeiIC0g157Xp9eV150g15zXkNeZ16jXldei15nXnQ!5e0!3m2!1siw!2sil!4v1528962995719", lat: 32.0611374, lng: 34.7844158 };
                 eventsLocation["-LEETV6apJlj1yUJ-bEm"] = { location: "!1m18!1m12!1m3!1d3381.0280253963006!2d34.796334085454134!3d32.06849072708075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9fb4ea3da1%3A0x7e3584c5bedd565d!2z15nXkteQ15wg15DXnNeV158gOTQsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528963123248", lat: 32.0684907, lng: 34.7963341 };
-                eventsLocation["-LExiV_pKZ3hK_kE_PYS"] = { location: "!1m18!1m12!1m3!1d3379.7946126693696!2d34.7759562!3d32.1018362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4bf79118d4bd%3A0x5ec6e79df3280276!2z15HXmdeq158gMjcsIFlvc2VmIFlla3V0aSdlbGkgNCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529218361187", lat: 32.1018362, lng: 34.7759562};
-                eventsLocation["-LExijWQ3t1gszUvBEqx"] = { location: "!1m18!1m12!1m3!1d3381.1710354705956!2d34.776298585454306!3d32.06462242727433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b7d600773df%3A0xf30f6be72f932829!2z15DXl9eTINeU16LXnSA1NCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529218686799", lat: 32.0646224, lng: 34.7762986};
-                eventsLocation["-LExiyjhJbDinnF7cqUn"] = { location: "!1m18!1m12!1m3!1d3379.5069027837603!2d34.839554985453056!3d32.109610025022576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49946084d395%3A0xa3d68c45f709de68!2z16jXkNeV15wg15XXnNeg15HXqNeSIDE4LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1529218789952", lat: 32.10961, lng: 34.839555};
-                eventsLocation["-LExjglShhcG8SsAAP6N"] = { location: "!1m18!1m12!1m3!1d3381.1712035290166!2d34.776298584835935!3d32.06461788119299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b7d600773df%3A0xf30f6be72f932829!2z15DXl9eTINeU16LXnSA1NCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529219111781", lat: 32.0646179, lng: 34.7762986};
-                eventsLocation["-LExk5ZakxXPtVG50I7w"] = { location: "!1m18!1m12!1m3!1d3380.7857950247508!2d34.781958599999996!3d32.0750419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b839b91448b%3A0xcaed912d20635ebc!2z16nXnNee15Qg15DXkdefINeS15HXmdeo15XXnCAzMCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529219264648", lat: 32.0750419, lng: 34.7819586};
-                eventsLocation["-LExkMzDpPAUpTn1iMhg"] = { location: "!1m18!1m12!1m3!1d3381.1996455177728!2d34.771780682556134!3d32.063848500000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c9cbd899f9f%3A0x8921f592b73e7d5b!2z157XkteT15wg16nXnNeV150!5e0!3m2!1siw!2sil!4v1529219426003", lat: 32.0638485, lng: 34.7717807};
+                eventsLocation["-LExiV_pKZ3hK_kE_PYS"] = { location: "!1m18!1m12!1m3!1d3379.7946126693696!2d34.7759562!3d32.1018362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4bf79118d4bd%3A0x5ec6e79df3280276!2z15HXmdeq158gMjcsIFlvc2VmIFlla3V0aSdlbGkgNCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529218361187", lat: 32.1018362, lng: 34.7759562 };
+                eventsLocation["-LExijWQ3t1gszUvBEqx"] = { location: "!1m18!1m12!1m3!1d3381.1710354705956!2d34.776298585454306!3d32.06462242727433!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b7d600773df%3A0xf30f6be72f932829!2z15DXl9eTINeU16LXnSA1NCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529218686799", lat: 32.0646224, lng: 34.7762986 };
+                eventsLocation["-LExiyjhJbDinnF7cqUn"] = { location: "!1m18!1m12!1m3!1d3379.5069027837603!2d34.839554985453056!3d32.109610025022576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d49946084d395%3A0xa3d68c45f709de68!2z16jXkNeV15wg15XXnNeg15HXqNeSIDE4LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1529218789952", lat: 32.10961, lng: 34.839555 };
+                eventsLocation["-LExjglShhcG8SsAAP6N"] = { location: "!1m18!1m12!1m3!1d3381.1712035290166!2d34.776298584835935!3d32.06461788119299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b7d600773df%3A0xf30f6be72f932829!2z15DXl9eTINeU16LXnSA1NCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529219111781", lat: 32.0646179, lng: 34.7762986 };
+                eventsLocation["-LExk5ZakxXPtVG50I7w"] = { location: "!1m18!1m12!1m3!1d3380.7857950247508!2d34.781958599999996!3d32.0750419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b839b91448b%3A0xcaed912d20635ebc!2z16nXnNee15Qg15DXkdefINeS15HXmdeo15XXnCAzMCwg16rXnCDXkNeR15nXkSDXmdek15U!5e0!3m2!1siw!2sil!4v1529219264648", lat: 32.0750419, lng: 34.7819586 };
+                eventsLocation["-LExkMzDpPAUpTn1iMhg"] = { location: "!1m18!1m12!1m3!1d3381.1996455177728!2d34.771780682556134!3d32.063848500000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c9cbd899f9f%3A0x8921f592b73e7d5b!2z157XkteT15wg16nXnNeV150!5e0!3m2!1siw!2sil!4v1529219426003", lat: 32.0638485, lng: 34.7717807 };
 
 
                 //eventsLocation[""] = { location: "", lat: , lng: };
@@ -907,7 +911,11 @@
                             eventCard.appendChild(div);
                             var img = document.createElement("img");
                             img.src = event.banner_uri;
-                            eventCard.appendChild(img);
+                            var a = document.createElement("a");
+                            a.href = event.link_value;
+                            a.target = "_blank";
+                            a.appendChild(img)
+                            eventCard.appendChild(a);
 
                             if (event.label != 0) {
                                 var ul = document.createElement("ul");

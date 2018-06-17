@@ -6,21 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="T99vGHQ28rQ0ldK5hzggZH_Xb9H7MtvvQekwaGl4M2s" />
-    
+
     <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120811908-1"></script>
 
     <style>
+        .imgCheckbox {
+            opacity: 0.5;
+            width: 33px;
+            height: 33px;
+        }
+
+        .check {
+            opacity: 1;
+            border-color: black;
+            background-color: lightgray;
+        }
+
+        .myBtn {
+            padding: 0;
+        }
+
         .dateclass {
             width: 100%;
         }
@@ -54,18 +70,6 @@
             cursor: pointer;
             color: #ccc;
         }
-
-        /*input[type=text] {
-            width: 130px;
-            -webkit-transition: width 0.4s ease-in-out;
-            transition: width 0.4s ease-in-out;
-        }
-
-        
-
-        input[type=text]:focus {
-            width: 70%;
-        }*/
 
         #map {
             height: 90%;
@@ -240,14 +244,30 @@
                         <input class="form-control dateclass placeholderclass" id="calendar" placeholder="Select date.." type="date" onchange="filterChanged()"
                             onClick="$(this).removeClass('placeholderclass')">
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <div class="btn-group">
                             <input id="searchinput" type="search" placeholder="Search..." class="form-control" onkeyup="filterChanged()">
                             <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
                         </div>
                     </div>
-                    <div class="col-md-0">
-
+                    <div class="col-md-3">
+                        <div class="labelsGroup">
+                            <label class="btn myBtn">
+                                <img src="images/hq.png" class="img-thumbnail img-check imgCheckbox" id="chkHQ">
+                            </label>
+                            <label class="btn myBtn">
+                                <img src="images/food.png" class="img-thumbnail img-check imgCheckbox" id="chkFood">
+                            </label>
+                            <label class="btn myBtn">
+                                <img src="images/ic_90_percent_discount.png" class="img-thumbnail img-check imgCheckbox" id="chk90">
+                            </label>
+                            <label class="btn myBtn">
+                                <img src="images/ic_editors_choice.png" class="img-thumbnail img-check imgCheckbox" id="chkEditorChoice">
+                            </label>
+                            <label class="btn myBtn">
+                                <div class="img-thumbnail img-check imgCheckbox" id="chkAll" style="cursor: pointer;border-color: black;opacity: 1;">All</div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -365,6 +385,11 @@
                 </div>
                 <div class="clear"></div>
             </div>*/
+            var foodFilterChecked;
+            var hqFilterChecked;
+            var filter90Checked;
+            var editorChoiceFilterChecked;
+            var allFilterChecked = true;
             var map;
             var markers = [];
             var wrap = document.getElementsByClassName("wrap")[2];
@@ -394,7 +419,7 @@
                             var event = {
                                 guid: k, title: v.title, banner_uri: v.banner_uri,
                                 date: date, message_text: v.message_text, link_value: v.link_value,
-                                labels: v.labels, location: location, lat: lat, lng: lng
+                                label: v.labels, labels: setLabels(v.labels), location: location, lat: lat, lng: lng
                             };
                             allEvents.push(event);
                         }
@@ -408,6 +433,34 @@
                 });
 
             }
+            function setLabels(label) {
+                var labels = [];
+                if (label == 1) {
+                    labels = [1];
+                }
+                else if (label == 2) {
+                    labels = [2];
+                }
+                else if (label == 3) {
+                    labels = [1, 2];
+                }
+                else if (label == 4) {
+                    labels = [4];
+                }
+                else if (label == 8) {
+                    labels = [8];
+                }
+                else if (label == 9) {
+                    labels = [1, 8];
+                }
+                else if (label == 10) {
+                    labels = [2, 8];
+                }
+                else if (label == 11) {
+                    labels = [1, 2, 8];
+                }
+                return labels;
+            }
             function getFormatedDate(date) {
                 var month = date.toString().split(' ')[1];
                 var dayNumber = date.toString().split(' ')[2];
@@ -415,15 +468,51 @@
                 return dayNumber + "-" + month + "-" + year;
             }
             function filterChanged() {
+                var iconFilterSelected = false;
                 filteredEvents = [];
                 var searchTerm = document.getElementById("searchinput").value.toUpperCase();
                 var selectedDate = document.getElementById("calendar").value;
 
+                //var foodFilterChecked = isChecked($('#chkFood'));
+                //var hqFilterChecked = isChecked($('#chkHQ'));
+                //var filter90Checked = isChecked($('#chk90'));
+                //var editorChoiceFilterChecked = isChecked($('#chkEditorChoice'));
+                //var allFilterChecked = isChecked($('#chkAll'));
+                //debugger;
+
+                var labels = [];
+                if (foodFilterChecked) {
+                    labels.push(1);
+                    iconFilterSelected = true;
+                    //label += 1;
+                }
+                if (hqFilterChecked) {
+                    labels.push(2);
+                    iconFilterSelected = true;
+                    //label += 2;
+                    //labels.push(label);
+                }
+                if (filter90Checked) {
+                    labels.push(4);
+                    iconFilterSelected = true;
+                    //label += 4;
+                    //labels.push(label);
+                }
+                if (editorChoiceFilterChecked) {
+                    labels.push(8);
+                    iconFilterSelected = true;
+                    //label += 8;
+                    //labels.push(label);
+                }
+                if(allFilterChecked){
+                    iconFilterSelected = true;
+                }
                 if (selectedTab == "favoritesTab") {
-                    addEventsToFilteredList(favoritesEvents, selectedDate, searchTerm, filteredEvents);
+                    addEventsToFilteredList(favoritesEvents, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected);
                 }
                 else {
-                    addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents);
+                    debugger;
+                    addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected);
                 }
 
                 if (selectedTab == "mapTab") {
@@ -435,19 +524,26 @@
                     createEvents(filteredEvents);
                 }
             }
-            function addEventsToFilteredList(events, selectedDate, searchTerm, filteredEvents) {
+            function addEventsToFilteredList(events, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected) {
                 events.forEach(event => {
-                    if (event.title.toUpperCase().indexOf(searchTerm) > -1
-                        || event.message_text.toUpperCase().indexOf(searchTerm) > -1) {
-                        if (selectedDate != "") {
-                            selectedDate = new Date(selectedDate).toDateString();
-                            selectedDate = getFormatedDate(selectedDate);
-                            if (event.date == selectedDate) {
-                                filteredEvents.push(event);
+                    //debugger;
+                    if (iconFilterSelected) {
+                        if (event.title.toUpperCase().indexOf(searchTerm) > -1
+                            || event.message_text.toUpperCase().indexOf(searchTerm) > -1) {
+                            //let found = labels.some(r=> event.labels.includes(r))
+                            if (labels.every(elem => event.labels.indexOf(elem) > -1) || labels.length == 0) {
+                                if (selectedDate != "") {
+                                    selectedDate = new Date(selectedDate).toDateString();
+                                    selectedDate = getFormatedDate(selectedDate);
+                                    if (event.date == selectedDate) {
+                                        filteredEvents.push(event);
+                                    }
+                                }
+                                else {
+                                    //debugger;
+                                    filteredEvents.push(event);
+                                }
                             }
-                        }
-                        else {
-                            filteredEvents.push(event);
                         }
                     }
                 });
@@ -475,7 +571,7 @@
                     img.src = event.banner_uri;
                     eventCard.appendChild(img);
 
-                    if (event.labels != 0) {
+                    if (event.label != 0) {
                         var ul = document.createElement("ul");
                         ul.setAttribute("class", "m_fb");
                         var li = document.createElement("li");
@@ -488,13 +584,13 @@
                         i.appendChild(img);
                         span.appendChild(i);
                         li.appendChild(span);
-                        if (event.labels == 1) {
+                        if (event.label == 1) {
                             img.src = "images/food.png";
                         }
-                        else if (event.labels == 2) {
+                        else if (event.label == 2) {
                             img.src = "images/hq.png";
                         }
-                        else if (event.labels == 3) {
+                        else if (event.label == 3) {
                             img.src = "images/hq.png";
                             li.appendChild(span);
 
@@ -508,10 +604,10 @@
                             span.appendChild(i);
                             li.appendChild(span);
                         }
-                        else if (event.labels == 4) {
+                        else if (event.label == 4) {
                             img.src = "images/ic_90_percent_discount.png";
                         }
-                        else if (event.labels == 10) {
+                        else if (event.label == 10) {
                             img.src = "images/hq.png";
                             li.appendChild(span);
 
@@ -525,8 +621,31 @@
                             span.appendChild(i);
                             li.appendChild(span);
                         }
-                        else if (event.labels == 11) {
+                        else if (event.label == 11) {
+                            img.src = "images/hq.png";
+                            li.appendChild(span);
+
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/food.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
+
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
                             img.src = "images/ic_editors_choice.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
+
+                            //img.src = "images/ic_editors_choice.png";
                         }
 
 
@@ -784,7 +903,7 @@
                             img.src = event.banner_uri;
                             eventCard.appendChild(img);
 
-                            if (event.labels != 0) {
+                            if (event.label != 0) {
                                 var ul = document.createElement("ul");
                                 ul.setAttribute("class", "m_fb");
                                 var li = document.createElement("li");
@@ -797,13 +916,13 @@
                                 i.appendChild(img);
                                 span.appendChild(i);
                                 li.appendChild(span);
-                                if (event.labels == 1) {
+                                if (event.label == 1) {
                                     img.src = "images/food.png";
                                 }
-                                else if (event.labels == 2) {
+                                else if (event.label == 2) {
                                     img.src = "images/hq.png";
                                 }
-                                else if (event.labels == 3) {
+                                else if (event.label == 3) {
                                     img.src = "images/hq.png";
                                     li.appendChild(span);
 
@@ -817,10 +936,10 @@
                                     span.appendChild(i);
                                     li.appendChild(span);
                                 }
-                                else if (event.labels == 4) {
+                                else if (event.label == 4) {
                                     img.src = "images/ic_90_percent_discount.png";
                                 }
-                                else if (event.labels == 10) {
+                                else if (event.label == 10) {
                                     img.src = "images/hq.png";
                                     li.appendChild(span);
 
@@ -834,7 +953,7 @@
                                     span.appendChild(i);
                                     li.appendChild(span);
                                 }
-                                else if (event.labels == 11) {
+                                else if (event.label == 11) {
                                     img.src = "images/ic_editors_choice.png";
                                 }
 
@@ -912,6 +1031,73 @@
             gtag('js', new Date());
 
             gtag('config', 'UA-120811908-1');
+
+            $('.img-check').on('click', function () {
+                var imgClicked = $(this);
+                var id = imgClicked.attr('id');
+                //check
+                if (imgClicked.css('opacity') == '0.5') {
+                    if (id == "chkHQ") {
+                        hqFilterChecked = true;
+                    }
+                    else if (id == "chkFood") {
+                        foodFilterChecked = true;
+                    }
+                    else if (id == "chk90") {
+                        filter90Checked = true;
+                    }
+                    else if (id == "chkEditorChoice") {
+                        editorChoiceFilterChecked = true;
+                    }
+                    if (id == "chkAll") {
+                        allFilterChecked = true;
+
+                        hqFilterChecked = false;
+                        foodFilterChecked = false;
+                        filter90Checked = false;
+                        editorChoiceFilterChecked = false;
+
+                        $('.img-check').css({
+                            'opacity': '0.5',
+                            'border-color': '#ddd'
+                        });
+                    }
+                    else {
+                        $('#chkAll').css({
+                            'opacity': '0.5',
+                            'border-color': '#ddd'
+                        });
+                        allFilterChecked = false;
+                    }
+                    imgClicked.css({
+                        'opacity': '1',
+                        'border-color': 'black'
+                    });
+                }
+                //uncheck
+                else {
+                    imgClicked.css({
+                        'opacity': '0.5',
+                        'border-color': '#ddd'
+                    });
+                    if (id == "chkHQ") {
+                        hqFilterChecked = false;
+                    }
+                    else if (id == "chkFood") {
+                        foodFilterChecked = false;
+                    }
+                    else if (id == "chk90") {
+                        filter90Checked = false;
+                    }
+                    else if (id == "chkEditorChoice") {
+                        editorChoiceFilterChecked = false;
+                    }
+                    else if (id == "chkAll") {
+                        allFilterChecked = false;
+                    }
+                }
+                filterChanged();
+            });
         </script>
 
 

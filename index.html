@@ -531,7 +531,8 @@
                         if (event.title.toUpperCase().indexOf(searchTerm) > -1
                             || event.message_text.toUpperCase().indexOf(searchTerm) > -1) {
                             //let found = labels.some(r=> event.labels.includes(r))
-                            if (labels.every(elem => event.labels.indexOf(elem) > -1) || labels.length == 0) {
+                            //if (labels.every(elem => event.labels.indexOf(elem) > -1) || labels.length == 0) {
+                            if (labels.some(label=> event.labels.includes(label)) || labels.length == 0) {
                                 if (selectedDate != "") {
                                     selectedDate = new Date(selectedDate).toDateString();
                                     selectedDate = getFormatedDate(selectedDate);

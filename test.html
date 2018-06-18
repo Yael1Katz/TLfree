@@ -2,175 +2,102 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Document</title>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <style>
-        .items-collection {
-            margin: 20px 0 0 0;
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+        #map {
+            height: 100%;
         }
 
-        .items-collection label.btn-default.active {
-            background-color: #007ba7;
-            color: #FFF;
-        }
+        /* Optional: Makes the sample page fill the window. */
 
-        .items-collection label.btn-default {
-            width: 90%;
-            border: 1px solid #305891;
-            margin: 5px;
-            border-radius: 17px;
-            color: #305891;
-        }
-
-        .items-collection label .itemcontent {
-            width: 100%;
-        }
-
-        .items-collection .btn-group {
-            width: 90%
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 
 <body>
-    <div class="info-block block-info clearfix">
-        <div data-toggle="buttons" class="btn-group">
-            <label class="btn btn-default">
-                <div class="itemcontent">
-                    <input type="checkbox">
-                    <span class="fa fa-car fa-2x"></span>
-                    <h5>car</h5>
-                </div>
-            </label>
-        </div>
-    </div>
-    <div class="container">
-        <h2>Multiple items selector with filter</h2>
-        <div class="row">
-            <div class="form-group">
-                <div class="items-collection">                   
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox">
-                                        <span class="fa fa-car fa-2x"></span>
-                                        <h5>car</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-truck fa-2x"></span>
-                                        <h5>truck</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-laptop fa-2x"></span>
-                                        <h5>laptop</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-cube fa-2x"></span>
-                                        <h5>cube</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-lock fa-2x"></span>
-                                        <h5>secure</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-barcode fa-2x"></span>
-                                        <h5>barcode</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-key fa-2x"></span>
-                                        <h5>key</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="items col-xs-6 col-sm-3 col-md-3 col-lg-3">
-                        <div class="info-block block-info clearfix">
-                            <div data-toggle="buttons" class="btn-group itemcontent">
-                                <label class="btn btn-default">
-                                    <div class="itemcontent">
-                                        <input type="checkbox" name="var_id[]" autocomplete="off" value="">
-                                        <span class="fa fa-keyboard-o fa-2x"></span>
-                                        <h5>keyboard</h5>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+    <div id="map"></div>
+    <script>
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
+        var map, infoWindow;
+        var myCurrentLocation;
+        function initMap() {
+            //var origin1 = new google.maps.LatLng(32.0638485, 34.7717807);
+            //var origin2 = 'Greenwich, England';
+            // var origin = 'Israel, Tel Aviv';
+            //var myLocation = new google.maps.LatLng(32.0852178, 34.7903274);
+            //var myLocation = getCurrentLocation();
+            //var destination = new google.maps.LatLng(32.0638485, 34.7717807);
+            
+            setCurrentLocation();
+            //getDistanceFromCurrentLocation(destination);
+            /*var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+                {
+                    //origins: [origin1, origin2],
+                    origins: [origin],
+                    destinations: [myLocation, destination],
+                    travelMode: 'WALKING',
+                    //transitOptions: TransitOptions,
+                    //drivingOptions: DrivingOptions,
+                    //unitSystem: UnitSystem,
+                    //avoidHighways: Boolean,
+                    //avoidTolls: Boolean,
+                }, callback);
+                */
+        }
 
-                </div>
-            </div>
-        </div>
-    </div>
+        function setCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    debugger;
+                    myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lat);
+
+                    var destination = new google.maps.LatLng(32.0638485, 34.7717807);
+                    getDistanceFromCurrentLocation(destination)
+                });
+            }
+        }
+
+        function getDistanceFromCurrentLocation(destination) {
+            debugger;
+            var origin = 'Israel, Tel Aviv';
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+                {
+                    origins: [origin],
+                    destinations: [myCurrentLocation, destination],
+                    travelMode: 'WALKING',
+                }, function (response, status) {
+                    var distance = response.rows[0].elements[1].distance.text;
+                    return distance;
+                });
+        }
 
 
+
+
+
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&callback=initMap"
+        type="text/javascript"></script>
 </body>
 
 </html>

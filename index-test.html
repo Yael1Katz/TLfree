@@ -1,107 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Document</title>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <style>
-        .check {
-            opacity: 1;
-            /*color: #996;*/
-            border-color: black;
-            background-color: lightgray;
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+        #map {
+            height: 100%;
         }
 
-        .myBtn {
+        /* Optional: Makes the sample page fill the window. */
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
             padding: 0;
         }
     </style>
 </head>
 
 <body>
-    <label class="btn myBtn">
-        <img src="images/hq.png" alt="..." class="img-thumbnail img-check" style="opacity: 0.5;">
-        <input type="checkbox" name="chk1" id="item4" value="val1" class="hidden" autocomplete="off">
-    </label>
-    <label class="btn myBtn">
-        <img src="images/food.png" alt="..." class="img-thumbnail img-check" style="opacity: 0.5;">
-        <input type="checkbox" name="chk2" id="item4" value="val2" class="hidden" autocomplete="off">
-    </label>
-    <div class="container">
-        <div class="row">
-            <form method="get">
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <label class="btn btn-primary">
-                            <img src="images/hq.png" alt="..." class="img-thumbnail img-check">
-                            <input type="checkbox" name="chk1" id="item4" value="val1" class="hidden" autocomplete="off">
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="btn btn-primary">
-                            <img src="images/food.png" alt="..." class="img-thumbnail img-check">
-                            <input type="checkbox" name="chk2" id="item4" value="val2" class="hidden" autocomplete="off">
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="btn btn-primary">
-                            <img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Football.png"
-                                alt="..." class="img-thumbnail img-check">
-                            <input type="checkbox" name="chk3" id="item4" value="val3" class="hidden" autocomplete="off">
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="btn btn-primary">
-                            <img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png"
-                                alt="..." class="img-thumbnail img-check">
-                            <input type="checkbox" name="chk4" id="item4" value="val4" class="hidden" autocomplete="off">
-                        </label>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-
+    <div id="map"></div>
     <script>
-        //$(document).ready(function (e) {
-            //$(".img-check").click(function () {
-               // $(this).toggleClass("check uncheck");
-            //});
-        //});
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
+        var map, infoWindow;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 6
+            });
+            infoWindow = new google.maps.InfoWindow;
 
-        $('.img-check').on('click', function () {
-            var imgClicked = $(this);
-            debugger;
-            // register is not visible lets make it visible.
-            if (imgClicked.css('opacity') === '0.5') {
-                imgClicked.css({
-                    'opacity': '1',
-                    'border-color': 'black'
-                });
-            }
-            else //We know the opacity is not 0 lets make it 0.
-            {
-                imgClicked.css({
-                    'opacity': '0.5',
-                    'border-color': 'transparent'
-                });
-            }
-        });
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
 
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&callback=initMap"
+        type="text/javascript"></script>
 </body>
 
 </html>

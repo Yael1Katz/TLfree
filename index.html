@@ -890,24 +890,22 @@
                         };
 
                         myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
-                        
+
                         service = new google.maps.DistanceMatrixService();
                         setDistancesFromCurrentLocation(allEvents);
-                        setTimeout(function () {
-                            createEvents(allEvents);
-                        }, 1000)
-
-                    }, function(error){
+                    }, function (error) {
                         debugger;
-                        if(error.message == "User denied Geolocation"){
+                        if (error.message == "User denied Geolocation") {
                             createEvents(allEvents);
                         }
                     });
-                    
+
                 }
             }
 
             function setDistancesFromCurrentLocation(allEvents) {
+                var counter = 0;
+                var numberOfEvents = allEvents.length;
                 allEvents.forEach(event => {
                     var destination = new google.maps.LatLng(event.lat, event.lng);
                     service.getDistanceMatrix(
@@ -922,6 +920,10 @@
                             else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[1].status != "ZERO_RESULTS") {
                                 var distance = response.rows[0].elements[1].distance.text;
                                 event.distance = distance;
+                            }
+                            counter++;
+                            if (counter == numberOfEvents) {
+                                createEvents(allEvents);
                             }
                         });
                 });

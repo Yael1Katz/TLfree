@@ -27,6 +27,12 @@
             display: block;
             min-height: 70px;
         }
+        div[class='col_1_of_3'] a img{
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            min-height: 70px;
+        }
         .imgCheckbox {
             opacity: 0.5;
             width: 33px;
@@ -958,6 +964,7 @@
 
                             var eventCard = document.createElement("div");
                             eventCard.setAttribute("class", "col_1_of_3");
+                            eventCard.setAttribute("style", "background:white");
                             var div = document.createElement("div");
                             div.setAttribute("class", "eventGUID");
                             div.innerHTML = event.guid;

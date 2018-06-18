@@ -436,11 +436,6 @@
                     initFavorites();
                     initFilteredEvents();
                     setCurrentLocation();
-                    //setTimeout(function afterTwoSeconds() {
-                    //    createEvents(allEvents);
-                    //}, 5000)
-                    //createEvents(allEvents);
-
                 });
 
             }
@@ -884,8 +879,6 @@
                     center: { lat: 32.069396, lng: 34.7869129 },
                     zoom: 13.5
                 });
-
-                //setCurrentLocation();
             }
 
             function setCurrentLocation() {
@@ -902,7 +895,7 @@
                         setDistancesFromCurrentLocation(allEvents);
                         setTimeout(function () {
                             createEvents(allEvents);
-                        }, 300)
+                        }, 1000)
 
                     }, function(error){
                         debugger;

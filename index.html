@@ -522,7 +522,6 @@
                     addEventsToFilteredList(favoritesEvents, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected);
                 }
                 else {
-                    debugger;
                     addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected);
                 }
 
@@ -910,11 +909,9 @@
 
                         myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
                         //myCurrentLocation = new google.maps.LatLng(32.0640788, 34.7864624);
-                        debugger;
                         service = new google.maps.DistanceMatrixService();
                         setDistancesFromCurrentLocation(allEvents);
                     }, function (error) {
-                        debugger;
                         if (error.message == "User denied Geolocation") {
                             createEvents(allEvents);
                         }
@@ -929,7 +926,6 @@
                 var destination
                 allEvents.forEach(event => {
                     destination = new google.maps.LatLng(event.lat, event.lng);
-                    debugger;
                     service.getDistanceMatrix(
                         {
                             origins: [myCurrentLocation, destination],
@@ -1116,6 +1112,13 @@
 
             gtag('config', 'UA-120811908-1');
 
+            
+            gtag('send', {
+                hitType: 'event',
+                eventCategory: 'Videos',
+                eventAction: 'play',
+                eventLabel: 'Fall Campaign'
+            });
             $('.img-check').on('click', function () {
                 var imgClicked = $(this);
                 var id = imgClicked.attr('id');
@@ -1188,7 +1191,7 @@
 
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&libraries=places&callback=initMap"
             type="text/javascript"></script>
-        
+
 </body>
 
 </html>

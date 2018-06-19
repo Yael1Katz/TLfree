@@ -1104,6 +1104,12 @@
             $("#searchclear").click(function () {
                 $("#searchinput").val('');
                 filterChanged();
+                gtag('send', {
+                    hitType: 'event',
+                    eventCategory: 'Clicks',
+                    eventAction: 'searchClear',
+                    eventLabel: 'Fall Campaign'
+                });
             });
             //Google analytics
             window.dataLayer = window.dataLayer || [];
@@ -1112,7 +1118,7 @@
 
             gtag('config', 'UA-120811908-1');
 
-            
+
             gtag('send', {
                 hitType: 'event',
                 eventCategory: 'Videos',

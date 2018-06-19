@@ -1,103 +1,31 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-        /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-
-        #map {
-            height: 100%;
-        }
-
-        /* Optional: Makes the sample page fill the window. */
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-</head>
-
 <body>
-    <div id="map"></div>
+
+    <p>Click the button to get your coordinates.</p>
+
+    <button onclick="getLocation()">Try It</button>
+
+    <p id="demo"></p>
+
     <script>
-        // Note: This example requires that you consent to location sharing when
-        // prompted by your browser. If you see the error "The Geolocation service
-        // failed.", it means you probably did not give permission for the browser to
-        // locate you.
-        var map, infoWindow;
-        var myCurrentLocation;
-        function initMap() {
-            //var origin1 = new google.maps.LatLng(32.0638485, 34.7717807);
-            //var origin2 = 'Greenwich, England';
-            // var origin = 'Israel, Tel Aviv';
-            //var myLocation = new google.maps.LatLng(32.0852178, 34.7903274);
-            //var myLocation = getCurrentLocation();
-            //var destination = new google.maps.LatLng(32.0638485, 34.7717807);
-            
-            setCurrentLocation();
-            //getDistanceFromCurrentLocation(destination);
-            /*var service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix(
-                {
-                    //origins: [origin1, origin2],
-                    origins: [origin],
-                    destinations: [myLocation, destination],
-                    travelMode: 'WALKING',
-                    //transitOptions: TransitOptions,
-                    //drivingOptions: DrivingOptions,
-                    //unitSystem: UnitSystem,
-                    //avoidHighways: Boolean,
-                    //avoidTolls: Boolean,
-                }, callback);
-                */
-        }
+        var x = document.getElementById("demo");
 
-        function setCurrentLocation() {
+        function getLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    debugger;
-                    myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lat);
-
-                    var destination = new google.maps.LatLng(32.0638485, 34.7717807);
-                    getDistanceFromCurrentLocation(destination)
-                });
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }
 
-        function getDistanceFromCurrentLocation(destination) {
-            debugger;
-            var origin = 'Israel, Tel Aviv';
-            var service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix(
-                {
-                    origins: [origin],
-                    destinations: [myCurrentLocation, destination],
-                    travelMode: 'WALKING',
-                }, function (response, status) {
-                    var distance = response.rows[0].elements[1].distance.text;
-                    return distance;
-                });
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
         }
-
-
-
-
-
-
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&callback=initMap"
-        type="text/javascript"></script>
+
 </body>
 
 </html>

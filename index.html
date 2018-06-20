@@ -438,8 +438,6 @@
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {
                             var location = eventsLocation[k] == null ? null : eventsLocation[k].location;
-                            //var lat = location == null ? null : eventsLocation[k].lat;
-                            // var lng = location == null ? null : eventsLocation[k].lng;
                             var latlng = location == null ? null : eventsLocation[k].latlng;
                             var event = {
                                 guid: k, title: v.title, banner_uri: v.banner_uri,

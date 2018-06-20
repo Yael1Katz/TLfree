@@ -897,8 +897,9 @@
             function addMarkers() {
                 filteredEvents.forEach(event => {
                     if (event.location != null) {
+                        var latlng = event.latlng.split(",");
                         var marker = new google.maps.Marker({
-                            position: { lat: event.lat, lng: event.lng },
+                            position: { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) },
                             map: map,
                             title: event.title,
                             icon: 'images/pin.png',

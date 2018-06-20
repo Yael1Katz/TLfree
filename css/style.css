@@ -135,6 +135,9 @@ body{
 							}
 		@media only screen and ( max-width: 62.5em ) /* 1000 */
 		{
+			.form-control {
+				margin-top: 10px;
+			}
 			.logo1{
 				margin-top: 10px;
 			}
@@ -154,6 +157,7 @@ body{
 
 		@media only screen and ( max-width: 40em ) /* 640 */
 		{
+			
 			.labelsGroup{
 				margin-top: 10px;
 			}

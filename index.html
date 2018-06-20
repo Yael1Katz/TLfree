@@ -1069,8 +1069,10 @@
                             div.innerHTML = "";
                             div.appendChild(sectionGroup);
                             favoriteClicked();
-                            var top = $('#selectedPinEvent').position().top;
-                            $(window).scrollTop(top);
+
+                            $('html, body').animate({
+                                scrollTop: $("#selectedPinEvent").offset().top
+                            }, 500);
                         });
                         markers.push(marker);
                     }

@@ -262,13 +262,13 @@
                             onClick="$(this).removeClass('placeholderclass')">
                     </div>
                     <!--<div class="col-md-2">
-                            <label>Sort:</label>
-                            <select class="form-control" style="display: inline-block;width:auto;" id="sel1">
-                                <option>Date</option>
-                                <option>Distance</option>
-                                <option>Publish</option>
-                            </select>
-                        </div>-->
+                        <label>Sort:</label>
+                        <select class="form-control" style="display: inline-block;width:auto;" onchange="sortClicked(this)">
+                            <option>Date</option>
+                            <option>Publish</option>
+                            <option>Distance</option>
+                        </select>
+                    </div>-->
                     <div class="col-md-4">
                         <div class="btn-group">
                             <input id="searchinput" type="search" placeholder="Search..." class="form-control" onkeyup="filterChanged()">
@@ -414,6 +414,7 @@
                 </div>
                 <div class="clear"></div>
             </div>*/
+            var selectedSort = "Date";
             var foodFilterChecked;
             var hqFilterChecked;
             var filter90Checked;
@@ -455,14 +456,44 @@
                             allEvents.push(event);
                         }
                     });
-                    allEvents.sort(function (a, b) {
-                        return new Date(a.date).getTime() - new Date(b.date).getTime();
-                    });
+                    sortEventsByDate(allEvents);
                     initFavorites();
                     initFilteredEvents();
                     setCurrentLocation();
                 });
 
+            }
+            function sortClicked(option) {
+                selectedSort = $(option).find("option:selected").text();
+                sortEvents();
+                createEvents(filteredEvents);
+
+            }
+            function sortEvents() {
+                if (selectedSort == "Distance") {
+                    sortEventByDistance(filteredEvents);
+                }
+                else if (selectedSort == "Publish") {
+                    sortEventByPublishDate(filteredEvents);
+                }
+                else if (selectedSort == "Date") {
+                    sortEventsByDate(filteredEvents);
+                }
+            }
+            function sortEventsByDate(events) {
+                events.sort(function (a, b) {
+                    return new Date(a.date).getTime() - new Date(b.date).getTime();
+                });
+            }
+            function sortEventByPublishDate(events) {
+                events.sort(function (a, b) { return (a.guid > b.guid) ? -1 : ((b.guid > a.guid) ? 1 : 0); });
+            }
+            function sortEventByDistance(events) {
+                events.sort(function (a, b) {
+                    var numA = isNaN(parseFloat(a.distance)) ? 1000 : parseFloat(a.distance);
+                    var numB = isNaN(parseFloat(b.distance)) ? 1000 : parseFloat(b.distance);
+                    return numA - numB;
+                });
             }
             function setLabels(label) {
                 var labels = [];
@@ -530,6 +561,8 @@
                 else {
                     addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected);
                 }
+
+                sortEvents();
 
                 if (selectedTab == "mapTab") {
                     removeMarkers();
@@ -1036,6 +1069,8 @@
                             div.innerHTML = "";
                             div.appendChild(sectionGroup);
                             favoriteClicked();
+                            var top = $('#selectedPinEvent').position().top;
+                            $(window).scrollTop(top);
                         });
                         markers.push(marker);
                     }

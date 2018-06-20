@@ -432,6 +432,8 @@
                 $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
                     $.each(result, function (k, v) {
                         var date = Date.parse(v.full_date).toDateString();
+                        //var date = Date.parse(v.full_date);
+                        debugger;
                         date = getFormatedDate(date);
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {

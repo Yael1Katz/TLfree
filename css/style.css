@@ -2597,7 +2597,7 @@ fieldset.input input[type="submit"]:hover {
 /*--responsive deisign--*/
 @media (max-width:1366px){
 	.wrap{
-		width:90%;
+		width:95%;
 	}
 	.buttons {
 		width: 28.5%;

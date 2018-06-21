@@ -257,9 +257,28 @@
             </ul>
             <div class="content-box-right">
                 <div class="form-group row">
-                    <div class="col-md-3">
-                        <input class="form-control dateclass placeholderclass" id="calendar" placeholder="Select date.." type="date" onchange="filterChanged()"
-                            onClick="$(this).removeClass('placeholderclass')">
+                    <div class="col-md-5">
+                        <div class="btn-group">
+                            <input id="searchinput" type="search" placeholder="Search..." class="form-control" onkeyup="filterChanged()">
+                            <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control dateclass placeholderclass" id="calendar" placeholder="Select date..." type="date" onchange="filterChanged()"
+                                    onClick="$(this).removeClass('placeholderclass')">
+                            </div>
+
+                            <div class="col-md-6" >
+                                <label>Sort:</label>
+                                <select class="form-control" style="display: inline-block;width:auto;" onchange="sortClicked(this)">
+                                    <option>Date</option>
+                                    <option>Publish</option>
+                                    <option>Distance</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <!--<div class="col-md-2">
                         <label>Sort:</label>
@@ -269,12 +288,7 @@
                             <option>Distance</option>
                         </select>
                     </div>-->
-                    <div class="col-md-4">
-                        <div class="btn-group">
-                            <input id="searchinput" type="search" placeholder="Search..." class="form-control" onkeyup="filterChanged()">
-                            <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
-                        </div>
-                    </div>
+
 
                     <div class="col-md-3">
                         <div class="labelsGroup">

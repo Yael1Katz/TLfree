@@ -299,7 +299,7 @@ span.m_1{
 }
 /*--content--*/
 .content-box{
-	padding: 10px 0 0 0;
+	/*padding: 10px 0 0 0;*/
 	background:#fff;
 }
 ul.events{

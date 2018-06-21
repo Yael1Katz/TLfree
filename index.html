@@ -270,9 +270,9 @@
                                     onClick="$(this).removeClass('placeholderclass')">
                             </div>
 
-                            <div class="col-md-6" >
+                            <div class="col-md-6">
                                 <label>Sort:</label>
-                                <select class="form-control" style="display: inline-block;width:auto;" onchange="sortClicked(this)">
+                                <select class="form-control" style="display: inline-block;width:auto;" onchange="sortChanged(this)">
                                     <option>Date</option>
                                     <option>Publish</option>
                                     <option>Distance</option>
@@ -470,30 +470,31 @@
                             allEvents.push(event);
                         }
                     });
-                    sortEventsByDate(allEvents);
+                    sortEvents(allEvents);
                     initFavorites();
                     initFilteredEvents();
                     setCurrentLocation();
                 });
 
             }
-            function sortClicked(option) {
+            function sortChanged(option) {
                 selectedSort = $(option).find("option:selected").text();
-                sortEvents();
-                createEvents(filteredEvents);
-
-            }
-            function sortEvents() {
                 if (selectedSort == "Distance") {
-                    sortEventByDistance(filteredEvents);
+                    sortEvents = sortEventByDistance;
                 }
                 else if (selectedSort == "Publish") {
-                    sortEventByPublishDate(filteredEvents);
+                    sortEvents = sortEventByPublishDate;
                 }
                 else if (selectedSort == "Date") {
-                    sortEventsByDate(filteredEvents);
+                    sortEvents = sortEventsByDate;
                 }
+                sortEvents(filteredEvents);
+                if (selectedTab != "mapTab") {
+                    createEvents(filteredEvents);
+                }
+                
             }
+            var sortEvents = sortEventsByDate;
             function sortEventsByDate(events) {
                 events.sort(function (a, b) {
                     return new Date(a.date).getTime() - new Date(b.date).getTime();
@@ -576,7 +577,7 @@
                     addEventsToFilteredList(allEvents, selectedDate, searchTerm, filteredEvents, labels, iconFilterSelected);
                 }
 
-                sortEvents();
+                sortEvents(filteredEvents);
 
                 if (selectedTab == "mapTab") {
                     removeMarkers();
@@ -932,7 +933,7 @@
                             travelMode: 'WALKING',
                         }, function (response, status) {
                             if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-
+                                //There is a limit of 40 calls
                             }
                             else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[1].status != "ZERO_RESULTS") {
                                 var distance = response.rows[0].elements[1].distance.text;

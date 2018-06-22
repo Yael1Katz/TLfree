@@ -135,6 +135,12 @@ body{
 							}
 		@media only screen and ( max-width: 62.5em ) /* 1000 */
 		{
+			.mobile_device_380px {
+                display: block;
+            }
+            .desktop {
+                display: none;
+            }
 			.form-control {
 				margin-top: 10px;
 			}

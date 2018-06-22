@@ -135,12 +135,12 @@ body{
 							}
 		@media only screen and ( max-width: 62.5em ) /* 1000 */
 		{
-			/*.mobile_device_380px {
+			.mobile_device_380px {
                 display: block;
             }
             .desktop {
                 display: none;
-            }*/
+            }
 			.form-control {
 				margin-top: 10px;
 			}
@@ -160,7 +160,15 @@ body{
 				margin: 0;
 			}
 		}
-
+		@media only screen and ( min-width: 62.5em ) /* 1000 */
+		{
+			.mobile_device_380px {
+                display: none;
+            }
+            .desktop {
+                display: block;
+            }
+		}
 		@media only screen and ( max-width: 40em ) /* 640 */
 		{
 		 #nav
@@ -3282,12 +3290,3 @@ fieldset.input input[type="submit"]:hover {
 		width:100%;
 	}
 }
-/* if mobile device max width 380px */
-@media only screen and (max-device-width: 380px) {
-	.mobile_device_380px{display: block;}       
-	.desktop {display: none;}
-} 
-@media only screen and (min-device-width: 380px) {
-	.mobile_device_380px{display: none;}       
-	.desktop {display: block;}
-} 

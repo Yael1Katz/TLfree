@@ -440,7 +440,7 @@
             var service;
             var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
-            var span = document.getElementsByClassName("close")[0];
+            var closeMapButton = document.getElementsByClassName("close")[0];
             var allEvents = [];
             var favoritesEventsGUIDs = [];
             var favoritesEvents = [];
@@ -879,15 +879,15 @@
                 var src = "https://www.google.com/maps/embed?pb=" + location;
                 var googleMapsWindow = document.getElementById("googleMapsWindow");
                 googleMapsWindow.src = src;
-                modal.style.display = "block";
+                $(modal).fadeIn(1000);
             }
-            span.onclick = function () {
-                modal.style.display = "none";
+            closeMapButton.onclick = function () {
+                $(modal).fadeOut(1000);
             }
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function (event) {
                 if (event.target == modal) {
-                    modal.style.display = "none";
+                    $(modal).fadeOut(1000);
                 }
             }
 

@@ -3287,3 +3287,7 @@ fieldset.input input[type="submit"]:hover {
 	.mobile_device_380px{display: block;}       
 	.desktop {display: none;}
 } 
+@media only screen and (min-device-width: 380px) {
+	.mobile_device_380px{display: none;}       
+	.desktop {display: block;}
+} 

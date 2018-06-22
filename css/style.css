@@ -141,9 +141,9 @@ body{
 			.panel-group mobile_device_380px{
 				display: block;
 			}
-			/*.mobile_device_380px {
+			.mobile_device_380px {
                 display: block;
-            }*/
+            }
             .desktop {
                 display: none;
             }

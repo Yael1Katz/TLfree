@@ -135,12 +135,6 @@ body{
 							}
 		@media only screen and ( max-width: 62.5em ) /* 1000 */
 		{
-			.panel-group .mobile_device_380px{
-				display: block;
-			}
-			.panel-group mobile_device_380px{
-				display: block;
-			}
 			.mobile_device_380px {
                 display: block;
             }
@@ -508,6 +502,9 @@ h5.m_3{
 }
 /***** Media Quries *****/
 @media only screen and (max-width: 1024px) {
+	.mobile_device_380px {
+		display: none;
+	}
 	.wrap{
 		width:95%;
 	}	
@@ -526,7 +523,9 @@ h5.m_3{
 }
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 @media only screen and (max-width: 480px) {
-     
+	.mobile_device_380px {
+		display: none;
+	}
      .wrap{
 		width:95%;
 	}		

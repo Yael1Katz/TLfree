@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        /* if mobile device max width 380px */
+
+        /* if desktop */
+
+        /*.mobile_device_380px {
+            display: none;
+        }*/
+
         div[class='col_1_of_3 span_1_of_3'] a img {
             margin-left: auto;
             margin-right: auto;
@@ -244,6 +252,58 @@
     -->
     <div class="content-box">
         <div class="wrap">
+            <!--<div class="panel-group mobile_device_380px" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                Collapsible Group Item #1
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control dateclass placeholderclass" id="calendar" placeholder="Select date..." type="date" onchange="filterChanged()"
+                                            onClick="$(this).removeClass('placeholderclass')">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Sort:</label>
+                                        <select class="form-control" style="display: inline-block;width:auto;" onchange="sortChanged(this)">
+                                            <option>Date</option>
+                                            <option>Publish</option>
+                                            <option>Distance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="labelsGroup">
+                                    <label class="btn myBtn">
+                                        <img src="images/hq.png" class="img-thumbnail img-check imgCheckbox" id="chkHQ">
+                                    </label>
+                                    <label class="btn myBtn">
+                                        <img src="images/food.png" class="img-thumbnail img-check imgCheckbox" id="chkFood">
+                                    </label>
+                                    <label class="btn myBtn">
+                                        <img src="images/ic_90_percent_discount.png" class="img-thumbnail img-check imgCheckbox" id="chk90">
+                                    </label>
+                                    <label class="btn myBtn">
+                                        <img src="images/ic_editors_choice.png" class="img-thumbnail img-check imgCheckbox" id="chkEditorChoice">
+                                    </label>
+                                    <label class="btn myBtn">
+                                        <div class="img-thumbnail img-check imgCheckbox" id="chkAll" style="cursor: pointer;border-color: black;opacity: 1;">All</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
             <div class="content-box-right">
                 <div class="form-group row">
                     <div class="col-md-5">
@@ -301,16 +361,16 @@
                 </div>
             </div>
             <ul class="events">
-                    <li class="active">
-                        <a href="" onclick="eventsTab();return false;">Hot Events</a>
-                    </li>
-                    <li>
-                        <a href="" onclick="favoritesTab();return false;">Favorites</a>
-                    </li>
-                    <li>
-                        <a href="" onclick="mapTab();return false;">Map</a>
-                    </li>
-                </ul>
+                <li class="active">
+                    <a href="" onclick="eventsTab();return false;">Hot Events</a>
+                </li>
+                <li>
+                    <a href="" onclick="favoritesTab();return false;">Favorites</a>
+                </li>
+                <li>
+                    <a href="" onclick="mapTab();return false;">Map</a>
+                </li>
+            </ul>
             <div class="clear"></div>
         </div>
     </div>
@@ -492,7 +552,7 @@
                 if (selectedTab != "mapTab") {
                     createEvents(filteredEvents);
                 }
-                
+
             }
             var sortEvents = sortEventsByDate;
             function sortEventsByDate(events) {

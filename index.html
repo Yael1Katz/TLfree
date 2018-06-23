@@ -19,6 +19,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        .panel-heading .accordion-toggle:after {
+            /* symbol for "opening" panels */
+            font-family: 'Glyphicons Halflings';
+            /* essential for enabling glyphicon */
+            content: "\e114";
+            /* adjust as needed, taken from bootstrap.css */
+            float: right;
+            /* adjust as needed */
+            color: grey;
+            /* adjust as needed */
+        }
+
+        .panel-heading .accordion-toggle.collapsed:after {
+            /* symbol for "collapsed" panels */
+            content: "\e080";
+            /* adjust as needed, taken from bootstrap.css */
+        }
+
         #accordion {
             display: none;
         }
@@ -1211,7 +1229,7 @@
             });
             function setDisplayMode() {
                 var formGroup = document.getElementsByClassName('form-group row')[0];
-                if ($(window).width() < 380) {
+                if ($(window).width() < 500) {
                     if (mode == "desktop") {
                         mode = "mobile";
                         var panelBody = document.getElementsByClassName('panel-body')[0];

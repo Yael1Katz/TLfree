@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
-        #accordion{
+        #accordion {
             display: none;
         }
 
@@ -460,6 +460,7 @@
             var eventsLocation = {};
             var mapDiv = document.createElement("div");
             mapDiv.setAttribute("id", "map");
+            setDisplayMode();
             createEventLocationList();
             getAllEvents();
             var selectedTab = "eventsTab";
@@ -1206,17 +1207,18 @@
                 filterChanged();
             });
             $(window).resize(function () {
+                setDisplayMode();
+            });
+            function setDisplayMode() {
                 var formGroup = document.getElementsByClassName('form-group row')[0];
                 if ($(window).width() < 380) {
                     if (mode == "desktop") {
                         mode = "mobile";
-
                         var panelBody = document.getElementsByClassName('panel-body')[0];
                         panelBody.appendChild(formGroup);
-                         $('#accordion').css("display", "block");
-                        
+                        $('#accordion').css("display", "block");
+                        debugger;
                     }
-
                 }
                 else {
                     if (mode == "mobile") {
@@ -1224,11 +1226,10 @@
                         var contentBox = document.getElementsByClassName('content-box-right')[0];
                         contentBox.appendChild(formGroup);
                         $('#accordion').css("display", "none");
-
+                        debugger;
                     }
-
                 }
-            });
+            }
             //<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNlYlXjmjgDGoxeBxtWWUQYhxFGOyjCeo&sensor=false&language=he&libraries=visualization,places">
         </script>
 

@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
         .panel-heading .accordion-toggle:after {
@@ -353,7 +354,6 @@
         </div>
         <div class="wrap">
 
-
         </div>
         <div class="footer">
             <div class="wrap">
@@ -420,40 +420,32 @@
 
             /*<div class="section group">
                 <div class="col_1_of_3 span_1_of_3">
-                    <div class="eventGUID"></div>
-                    <a href="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg">
-                        <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg" alt="">
+                    <div class="eventGUID">-LEJHlGcTJPCaWhc9vJ_</div>
+                    <a href="https://www.meetup.com/full-stack-developer-il/events/248953340" target="_blank">
+                        <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg">
                     </a>
                     <ul class="m_fb">
                         <li>
                             <span class="m_23">
                                 <i>
-                                    <img src="images/food.png" width="30" />
-                                </i>
-                            </span>
-                            <span class="m_23">
-                                <i>
-                                    <img src="images/hq.png" width="30" />
+                                    <img width="30" src="images/food.png">
                                 </i>
                             </span>
                             <span class="m_22 favorite">
-                                <div class="star glyphicon glyphicon-star-empty"></div>
+                                <div class="star glyphicon glyphicon-star"></div>
                             </span>
-                            <div class="clear"></div>
                         </li>
                     </ul>
                     <div class="desc">
+                        <h4 class="m_2">24-Jun-2018</h4>
                         <h3>
-                            <a href="#">Lorem Ipsum is simply dummy</a>
+                            <a href="https://www.meetup.com/full-stack-developer-il/events/248953340" target="_blank">Developing a Webcam Arcade Controller using DL</a>
                         </h3>
-                        <h4 class="m_2">consectetur adipisicing elit, sed do</h4>
-                        <h5 class="m_3">sed do eiusmod tempor incididunt ut labore</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua.</p>
-                        <a class="mapLink" href="#" onclick="showMap('!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843');return false">Show map</a>
-                        <p>3.8 km</p>
+                        <p>Are you a developer that is continually hearing about Deep Learning and wondering what all the fuss
+                            is about?</p>
+                        <a href="#" class="mapLink" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">Show map</a>
+                        <p>1.3 km</p>
                     </div>
-
                 </div>
                 <div class="clear"></div>
             </div>*/
@@ -484,7 +476,24 @@
             var selectedTab = "eventsTab";
             function getAllEvents() {
 
-                $.getJSON("https://tlfree-4b9bf.firebaseio.com/db_tlfree.json", function (result) {
+                var config = {
+                    apiKey: "AIzaSyDn2VWzzsZBK_q-VwEk0FksBW-z0MNE17Q",
+                    authDomain: "tlfree-4b9bf.firebaseapp.com",
+                    databaseURL: "https://tlfree-4b9bf.firebaseio.com",
+                    projectId: "tlfree-4b9bf"
+                };
+
+                firebase.initializeApp(config);
+
+                firebase.auth().signInAnonymously().catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                });
+                var ref = firebase.database().ref('db_tlfree');
+
+                ref.on("value", function (snapshot) {
+                    var result = snapshot.val();
                     $.each(result, function (k, v) {
                         var date = Date.parse(v.full_date).toDateString();
                         date = getFormatedDate(date);
@@ -505,8 +514,9 @@
                     initFavorites();
                     initFilteredEvents();
                     setCurrentLocation();
+                }, function (error) {
+                    console.log("Error: " + error.code);
                 });
-
             }
             function sortChanged(option) {
                 selectedSort = $(option).find("option:selected").text();

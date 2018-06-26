@@ -4,7 +4,7 @@ function createEventLocationList() {
     eventsLocation["-LFCDwyGEtHoZH_VwgLZ"] = { address: "Rothschild Blvd 22, Tel Aviv-Yafo" };
     eventsLocation["-LFGeDD5_1LlFgr3Fs3o"] = { address: "hangar 23 namal tlv" };
     eventsLocation["-LFGdu0__jw5eCZwUWkc"] = { address: "אחד העם 54, תל אביב יפו" };
-    eventsLocation["-LFkkDOXZnxUDm8BoDyl"] = { address: "54 Ahad Ha'Am Street" };
+    eventsLocation["-LFkkDOXZnxUDm8BoDyl"] = { address: "54 Ahad HaAm Street" };
 
 
 

@@ -8,6 +8,7 @@
     <meta name="google-site-verification" content="T99vGHQ28rQ0ldK5hzggZH_Xb9H7MtvvQekwaGl4M2s" />
 
     <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/common-methods.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
@@ -20,6 +21,126 @@
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <style>
+        #sharePopup a:focus,
+        a:hover {
+            text-decoration: none;
+        }
+
+        .fa {
+            padding: 10px;
+            font-size: 30px;
+            width: 52px;
+            text-align: center;
+            /*margin-left: -4.5px;*/
+        }
+
+        .fa:hover {
+            opacity: 0.7;
+        }
+
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+
+        .fa-whatsapp {
+            background: #39e329;
+            color: white;
+        }
+
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        /* Popup container - can be anything you want */
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+
+        .popup .popuptext {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -77px;
+            width: 153px;
+        }
+
+        /* Popup arrow */
+
+        .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #3B5998 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .transparentbutton {
+            background-color: Transparent;
+            background-repeat: no-repeat;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
+            background-image: url("images//map.png");
+        }
+
         .panel-heading .accordion-toggle:after {
             /* symbol for "opening" panels */
             font-family: 'Glyphicons Halflings';
@@ -111,10 +232,6 @@
             width: 100%;
         }
 
-        .mapLink {
-            float: right;
-        }
-
         i {
             background: white;
             border-radius: 20px;
@@ -202,7 +319,7 @@
 <body>
     <div class="header-top">
         <div class="wrap">
-            <div style="align-items: center; display: flex;justify-content: center">
+            <div class="center">
                 <a href="index.html" class="logo1">
                     <img width="280px" height="120px" src="images/tlfree feature graphic.png" alt="" />
                 </a>
@@ -443,8 +560,21 @@
                         </h3>
                         <p>Are you a developer that is continually hearing about Deep Learning and wondering what all the fuss
                             is about?</p>
-                        <a href="#" class="mapLink" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">Show map</a>
                         <p>1.3 km</p>
+                    </div>
+                    <div class="hr"></div>
+                    <div class="section group center" style="padding: 0% 0% 2% 3%;">
+                        <label class="btn myBtn popup" style="margin-right: 10px" onclick="openSharePopup(this.children[1])">
+                            <img src="images/share.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                            <span class="popuptext">
+                                <a href="https://twitter.com/intent/tweet?text=www.ynet.co.il" target="_blank" class="fa fa-twitter"></a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=www.ynet.co.il" target="_blank" class="fa fa-facebook"></a>
+                                <a href="https://api.whatsapp.com/send?text=www.ynet.co.il" target="_blank" class="fa fa-whatsapp"></a>
+                            </span>
+                        </label>
+                        <label class="btn myBtn" style="margin-right: 10px" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">
+                            <img src="images/map.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                        </label>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -457,6 +587,7 @@
             var editorChoiceFilterChecked;
             var allFilterChecked = true;
             var myCurrentLocation;
+            var geocoder;
             var map;
             var markers = [];
             var service;
@@ -499,13 +630,12 @@
                         date = getFormatedDate(date);
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {
-                            var location = eventsLocation[k] == null ? null : eventsLocation[k].location;
-                            var latlng = location == null ? null : eventsLocation[k].latlng;
+                            var address = eventsLocation[k] == null ? null : eventsLocation[k].address;
+
                             var event = {
                                 guid: k, title: v.title, banner_uri: v.banner_uri,
                                 date: date, message_text: v.message_text, link_value: v.link_value,
-                                label: v.labels, labels: setLabels(v.labels), location: location,
-                                latlng: latlng, distance: ""
+                                label: v.labels, labels: setLabels(v.labels), distance: "", address: address
                             };
                             allEvents.push(event);
                         }
@@ -750,8 +880,6 @@
                             i.appendChild(img);
                             span.appendChild(i);
                             li.appendChild(span);
-
-                            //img.src = "images/ic_editors_choice.png";
                         }
 
 
@@ -770,34 +898,6 @@
                         eventCard.appendChild(ul);
                     }
 
-                    /*var ul = document.createElement("ul");
-                    ul.setAttribute("class", "m_fb");
-                    var li = document.createElement("li");
-                    ul.appendChild(li);
-                    var span = document.createElement("span");
-                    span.setAttribute("class", "m_22");
-                    var a = document.createElement("a");
-                    img = document.createElement("img");
-                    img.src = "images/fb.png";
-                    li.appendChild(span);
-                    span.appendChild(a);
-                    a.appendChild(img);
-                    span = document.createElement("span");
-                    span.setAttribute("class", "middle");
-                    span.innerHTML = v.full_date;
-                    li.appendChild(span);
-                    span = document.createElement("span");
-                    span.setAttribute("class", "m_23");
-                    a = document.createElement("a");
-                    img = document.createElement("img");
-                    img.src = "images/heart.png";
-                    li.appendChild(span);
-                    span.appendChild(a);
-                    a.appendChild(img);
-                    eventCard.appendChild(ul);
-                    var clear = document.createElement("div");
-                    clear.setAttribute("class", "clear");
-                    li.appendChild(clear);*/
                     var desc = document.createElement("div");
                     desc.setAttribute("class", "desc");
                     var h3 = document.createElement("h3");
@@ -814,18 +914,60 @@
                     desc.appendChild(h4);
                     desc.appendChild(h3);
                     desc.appendChild(p);
-                    if (event.location != null) {
-                        a = document.createElement("a");
-                        a.href = "#";
-                        a.innerHTML = "Show map";
-                        a.setAttribute("class", "mapLink");
-                        a.setAttribute("onclick", "showMap('" + event.location + "');return false;");
-                        desc.appendChild(a);
+                    if (event.address != null) {
                         p = p = document.createElement("p");
                         p.innerHTML = event.distance;
                         desc.appendChild(p);
                     }
                     eventCard.appendChild(desc);
+                    var hr = document.createElement("hr");
+                    hr.setAttribute("class", "hr");
+                    eventCard.appendChild(hr);
+                    div = document.createElement("div");
+                    div.setAttribute("class", "section group center");
+                    div.setAttribute("style", "padding: 0% 0% 2% 3%");
+
+                    var label = document.createElement("label");
+                    label.setAttribute("class", "btn myBtn popup");
+                    label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("onclick", "openSharePopup(this.children[1])");
+                    img = document.createElement("img");
+                    img.src = "images/share.png";
+                    img.setAttribute("class", "img-thumbnail");
+                    img.setAttribute("style", "border:0;opacity: 0.5");
+                    span = document.createElement("span");
+                    span.setAttribute("class", "popuptext");
+                    a = document.createElement("a");
+                    a.setAttribute("class", "fa fa-twitter");
+                    a.setAttribute("href", "https://twitter.com/intent/tweet?text=" + event.title + " : " + event.link_value);
+                    a.setAttribute("target", "_blank");
+                    span.appendChild(a);
+                    a = document.createElement("a");
+                    a.setAttribute("class", "fa fa-facebook");
+                    a.setAttribute("href", "https://www.facebook.com/sharer/sharer.php?u=" + event.link_value);
+                    a.setAttribute("target", "_blank");
+                    span.appendChild(a);
+                    a = document.createElement("a");
+                    a.setAttribute("class", "fa fa-whatsapp");
+                    a.setAttribute("href", "https://api.whatsapp.com/send?text=" + event.link_value);
+                    a.setAttribute("target", "_blank");
+                    span.appendChild(a);
+                    label.appendChild(img);
+                    label.appendChild(span);
+                    div.appendChild(label);
+                    if (event.address != null) {
+                        label = document.createElement("label");
+                        label.setAttribute("class", "btn myBtn");
+                        label.setAttribute("style", "margin-right: 10px");
+                        label.setAttribute("onclick", "showMap('" + event.address + "');return false;");
+                        img = document.createElement("img");
+                        img.src = "images/map.png";
+                        img.setAttribute("class", "img-thumbnail");
+                        img.setAttribute("style", "border:0;opacity: 0.5;");
+                        label.appendChild(img);
+                        div.appendChild(label);
+                    }
+                    eventCard.appendChild(div);
                     sectionGroup.appendChild(eventCard);
                     itemsCounter++;
                 });
@@ -907,17 +1049,14 @@
                 raw.appendChild(div);
                 wrap.appendChild(raw);
 
-                //initMap();
                 filterChanged();
-                //initMap();
-                //addMarkers();
             }
             function clearFilters() {
                 $("#searchinput").val('');
                 document.getElementById("calendar").value = "";
             }
-            function showMap(location) {
-                var src = "https://www.google.com/maps/embed?pb=" + location;
+            function showMap(address) {
+                var src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&q=" + address;
                 var googleMapsWindow = document.getElementById("googleMapsWindow");
                 googleMapsWindow.src = src;
                 $(modal).fadeIn(1000);
@@ -933,6 +1072,7 @@
             }
 
             function initMap() {
+                geocoder = new google.maps.Geocoder();
                 map = new google.maps.Map(mapDiv, {
                     center: { lat: 32.069396, lng: 34.7869129 },
                     zoom: 13.5
@@ -965,33 +1105,41 @@
                 var numberOfEvents = allEvents.length;
                 var destination
                 allEvents.forEach(event => {
-                    var latlng = (event.latlng == null) ? "," : event.latlng.split(",");
-                    destination = new google.maps.LatLng(parseFloat(latlng[0]), parseFloat(latlng[1]));
-                    service.getDistanceMatrix(
-                        {
-                            origins: [myCurrentLocation, destination],
-                            destinations: [myCurrentLocation, destination],
-                            travelMode: 'WALKING',
-                        }, function (response, status) {
-                            if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                                //There is a limit of 40 calls
-                            }
-                            else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[1].status != "ZERO_RESULTS") {
-                                var distance = response.rows[0].elements[1].distance.text;
-                                event.distance = distance;
-                            }
-                            counter++;
-                            if (counter == numberOfEvents) {
-                                createEvents(allEvents);
-                            }
-                        });
+                    if (event.address != null) {
+                        var address = event.address == null ? "" : event.address;
+                        service.getDistanceMatrix(
+                            {
+                                origins: [myCurrentLocation, address],
+                                destinations: [myCurrentLocation, address],
+                                travelMode: 'WALKING',
+                            }, function (response, status) {
+                                if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                                    //There is a limit of 40 calls
+                                }
+                                else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[1].status != "ZERO_RESULTS") {
+                                    var distance = response.rows[0].elements[1].distance.text;
+
+                                    event.distance = distance;
+                                }
+                                counter++;
+                                if (counter == numberOfEvents) {
+                                    createEvents(allEvents);
+                                }
+                            });
+                    }
+                    else {
+                        counter++;
+                        if (counter == numberOfEvents) {
+                            createEvents(allEvents);
+                        }
+                    }
                 });
             }
 
             function addMarkers() {
                 filteredEvents.forEach(event => {
-                    if (event.location != null) {
-                        var latlng = event.latlng.split(",");
+                    if (event.address != null) {
+                        /*var latlng = event.latlng.split(",");
                         var marker = new google.maps.Marker({
                             position: { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) },
                             map: map,
@@ -1000,137 +1148,199 @@
                             animation: google.maps.Animation.DROP,
                             draggable: false,
                             event: event
-                        });
-                        google.maps.event.addListener(marker, 'click', function () {
-                            var event = marker.event;
+                        });*/
 
-                            var sectionGroup = document.createElement("div");
-                            sectionGroup.setAttribute("calss", "section group");
+                        geocoder.geocode({ 'address': event.address }, function (results, status) {
+                            if (status == 'OK') {
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location,
+                                    title: event.title,
+                                    icon: 'images/pin.png',
+                                    animation: google.maps.Animation.DROP,
+                                    draggable: false,
+                                    event: event
+                                });
 
-                            var eventCard = document.createElement("div");
-                            eventCard.setAttribute("class", "col_1_of_3");
-                            eventCard.setAttribute("style", "background:white");
-                            var div = document.createElement("div");
-                            div.setAttribute("class", "eventGUID");
-                            div.innerHTML = event.guid;
-                            eventCard.appendChild(div);
-                            var img = document.createElement("img");
-                            img.src = event.banner_uri;
-                            var a = document.createElement("a");
-                            a.href = event.link_value;
-                            a.target = "_blank";
-                            a.appendChild(img)
-                            eventCard.appendChild(a);
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    var event = marker.event;
 
-                            if (event.label != 0) {
-                                var ul = document.createElement("ul");
-                                ul.setAttribute("class", "m_fb");
-                                var li = document.createElement("li");
+                                    var sectionGroup = document.createElement("div");
+                                    sectionGroup.setAttribute("calss", "section group");
 
-                                var span = document.createElement("span");
-                                span.setAttribute("class", "m_23");
-                                var i = document.createElement("i");
-                                var img = document.createElement("img");
-                                img.width = "30";
-                                i.appendChild(img);
-                                span.appendChild(i);
-                                li.appendChild(span);
-                                if (event.label == 1) {
-                                    img.src = "images/food.png";
-                                }
-                                else if (event.label == 2) {
-                                    img.src = "images/hq.png";
-                                }
-                                else if (event.label == 3) {
-                                    img.src = "images/hq.png";
-                                    li.appendChild(span);
+                                    var eventCard = document.createElement("div");
+                                    eventCard.setAttribute("class", "col_1_of_3");
+                                    eventCard.setAttribute("style", "background:white");
+                                    var div = document.createElement("div");
+                                    div.setAttribute("class", "eventGUID");
+                                    div.innerHTML = event.guid;
+                                    eventCard.appendChild(div);
+                                    var img = document.createElement("img");
+                                    img.src = event.banner_uri;
+                                    var a = document.createElement("a");
+                                    a.href = event.link_value;
+                                    a.target = "_blank";
+                                    a.appendChild(img)
+                                    eventCard.appendChild(a);
 
-                                    span = document.createElement("span");
-                                    span.setAttribute("class", "m_23");
-                                    i = document.createElement("i");
+                                    if (event.label != 0) {
+                                        var ul = document.createElement("ul");
+                                        ul.setAttribute("class", "m_fb");
+                                        var li = document.createElement("li");
+
+                                        var span = document.createElement("span");
+                                        span.setAttribute("class", "m_23");
+                                        var i = document.createElement("i");
+                                        var img = document.createElement("img");
+                                        img.width = "30";
+                                        i.appendChild(img);
+                                        span.appendChild(i);
+                                        li.appendChild(span);
+                                        if (event.label == 1) {
+                                            img.src = "images/food.png";
+                                        }
+                                        else if (event.label == 2) {
+                                            img.src = "images/hq.png";
+                                        }
+                                        else if (event.label == 3) {
+                                            img.src = "images/hq.png";
+                                            li.appendChild(span);
+
+                                            span = document.createElement("span");
+                                            span.setAttribute("class", "m_23");
+                                            i = document.createElement("i");
+                                            img = document.createElement("img");
+                                            img.src = "images/food.png";
+                                            img.width = "30";
+                                            i.appendChild(img);
+                                            span.appendChild(i);
+                                            li.appendChild(span);
+                                        }
+                                        else if (event.label == 4) {
+                                            img.src = "images/ic_90_percent_discount.png";
+                                        }
+                                        else if (event.label == 10) {
+                                            img.src = "images/hq.png";
+                                            li.appendChild(span);
+
+                                            span = document.createElement("span");
+                                            span.setAttribute("class", "m_23");
+                                            i = document.createElement("i");
+                                            img = document.createElement("img");
+                                            img.src = "images/ic_editors_choice.png";
+                                            img.width = "30";
+                                            i.appendChild(img);
+                                            span.appendChild(i);
+                                            li.appendChild(span);
+                                        }
+                                        else if (event.label == 11) {
+                                            img.src = "images/ic_editors_choice.png";
+                                        }
+
+
+                                        span = document.createElement("span");
+                                        span.setAttribute("class", "m_22 favorite");
+                                        var div = document.createElement("div");
+                                        if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
+                                            div.setAttribute("class", "star glyphicon glyphicon-star");
+                                        }
+                                        else {
+                                            div.setAttribute("class", "star glyphicon glyphicon-star-empty");
+                                        }
+                                        span.appendChild(div);
+                                        li.appendChild(span);
+                                        ul.appendChild(li);
+                                        eventCard.appendChild(ul);
+                                    }
+                                    var desc = document.createElement("div");
+                                    desc.setAttribute("class", "desc");
+                                    var h3 = document.createElement("h3");
+                                    a = document.createElement("a");
+                                    a.href = event.link_value;
+                                    a.target = "_blank";
+                                    a.innerHTML = event.title;
+                                    var p = document.createElement("p");
+                                    p.innerHTML = event.message_text;
+                                    h3.appendChild(a);
+                                    var h4 = document.createElement("h4");
+                                    h4.setAttribute("class", "m_2");
+                                    h4.innerHTML = event.date;
+                                    desc.appendChild(h4);
+                                    desc.appendChild(h3);
+                                    desc.appendChild(p);
+                                    if (event.address != null) {
+                                        p = p = document.createElement("p");
+                                        p.innerHTML = event.distance;
+                                        desc.appendChild(p);
+                                    }
+                                    eventCard.appendChild(desc);
+
+                                    var hr = document.createElement("hr");
+                                    hr.setAttribute("class", "hr");
+                                    eventCard.appendChild(hr);
+                                    div = document.createElement("div");
+                                    div.setAttribute("class", "section group center");
+                                    div.setAttribute("style", "padding: 0% 0% 2% 3%");
+                                    var label = document.createElement("label");
+                                    label.setAttribute("class", "btn myBtn popup");
+                                    label.setAttribute("style", "margin-right: 10px");
+                                    label.setAttribute("onclick", "openSharePopup(this.children[1])");
                                     img = document.createElement("img");
-                                    img.src = "images/food.png";
-                                    img.width = "30";
-                                    i.appendChild(img);
-                                    span.appendChild(i);
-                                    li.appendChild(span);
-                                }
-                                else if (event.label == 4) {
-                                    img.src = "images/ic_90_percent_discount.png";
-                                }
-                                else if (event.label == 10) {
-                                    img.src = "images/hq.png";
-                                    li.appendChild(span);
-
+                                    img.src = "images/share.png";
+                                    img.setAttribute("class", "img-thumbnail");
+                                    img.setAttribute("style", "border:0;opacity: 0.5");
                                     span = document.createElement("span");
-                                    span.setAttribute("class", "m_23");
-                                    i = document.createElement("i");
-                                    img = document.createElement("img");
-                                    img.src = "images/ic_editors_choice.png";
-                                    img.width = "30";
-                                    i.appendChild(img);
-                                    span.appendChild(i);
-                                    li.appendChild(span);
-                                }
-                                else if (event.label == 11) {
-                                    img.src = "images/ic_editors_choice.png";
-                                }
+                                    span.setAttribute("class", "popuptext");
+                                    a = document.createElement("a");
+                                    a.setAttribute("class", "fa fa-twitter");
+                                    a.setAttribute("href", "https://twitter.com/intent/tweet?text=" + event.title + " : " + event.link_value);
+                                    a.setAttribute("target", "_blank");
+                                    span.appendChild(a);
+                                    a = document.createElement("a");
+                                    a.setAttribute("class", "fa fa-facebook");
+                                    a.setAttribute("href", "https://www.facebook.com/sharer/sharer.php?u=" + event.link_value);
+                                    a.setAttribute("target", "_blank");
+                                    span.appendChild(a);
+                                    a = document.createElement("a");
+                                    a.setAttribute("class", "fa fa-whatsapp");
+                                    a.setAttribute("href", "https://api.whatsapp.com/send?text=" + event.link_value);
+                                    a.setAttribute("target", "_blank");
+                                    span.appendChild(a);
+                                    label.appendChild(img);
+                                    label.appendChild(span);
+                                    div.appendChild(label);
+                                    if (event.address != null) {
+                                        label = document.createElement("label");
+                                        label.setAttribute("class", "btn myBtn");
+                                        label.setAttribute("style", "margin-right: 10px");
+                                        label.setAttribute("onclick", "showMap('" + event.address + "');return false;");
+                                        img = document.createElement("img");
+                                        img.src = "images/map.png";
+                                        img.setAttribute("class", "img-thumbnail");
+                                        img.setAttribute("style", "border:0;opacity: 0.5;");
+                                        label.appendChild(img);
+                                        div.appendChild(label);
+                                    }
+                                    eventCard.appendChild(div);
 
+                                    sectionGroup.appendChild(eventCard);
 
-                                span = document.createElement("span");
-                                span.setAttribute("class", "m_22 favorite");
-                                var div = document.createElement("div");
-                                if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
-                                    div.setAttribute("class", "star glyphicon glyphicon-star");
-                                }
-                                else {
-                                    div.setAttribute("class", "star glyphicon glyphicon-star-empty");
-                                }
-                                span.appendChild(div);
-                                li.appendChild(span);
-                                ul.appendChild(li);
-                                eventCard.appendChild(ul);
+                                    var div = document.getElementById("selectedPinEvent");
+                                    div.innerHTML = "";
+                                    div.appendChild(sectionGroup);
+                                    favoriteClicked();
+
+                                    $('html, body').animate({
+                                        scrollTop: $("#selectedPinEvent").offset().top
+                                    }, 500);
+                                });
+                                markers.push(marker);
+                            } else {
+                                console.log('Geocode was not successful for the following reason: ' + status);
                             }
-                            var desc = document.createElement("div");
-                            desc.setAttribute("class", "desc");
-                            var h3 = document.createElement("h3");
-                            a = document.createElement("a");
-                            a.href = event.link_value;
-                            a.target = "_blank";
-                            a.innerHTML = event.title;
-                            var p = document.createElement("p");
-                            p.innerHTML = event.message_text;
-                            h3.appendChild(a);
-                            var h4 = document.createElement("h4");
-                            h4.setAttribute("class", "m_2");
-                            h4.innerHTML = event.date;
-                            desc.appendChild(h4);
-                            desc.appendChild(h3);
-                            desc.appendChild(p);
-                            if (event.location != null) {
-                                a = document.createElement("a");
-                                a.href = "#";
-                                a.innerHTML = "Show map";
-                                a.setAttribute("class", "mapLink");
-                                a.setAttribute("onclick", "showMap('" + event.location + "');return false;");
-                                desc.appendChild(a);
-                                p = p = document.createElement("p");
-                                p.innerHTML = event.distance;
-                                desc.appendChild(p);
-                            }
-                            eventCard.appendChild(desc);
-                            sectionGroup.appendChild(eventCard);
-
-                            var div = document.getElementById("selectedPinEvent");
-                            div.innerHTML = "";
-                            div.appendChild(sectionGroup);
-                            favoriteClicked();
-
-                            $('html, body').animate({
-                                scrollTop: $("#selectedPinEvent").offset().top
-                            }, 500);
                         });
-                        markers.push(marker);
+
+
                     }
                 });
             }
@@ -1237,6 +1447,16 @@
             $(window).resize(function () {
                 setDisplayMode();
             });
+            function tweetCurrentPage() {
+                var url = "http://google.com";
+                var text = "Replace this with your text";
+                window.open("https://twitter.com/share?url=" + encodeURIComponent(url) + "&text=" + encodeURIComponent(text), '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'); return false;
+            }
+
+            // When the user clicks on div, open the popup
+            function openSharePopup(sharePopup) {
+                sharePopup.classList.toggle("show");
+            }
             function setDisplayMode() {
                 var formGroup = document.getElementsByClassName('form-group row')[0];
                 if ($(window).width() < 500) {
@@ -1245,7 +1465,6 @@
                         var panelBody = document.getElementsByClassName('panel-body')[0];
                         panelBody.appendChild(formGroup);
                         $('#accordion').css("display", "block");
-                        debugger;
                     }
                 }
                 else {
@@ -1254,7 +1473,6 @@
                         var contentBox = document.getElementsByClassName('content-box-right')[0];
                         contentBox.appendChild(formGroup);
                         $('#accordion').css("display", "none");
-                        debugger;
                     }
                 }
             }

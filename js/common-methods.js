@@ -20,7 +20,7 @@ function createEventLocationList() {
     eventsLocation["-LG-KCYalkujkffNPP4y"] = { address: "MindSpace, Tel Aviv, il" };
     eventsLocation["-LFGfKWYxM8DERN51nPj"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LG-K0LQDL4phUA9fhSk"] = { address: "17 Osvaldo Aranha Street, Tel Aviv" };
-
+    eventsLocation["-LG-Jqxq-rHNhy5mmvYA"] = { address: "ספריית בית אריאלה, שדרות שאול המלך, תל אביב יפו" };
 
 
 

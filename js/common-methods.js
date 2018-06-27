@@ -24,7 +24,30 @@ function createEventLocationList() {
     eventsLocation["-LFpf9mIugGNpHvI1noE"] = { address: "dizzy frishdon דיזנגוף תל אביב יפו" };
     eventsLocation["-LFMXITXtq7ro-lS7yKr"] = { address: "HaYarkon Street 99, Tel Aviv-Yafo" };
     eventsLocation["-LExjglShhcG8SsAAP6N"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LFCCKNxcKVunFTfFTd0"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LFMX2QseposSpz-4_gQ"] = { address: "אחוזת בית 2, תל אביב יפו" };
+    eventsLocation["-LFaqjhPvSlvYLqF1of7"] = { address: "dizzy frishdon דיזנגוף תל אביב יפו" };
+    eventsLocation["-LFGfA0DkuyTXKwuskUo"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LG-JYgbk8OLVgQoum7W"] = { address: "Tailor Made, אלנבי, תל אביב יפו" };
+    eventsLocation["-LG-Jg7kTcARC2xKozGT"] = { address: "Nahalat Binyamin 52, Tel Aviv, Israel" };
+    eventsLocation["-LEONgi_M67Q_kOS62o3"] = { address: "Dvora HaNevi'a Street 121, תל אביב יפו" };
+    eventsLocation["-LG-JCPK35N-eYS1p6iI"] = { address: "Jaffa Port, תל אביב יפו" };
+    eventsLocation["-LEONronsGashM2ClIM5"] = { address: "Idelson St 29, Tel Aviv-Yafo, Israel" };
+    eventsLocation["-LFRFE1ORlSC2y0SVQ-9"] = { address: "כיכר ביאליק, ביאליק, תל אביב יפו, Tel Aviv, Israel" };
+    eventsLocation["-LFRBPNoK0lQcHoCtRs_"] = { address: "גבעון, תל אביב יפו" };
+    eventsLocation["-LFRBBxESc7UbE2HpNGA"] = { address: "גן הפסגה, תל אביב יפו" };
+    eventsLocation["-LFRBdrVp9C2VwAM_5T5"] = { address: "כיכר הבימה, תל אביב יפו" };
+    eventsLocation["-LFRBsdnxfcRRUpxY3Ef"] = { address: "מרכז סוזן דלל למחול ולתיאטרון, יחיאלי, תל אביב יפו" };
+    eventsLocation["-LEsTmP4lf7yjRixAINf"] = { address: "אחד העם 54, תל אביב יפו" };
+    eventsLocation["-LFRCQGxxQCI2fGogqbi"] = { address: "מרכז ביכורי העתים, לינקולן, תל אביב יפו" };
+    eventsLocation["-LFRCdEdyPz378DNLZ06"] = { address: "צייטלין 22, תל-אביב יפו" };
+    eventsLocation["-LFRCrjWfkouWa_HeoWk"] = { address: "אחוזת בית 2, תל-אביב יפו" };
+    eventsLocation["-LFRD7sskLzY3jQlT3NI"] = { address: "גן העצמאות, הירקון, תל אביב יפו" };
+    eventsLocation["-LFRC53gYi5HfxCnZbit"] = { address: "תאטרון תמונע, שונצינו, תל אביב יפו" };
+    eventsLocation["-LFRDkCqPOBlQDi1kq8V"] = { address: "גן מאיר, תל אביב יפו" };
+    eventsLocation["-LFRE0V0xZ5CqM1aG71R"] = { address: "כיכר קדומים" };
+    
 
-
+    
     //eventsLocation[""] = { address: "" };
 }

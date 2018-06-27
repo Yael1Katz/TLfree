@@ -802,7 +802,7 @@
                     var a = document.createElement("a");
                     a.href = event.link_value;
                     a.target = "_blank";
-                    a.setAttribute("onclick", "return false;");
+                    a.setAttribute("rel", "no-refresh");
                     var img = document.createElement("img");
                     img.src = event.banner_uri;
                     a.appendChild(img)
@@ -906,7 +906,7 @@
                     a.href = event.link_value;
                     a.target = "_blank";
                     a.innerHTML = event.title;
-                    a.setAttribute("onclick", "return false;");
+                    a.setAttribute("rel", "no-refresh");
                     var p = document.createElement("p");
                     p.innerHTML = event.message_text;
                     h3.appendChild(a);
@@ -943,19 +943,19 @@
                     a.setAttribute("class", "fa fa-twitter");
                     a.setAttribute("href", "https://twitter.com/intent/tweet?text=" + event.title + " : " + event.link_value);
                     a.setAttribute("target", "_blank");
-                    a.setAttribute("onclick", "return false;");
+                    a.setAttribute("rel", "no-refresh");
                     span.appendChild(a);
                     a = document.createElement("a");
                     a.setAttribute("class", "fa fa-facebook");
                     a.setAttribute("href", "https://www.facebook.com/sharer/sharer.php?u=" + event.link_value);
                     a.setAttribute("target", "_blank");
-                    a.setAttribute("onclick", "return false;");
+                    a.setAttribute("rel", "no-refresh");
                     span.appendChild(a);
                     a = document.createElement("a");
                     a.setAttribute("class", "fa fa-whatsapp");
                     a.setAttribute("href", "https://api.whatsapp.com/send?text=" + event.link_value);
                     a.setAttribute("target", "_blank");
-                    a.setAttribute("onclick", "return false;");
+                    a.setAttribute("rel", "no-refresh");
                     span.appendChild(a);
                     label.appendChild(img);
                     label.appendChild(span);
@@ -1174,7 +1174,7 @@
                                     var a = document.createElement("a");
                                     a.href = event.link_value;
                                     a.target = "_blank";
-                                    a.setAttribute("onclick", "return false;");
+                                    a.setAttribute("rel", "no-refresh");
                                     a.appendChild(img)
                                     eventCard.appendChild(a);
 
@@ -1253,7 +1253,7 @@
                                     a = document.createElement("a");
                                     a.href = event.link_value;
                                     a.target = "_blank";
-                                    a.setAttribute("onclick", "return false;");
+                                    a.setAttribute("rel", "no-refresh");
                                     a.innerHTML = event.title;
                                     var p = document.createElement("p");
                                     p.innerHTML = event.message_text;
@@ -1291,19 +1291,19 @@
                                     a.setAttribute("class", "fa fa-twitter");
                                     a.setAttribute("href", "https://twitter.com/intent/tweet?text=" + event.title + " : " + event.link_value);
                                     a.setAttribute("target", "_blank");
-                                    a.setAttribute("onclick", "return false;");
+                                    a.setAttribute("rel", "no-refresh");
                                     span.appendChild(a);
                                     a = document.createElement("a");
                                     a.setAttribute("class", "fa fa-facebook");
                                     a.setAttribute("href", "https://www.facebook.com/sharer/sharer.php?u=" + event.link_value);
                                     a.setAttribute("target", "_blank");
-                                    a.setAttribute("onclick", "return false;");
+                                    a.setAttribute("rel", "no-refresh");
                                     span.appendChild(a);
                                     a = document.createElement("a");
                                     a.setAttribute("class", "fa fa-whatsapp");
                                     a.setAttribute("href", "https://api.whatsapp.com/send?text=" + event.link_value);
                                     a.setAttribute("target", "_blank");
-                                    a.setAttribute("onclick", "return false;");
+                                    a.setAttribute("rel", "no-refresh");
                                     span.appendChild(a);
                                     label.appendChild(img);
                                     label.appendChild(span);

@@ -590,6 +590,8 @@
             var geocoder;
             var map;
             var markers = [];
+            var timeouts = [];
+            var delay;
             var service;
             var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
@@ -716,6 +718,7 @@
                 return dayNumber + "-" + month + "-" + year;
             }
             function filterChanged() {
+                clearTimeouts();
                 var iconFilterSelected = false;
                 filteredEvents = [];
                 var searchTerm = document.getElementById("searchinput").value.toUpperCase();
@@ -1142,7 +1145,6 @@
                     }
                 });
             }
-            var delay;
             function addMarkers() {
                 delay = 0;
                 filteredEvents.forEach(event => {
@@ -1151,7 +1153,6 @@
                     }
                 });
             }
-
             var addMarker = function (event) {
                 geocoder.geocode({ 'address': event.address }, function (results, status) {
                     if (status == 'OK') {
@@ -1347,15 +1348,22 @@
                         markers.push(marker);
                     } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
                         delay += 10;
-                        setTimeout(function () {
+
+                        timeouts.push(setTimeout(function () {
                             addMarker(event);
-                        }, delay);
+                        }, delay));
                         console.log("OVER_QUERY_LIMIT");
                     }
                     else {
                         console.log("Geocode was not successful for the following reason: " + status);
                     }
                 });
+            }
+            function clearTimeouts() {
+                for (var i = 0; i < timeouts.length; i++) {
+                    clearTimeout(timeouts[i]);
+                }
+                timeouts = [];
             }
             function removeMarkers() {
                 //Loop through all the markers and remove

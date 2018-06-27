@@ -16,8 +16,10 @@ function createEventLocationList() {
     eventsLocation["-LFkjc_cAV8Eyk-chmgP"] = { address: "David Elazar 12, Tel Aviv-Yafo" };
     eventsLocation["-LExjrl2Zt13XcPLe7iJ"] = { address: "Ahad Haam 54, Tel Aviv, Floor 5, Tel Aviv-Yafo, il" };
     eventsLocation["-LFpfOWugzcXfer8NHSv"] = { address: "טיילור מייד, אלנבי, תל אביב יפו" };
-
-    
+    eventsLocation["-LEOOW31fTlt9XVGQl5c"] = { address: "dizzy frishdon דיזנגוף תל אביב יפו" };
+    eventsLocation[""] = { address: "" };
+    eventsLocation[""] = { address: "" };
+    eventsLocation[""] = { address: "" };
 
 
 

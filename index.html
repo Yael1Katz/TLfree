@@ -1087,7 +1087,6 @@
                             lng: position.coords.longitude
                         };
                         myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
-                        debugger;
                         service = new google.maps.DistanceMatrixService();
                         setDistancesFromCurrentLocation(allEvents);
                     }, function (error) {
@@ -1115,7 +1114,6 @@
                                 }
                                 else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
                                     try {
-                                        debugger;
                                         var distance = response.rows[0].elements[0].distance.text;
                                         event.distance = distance;
                                     }

@@ -1131,6 +1131,9 @@
                                         console.log("error " + err + ". Event guid : " + event.guid);
                                     }
                                 }
+                                else{
+                                    constole.log("Error while trying to get distance. Event guid : " + event.guid);
+                                }
                                 counter++;
                                 if (counter == numberOfEvents) {
                                     createEvents(allEvents);

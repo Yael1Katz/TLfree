@@ -53,7 +53,7 @@ function createEventLocationList() {
     eventsLocation["-LFaqAKddBHNGMg4Oz8z"] = { address: "104 Rothschild Boulevard, Tel Aviv" };
     eventsLocation["-LEsTX5ALg4PumiV4RWK"] = { address: "Azrieli Sarona Tower. 53rd floor, Tel Aviv, il" };
     eventsLocation["-LFkjLa5y_Zu-8GQ3QDr"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
-    
+    eventsLocation["-LFCD0r5d32WWiaIWbC2"] = { address: "אחוזת בית 2, תל אביב יפו" };
     
     //eventsLocation[""] = { address: "" };
 }

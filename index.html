@@ -591,7 +591,6 @@
             var map;
             var markers = [];
             var timeouts = [];
-            var delay;
             var service;
             var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
@@ -1131,7 +1130,7 @@
                                         console.log("error " + err + ". Event guid : " + event.guid);
                                     }
                                 }
-                                else{
+                                else {
                                     constole.log("Error while trying to get distance. Event guid : " + event.guid);
                                 }
                                 counter++;
@@ -1149,7 +1148,6 @@
                 });
             }
             function addMarkers() {
-                delay = 0;
                 filteredEvents.forEach(event => {
                     if (event.address != null) {
                         addMarker(event);
@@ -1349,12 +1347,11 @@
                         });
 
                         markers.push(marker);
-                    } else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                        delay += 10;
-
+                    }
+                    else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
                         timeouts.push(setTimeout(function () {
                             addMarker(event);
-                        }, delay));
+                        }, 1000));
                         console.log("OVER_QUERY_LIMIT");
                     }
                     else {

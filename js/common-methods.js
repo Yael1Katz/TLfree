@@ -46,8 +46,15 @@ function createEventLocationList() {
     eventsLocation["-LFRC53gYi5HfxCnZbit"] = { address: "תאטרון תמונע, שונצינו, תל אביב יפו" };
     eventsLocation["-LFRDkCqPOBlQDi1kq8V"] = { address: "גן מאיר, תל אביב יפו" };
     eventsLocation["-LFRE0V0xZ5CqM1aG71R"] = { address: "כיכר קדומים" };
-    
-
+    eventsLocation["-LFkj-pxkGUnCIJZkVCB"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LFGdTv6lj-0LClKeQ8q"] = { address: "מוזיאון תל אביב לאמנות, מתחם גולדה מאיר, שדרות שאול המלך, תל אביב יפו" };
+    eventsLocation["-LFREWLhFuFGwRjRv9Bn"] = { address: "התיאטרון הקאמרי" };
+    eventsLocation["-LFREj9P23v9WplIFZHe"] = { address: "איכילוב, ויצמן‬, תל אביב יפו" };
+    eventsLocation["-LFREzK5-hrcnhFTc2wZ"] = { address: "איכילוב, ויצמן‬, תל אביב יפו" };
+    eventsLocation["-LFaqAKddBHNGMg4Oz8z"] = { address: "104 Rothschild Boulevard, Tel Aviv" };
+    eventsLocation["-LEsTX5ALg4PumiV4RWK"] = { address: "Azrieli Sarona Tower. 53rd floor, Tel Aviv, il" };
+    eventsLocation["-LFkjLa5y_Zu-8GQ3QDr"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LFRDkCqPOBlQDi1kq8V"] = { address: "גן מאיר" };
     
     //eventsLocation[""] = { address: "" };
 }

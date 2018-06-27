@@ -965,6 +965,7 @@
                         label.setAttribute("class", "btn myBtn");
                         label.setAttribute("style", "margin-right: 10px");
                         label.setAttribute("onclick", "showMap('" + event.address + "');return false;");
+                        label.setAttribute("title", event.address);
                         img = document.createElement("img");
                         img.src = "images/map.png";
                         img.setAttribute("class", "img-thumbnail");
@@ -1313,6 +1314,7 @@
                                         label.setAttribute("class", "btn myBtn");
                                         label.setAttribute("style", "margin-right: 10px");
                                         label.setAttribute("onclick", "showMap('" + event.address + "');return false;");
+                                        label.setAttribute("title", event.address);
                                         img = document.createElement("img");
                                         img.src = "images/map.png";
                                         img.setAttribute("class", "img-thumbnail");

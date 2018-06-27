@@ -1086,9 +1086,8 @@
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
                         };
-
                         myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
-
+                        debugger;
                         service = new google.maps.DistanceMatrixService();
                         setDistancesFromCurrentLocation(allEvents);
                     }, function (error) {
@@ -1099,27 +1098,30 @@
 
                 }
             }
-
             function setDistancesFromCurrentLocation(allEvents) {
                 var counter = 0;
                 var numberOfEvents = allEvents.length;
-                var destination
                 allEvents.forEach(event => {
                     if (event.address != null) {
-                        var address = event.address == null ? "" : event.address;
+                        var address = event.address;
                         service.getDistanceMatrix(
                             {
-                                origins: [myCurrentLocation, address],
-                                destinations: [myCurrentLocation, address],
+                                origins: [myCurrentLocation],
+                                destinations: [address],
                                 travelMode: 'WALKING',
                             }, function (response, status) {
                                 if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
                                     //There is a limit of 40 calls
                                 }
-                                else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[1].status != "ZERO_RESULTS") {
-                                    var distance = response.rows[0].elements[1].distance.text;
-
-                                    event.distance = distance;
+                                else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
+                                    try {
+                                        debugger;
+                                        var distance = response.rows[0].elements[0].distance.text;
+                                        event.distance = distance;
+                                    }
+                                    catch (err) {
+                                        console.log("error " + err + ". Event guid : " + event.guid);
+                                    }
                                 }
                                 counter++;
                                 if (counter == numberOfEvents) {
@@ -1139,17 +1141,6 @@
             function addMarkers() {
                 filteredEvents.forEach(event => {
                     if (event.address != null) {
-                        /*var latlng = event.latlng.split(",");
-                        var marker = new google.maps.Marker({
-                            position: { lat: parseFloat(latlng[0]), lng: parseFloat(latlng[1]) },
-                            map: map,
-                            title: event.title,
-                            icon: 'images/pin.png',
-                            animation: google.maps.Animation.DROP,
-                            draggable: false,
-                            event: event
-                        });*/
-
                         geocoder.geocode({ 'address': event.address }, function (results, status) {
                             if (status == 'OK') {
                                 var marker = new google.maps.Marker({
@@ -1368,11 +1359,6 @@
                 });
             });
             //Google analytics
-            //window.dataLayer = window.dataLayer || [];
-            //function gtag() { dataLayer.push(arguments); }
-            //gtag('js', new Date());
-
-            //gtag('config', 'UA-120811908-1');
 
             window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
             ga('create', 'UA-120811908-1', 'auto');

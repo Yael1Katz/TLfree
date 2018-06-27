@@ -17,9 +17,9 @@ function createEventLocationList() {
     eventsLocation["-LExjrl2Zt13XcPLe7iJ"] = { address: "Ahad Haam 54, Tel Aviv, Floor 5, Tel Aviv-Yafo, il" };
     eventsLocation["-LFpfOWugzcXfer8NHSv"] = { address: "טיילור מייד, אלנבי, תל אביב יפו" };
     eventsLocation["-LEOOW31fTlt9XVGQl5c"] = { address: "dizzy frishdon דיזנגוף תל אביב יפו" };
-    eventsLocation[""] = { address: "" };
-    eventsLocation[""] = { address: "" };
-    eventsLocation[""] = { address: "" };
+    eventsLocation["-LG-KCYalkujkffNPP4y"] = { address: "MindSpace, Tel Aviv, il" };
+    eventsLocation["-LFGfKWYxM8DERN51nPj"] = { address: "Google Campus" };
+    eventsLocation["-LG-K0LQDL4phUA9fhSk"] = { address: "17 Osvaldo Aranha Street, Tel Aviv" };
 
 
 

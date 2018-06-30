@@ -1,6 +1,7 @@
 function createEventLocationList() {
     var eventsLocation = {};
 
+    eventsLocation["-LEETvIW5QjYSfPCa4pS"] = { address: "אחוזת בית 2, תל אביב יפו" };
     eventsLocation["-LFpf_y7DttCe0dkJxvE"] = { address: "Derech Menachem Begin 121, Tel Aviv-Yafo" };
     eventsLocation["-LFCDwyGEtHoZH_VwgLZ"] = { address: "Rothschild Blvd 22, Tel Aviv-Yafo" };
     eventsLocation["-LFGdu0__jw5eCZwUWkc"] = { address: "אחד העם 54, תל אביב יפו" };

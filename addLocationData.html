@@ -34,7 +34,7 @@
             var errorCode = error.code;
             var errorMessage = error.message;
         });
-        
+
         var ref = firebase.database().ref('db_tlfree');
 
         function run() {
@@ -42,24 +42,37 @@
                 geocoder = new google.maps.Geocoder();
                 var result = snapshot.val();
                 $.each(result, function (k, v) {
-                    if (eventsLocation[k] !== undefined) {
-                        var locationRef = ref.child(k).child("location");
-                        if (v.location === undefined) {
-                            console.log("location is undefined for : " + k);
-                            var obj = { location: { address: eventsLocation[k].address, latitude: 0, longtitude: 0 } };
-                            var guid = ref.child(k);
-                            guid.update(obj, function (error) {
-                                if (error) {
-                                    console.log(error);
-                                } else {
-                                    locationRef.once("value", function (snapshot) {
-                                        var address = snapshot.val().address;
-                                        addLatLng(locationRef, address);
-                                    });
+                    if (v.location === undefined) {
+                        console.log("location is undefined for : " + k);
+                        var obj = { location: { address: "", latitude: 0, longtitude: 0 } };
+                        var guid = ref.child(k);
+                        guid.update(obj, function (error) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                if (eventsLocation[k] !== undefined) {
+                                    var locationRef = ref.child(k).child("location");
+                                    addLatLng(locationRef, eventsLocation[k].address);
                                 }
-                            });
-                        }
-                        else if (v.location.address == "") {
+                            }
+                        });
+                    }
+                    else if (eventsLocation[k] !== undefined && v.location.address == "") {
+                        var locationRef = ref.child(k).child("location");
+                        var obj = { location: { address: eventsLocation[k].address, latitude: 0, longtitude: 0 } };
+                        var guid = ref.child(k);
+                        guid.update(obj, function (error) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                locationRef.once("value", function (snapshot) {
+                                    var address = snapshot.val().address;
+                                    addLatLng(locationRef, address);
+                                });
+                            }
+                        });
+
+                        /*else if (v.location.address == "") {
                             addLatLng(locationRef, eventsLocation[k].address);
                         }
                         else if (v.location.address != "" && v.location.latitude == 0) {
@@ -68,7 +81,10 @@
                         }
                         else {
                             console.log("no need to update event");
-                        }
+                        }*/
+                    }
+                    else {
+                        console.log("no need to update event");
                     }
                 });
             });

@@ -1,5 +1,5 @@
 function createEventLocationList() {
-    eventsLocation = {};
+    var eventsLocation = {};
 
     eventsLocation["-LFpf_y7DttCe0dkJxvE"] = { address: "Derech Menachem Begin 121, Tel Aviv-Yafo" };
     eventsLocation["-LFCDwyGEtHoZH_VwgLZ"] = { address: "Rothschild Blvd 22, Tel Aviv-Yafo" };

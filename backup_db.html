@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/common-methods.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&libraries=places"
+        type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
+
+
+    <script>
+
+        var config = {
+            apiKey: "AIzaSyDn2VWzzsZBK_q-VwEk0FksBW-z0MNE17Q",
+            authDomain: "tlfree-4b9bf.firebaseapp.com",
+            databaseURL: "https://tlfree-4b9bf.firebaseio.com",
+            projectId: "tlfree-4b9bf"
+        };
+
+        firebase.initializeApp(config);
+
+
+        firebase.auth().signInAnonymously().catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
+
+
+        var collections = ["db_test_yael", "db_tlfree_test", "db_tlfree_old", "db_tlfree"];
+        $.each(collections, function (index, value) {
+            var ref = firebase.database().ref(value);
+
+            ref.once("value", function (snapshot) {
+                debugger;
+                var today = new Date().toLocaleDateString();
+                download(JSON.stringify(snapshot.val()), value + "-" + today + '.json', 'text/plain');
+            });
+        });
+
+
+        function download(content, fileName, contentType) {
+            debugger;
+            var a = document.createElement("a");
+            var file = new Blob([content], { type: contentType });
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+        }
+    </script>
+</body>
+
+</html>

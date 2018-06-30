@@ -599,11 +599,9 @@
             var favoritesEventsGUIDs = [];
             var favoritesEvents = [];
             var filteredEvents = [];
-            var eventsLocation = {};
             var mapDiv = document.createElement("div");
             mapDiv.setAttribute("id", "map");
             setDisplayMode();
-            createEventLocationList();
             getAllEvents();
             var selectedTab = "eventsTab";
             function getAllEvents() {
@@ -624,20 +622,22 @@
                 });
                 var ref = firebase.database().ref('db_tlfree');
 
-                ref.on("value", function (snapshot) {
+                ref.once("value", function (snapshot) {
                     var result = snapshot.val();
                     $.each(result, function (k, v) {
                         var date = Date.parse(v.full_date).toDateString();
                         date = getFormatedDate(date);
                         var currentDate = getFormatedDate(new Date().toDateString());
                         if (new Date(currentDate) - new Date(date) <= 0) {
-                            var address = eventsLocation[k] == null ? null : eventsLocation[k].address;
-
                             var event = {
                                 guid: k, title: v.title, banner_uri: v.banner_uri,
                                 date: date, message_text: v.message_text, link_value: v.link_value,
-                                label: v.labels, labels: setLabels(v.labels), distance: "", address: address
+                                label: v.labels, labels: setLabels(v.labels), location: {
+                                    distance: "", address: v.location.address,
+                                    latitude: v.location.latitude, longtitude: v.location.longtitude
+                                }
                             };
+                            
                             allEvents.push(event);
                         }
                     });
@@ -677,8 +677,8 @@
             }
             function sortEventByDistance(events) {
                 events.sort(function (a, b) {
-                    var numA = isNaN(parseFloat(a.distance)) ? 1000 : parseFloat(a.distance);
-                    var numB = isNaN(parseFloat(b.distance)) ? 1000 : parseFloat(b.distance);
+                    var numA = isNaN(parseFloat(a.location.distance)) ? 1000 : parseFloat(a.location.distance);
+                    var numB = isNaN(parseFloat(b.location.distance)) ? 1000 : parseFloat(b.location.distance);
                     return numA - numB;
                 });
             }
@@ -918,9 +918,9 @@
                     desc.appendChild(h4);
                     desc.appendChild(h3);
                     desc.appendChild(p);
-                    if (event.address != null) {
+                    if (event.location.distance != "") {
                         p = p = document.createElement("p");
-                        p.innerHTML = event.distance;
+                        p.innerHTML = event.location.distance;
                         desc.appendChild(p);
                     }
                     eventCard.appendChild(desc);
@@ -962,12 +962,12 @@
                     label.appendChild(img);
                     label.appendChild(span);
                     div.appendChild(label);
-                    if (event.address != null) {
+                    if (event.location.address != "") {
                         label = document.createElement("label");
                         label.setAttribute("class", "btn myBtn");
                         label.setAttribute("style", "margin-right: 10px");
-                        label.setAttribute("onclick", "showMap('" + event.address + "');return false;");
-                        label.setAttribute("title", event.address);
+                        label.setAttribute("onclick", "showMap('" + event.location.address + "');return false;");
+                        label.setAttribute("title", event.location.address);
                         img = document.createElement("img");
                         img.src = "images/map.png";
                         img.setAttribute("class", "img-thumbnail");
@@ -1109,12 +1109,13 @@
                 var counter = 0;
                 var numberOfEvents = allEvents.length;
                 allEvents.forEach(event => {
-                    if (event.address != null) {
-                        var address = event.address;
+                    var address = event.location.address;
+                    if (address != "") {
+                        var destination = new google.maps.LatLng(event.location.latitude, event.location.longtitude);
                         service.getDistanceMatrix(
                             {
                                 origins: [myCurrentLocation],
-                                destinations: [address],
+                                destinations: [destination],
                                 travelMode: 'WALKING',
                             }, function (response, status) {
                                 if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
@@ -1124,17 +1125,18 @@
                                 else if (status == google.maps.GeocoderStatus.OK && response.rows[0].elements[0].status != "ZERO_RESULTS") {
                                     try {
                                         var distance = response.rows[0].elements[0].distance.text;
-                                        event.distance = distance;
+                                        event.location.distance = distance;
                                     }
                                     catch (err) {
                                         console.log("error " + err + ". Event guid : " + event.guid);
                                     }
                                 }
                                 else {
-                                    constole.log("Error while trying to get distance. Event guid : " + event.guid);
+                                    console.log("Error while trying to get distance. " + status + ". Event guid : " + event.guid);
                                 }
                                 counter++;
                                 if (counter == numberOfEvents) {
+                                    debugger;
                                     createEvents(allEvents);
                                 }
                             });
@@ -1142,6 +1144,7 @@
                     else {
                         counter++;
                         if (counter == numberOfEvents) {
+                            debugger;
                             createEvents(allEvents);
                         }
                     }
@@ -1149,17 +1152,17 @@
             }
             function addMarkers() {
                 filteredEvents.forEach(event => {
-                    if (event.address != null) {
+                    if (event.location.address != "") {
                         addMarker(event);
                     }
                 });
             }
             var addMarker = function (event) {
-                geocoder.geocode({ 'address': event.address }, function (results, status) {
-                    if (status == 'OK') {
+                //geocoder.geocode({ 'address': event.address }, function (results, status) {
+                    //if (status == 'OK') {
                         var marker = new google.maps.Marker({
                             map: map,
-                            position: results[0].geometry.location,
+                            position: new google.maps.LatLng(event.location.latitude, event.location.longtitude),
                             title: event.title,
                             icon: 'images/pin.png',
                             animation: google.maps.Animation.DROP,
@@ -1242,8 +1245,6 @@
                                 else if (event.label == 11) {
                                     img.src = "images/ic_editors_choice.png";
                                 }
-
-
                                 span = document.createElement("span");
                                 span.setAttribute("class", "m_22 favorite");
                                 var div = document.createElement("div");
@@ -1275,9 +1276,9 @@
                             desc.appendChild(h4);
                             desc.appendChild(h3);
                             desc.appendChild(p);
-                            if (event.address != null) {
+                            if (event.location.distance != "") {
                                 p = p = document.createElement("p");
-                                p.innerHTML = event.distance;
+                                p.innerHTML = event.location.distance;
                                 desc.appendChild(p);
                             }
                             eventCard.appendChild(desc);
@@ -1319,12 +1320,12 @@
                             label.appendChild(img);
                             label.appendChild(span);
                             div.appendChild(label);
-                            if (event.address != null) {
+                            if (event.location.address != "") {
                                 label = document.createElement("label");
                                 label.setAttribute("class", "btn myBtn");
                                 label.setAttribute("style", "margin-right: 10px");
-                                label.setAttribute("onclick", "showMap('" + event.address + "');return false;");
-                                label.setAttribute("title", event.address);
+                                label.setAttribute("onclick", "showMap('" + event.location.address + "');return false;");
+                                label.setAttribute("title", event.location.address);
                                 img = document.createElement("img");
                                 img.src = "images/map.png";
                                 img.setAttribute("class", "img-thumbnail");
@@ -1345,10 +1346,10 @@
                                 scrollTop: $("#selectedPinEvent").offset().top
                             }, 500);
                         });
-
+                        debugger;
                         markers.push(marker);
-                    }
-                    else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                    //}
+                    /*else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
                         timeouts.push(setTimeout(function () {
                             addMarker(event);
                         }, 1000));
@@ -1356,8 +1357,8 @@
                     }
                     else {
                         console.log("Geocode was not successful for the following reason: " + status);
-                    }
-                });
+                    }*/
+                //});
             }
             function clearTimeouts() {
                 for (var i = 0; i < timeouts.length; i++) {

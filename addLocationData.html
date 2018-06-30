@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/common-methods.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&libraries=places"
+        type="text/javascript"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <button onclick="run()">Submit</button>
+
+    <script>
+        var eventsLocation = createEventLocationList();
+        createEventLocationList();
+        var geocoder;
+        var config = {
+            apiKey: "AIzaSyDn2VWzzsZBK_q-VwEk0FksBW-z0MNE17Q",
+            authDomain: "tlfree-4b9bf.firebaseapp.com",
+            databaseURL: "https://tlfree-4b9bf.firebaseio.com",
+            projectId: "tlfree-4b9bf"
+        };
+
+        firebase.initializeApp(config);
+
+        firebase.auth().signInAnonymously().catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
+        
+        var ref = firebase.database().ref('db_tlfree');
+
+        function run() {
+            ref.once("value", function (snapshot) {
+                geocoder = new google.maps.Geocoder();
+                var result = snapshot.val();
+                $.each(result, function (k, v) {
+                    if (eventsLocation[k] !== undefined) {
+                        var locationRef = ref.child(k).child("location");
+                        if (v.location === undefined) {
+                            console.log("location is undefined for : " + k);
+                            var obj = { location: { address: eventsLocation[k].address, latitude: 0, longtitude: 0 } };
+                            var guid = ref.child(k);
+                            guid.update(obj, function (error) {
+                                if (error) {
+                                    console.log(error);
+                                } else {
+                                    locationRef.once("value", function (snapshot) {
+                                        var address = snapshot.val().address;
+                                        addLatLng(locationRef, address);
+                                    });
+                                }
+                            });
+                        }
+                        else if (v.location.address == "") {
+                            addLatLng(locationRef, eventsLocation[k].address);
+                        }
+                        else if (v.location.address != "" && v.location.latitude == 0) {
+                            console.log("there is address but no coordinates");
+                            addLatLng(locationRef, v.location.address);
+                        }
+                        else {
+                            console.log("no need to update event");
+                        }
+                    }
+                });
+            });
+            var addLatLng = function (locationRef, address) {
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        var latlng = results[0].geometry.location;
+                        var obj = { address: address, latitude: latlng.lat(), longtitude: latlng.lng() };
+                        locationRef.update(obj, function (error) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                // Data saved successfully!
+                            }
+                        });
+                    }
+                    else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                        console.log("OVER_QUERY_LIMIT");
+                        setTimeout(function () {
+                            addLatLng(locationRef, address);
+                        }, 1000);
+                    }
+                    else {
+                        console.log("error.. status : " + status);
+                    }
+                });
+            }
+        }
+
+    </script>
+</body>
+
+</html>

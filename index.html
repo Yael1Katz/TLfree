@@ -614,41 +614,52 @@
                 };
 
                 firebase.initializeApp(config);
-
                 firebase.auth().signInAnonymously().catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
                 });
-                var ref = firebase.database().ref('db_tlfree');
 
-                ref.once("value", function (snapshot) {
-                    var result = snapshot.val();
-                    $.each(result, function (k, v) {
-                        var date = Date.parse(v.full_date).toDateString();
-                        date = getFormatedDate(date);
-                        var currentDate = getFormatedDate(new Date().toDateString());
-                        if (new Date(currentDate) - new Date(date) <= 0) {
-                            var event = {
-                                guid: k, title: v.title, banner_uri: v.banner_uri,
-                                date: date, message_text: v.message_text, link_value: v.link_value,
-                                label: v.labels, labels: setLabels(v.labels), location: {
-                                    distance: "", address: v.location.address,
-                                    latitude: v.location.latitude, longtitude: v.location.longtitude
-                                }
-                            };
-                            
-                            allEvents.push(event);
-                        }
-                    });
-                    sortEvents(allEvents);
-                    initFavorites();
-                    initFilteredEvents();
-                    setCurrentLocation();
-                }, function (error) {
-                    console.log("Error: " + error.code);
-                });
+
             }
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    // User is signed in.
+                    var ref = firebase.database().ref('db_tlfree');
+
+                    ref.once("value", function (snapshot) {
+                        var result = snapshot.val();
+                        $.each(result, function (k, v) {
+                            var date = Date.parse(v.full_date).toDateString();
+                            date = getFormatedDate(date);
+                            var currentDate = getFormatedDate(new Date().toDateString());
+                            if (new Date(currentDate) - new Date(date) <= 0) {
+                                var event = {
+                                    guid: k, title: v.title, banner_uri: v.banner_uri,
+                                    date: date, message_text: v.message_text, link_value: v.link_value,
+                                    label: v.labels, labels: setLabels(v.labels), location: {
+                                        distance: "", address: v.location.address,
+                                        latitude: v.location.latitude, longtitude: v.location.longtitude
+                                    }
+                                };
+
+                                allEvents.push(event);
+                            }
+                        });
+                        sortEvents(allEvents);
+                        initFavorites();
+                        initFilteredEvents();
+                        setCurrentLocation();
+                    }, function (error) {
+                        console.log("Error: " + error.code);
+                    });
+
+                } else {
+                    // User is signed out.
+                    // ...
+                }
+                // ...
+            });
             function sortChanged(option) {
                 selectedSort = $(option).find("option:selected").text();
                 if (selectedSort == "Distance") {
@@ -1136,7 +1147,6 @@
                                 }
                                 counter++;
                                 if (counter == numberOfEvents) {
-                                    debugger;
                                     createEvents(allEvents);
                                 }
                             });
@@ -1144,7 +1154,6 @@
                     else {
                         counter++;
                         if (counter == numberOfEvents) {
-                            debugger;
                             createEvents(allEvents);
                         }
                     }
@@ -1159,205 +1168,205 @@
             }
             var addMarker = function (event) {
                 //geocoder.geocode({ 'address': event.address }, function (results, status) {
-                    //if (status == 'OK') {
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            position: new google.maps.LatLng(event.location.latitude, event.location.longtitude),
-                            title: event.title,
-                            icon: 'images/pin.png',
-                            animation: google.maps.Animation.DROP,
-                            draggable: false,
-                            event: event
-                        });
+                //if (status == 'OK') {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(event.location.latitude, event.location.longtitude),
+                    title: event.title,
+                    icon: 'images/pin.png',
+                    animation: google.maps.Animation.DROP,
+                    draggable: false,
+                    event: event
+                });
 
-                        google.maps.event.addListener(marker, 'click', function () {
-                            var event = marker.event;
+                google.maps.event.addListener(marker, 'click', function () {
+                    var event = marker.event;
 
-                            var sectionGroup = document.createElement("div");
-                            sectionGroup.setAttribute("calss", "section group");
+                    var sectionGroup = document.createElement("div");
+                    sectionGroup.setAttribute("calss", "section group");
 
-                            var eventCard = document.createElement("div");
-                            eventCard.setAttribute("class", "col_1_of_3");
-                            eventCard.setAttribute("style", "background:white");
-                            var div = document.createElement("div");
-                            div.setAttribute("class", "eventGUID");
-                            div.innerHTML = event.guid;
-                            eventCard.appendChild(div);
-                            var img = document.createElement("img");
-                            img.src = event.banner_uri;
-                            var a = document.createElement("a");
-                            a.href = event.link_value;
-                            a.target = "_blank";
-                            a.setAttribute("rel", "no-refresh");
-                            a.appendChild(img)
-                            eventCard.appendChild(a);
+                    var eventCard = document.createElement("div");
+                    eventCard.setAttribute("class", "col_1_of_3");
+                    eventCard.setAttribute("style", "background:white");
+                    var div = document.createElement("div");
+                    div.setAttribute("class", "eventGUID");
+                    div.innerHTML = event.guid;
+                    eventCard.appendChild(div);
+                    var img = document.createElement("img");
+                    img.src = event.banner_uri;
+                    var a = document.createElement("a");
+                    a.href = event.link_value;
+                    a.target = "_blank";
+                    a.setAttribute("rel", "no-refresh");
+                    a.appendChild(img)
+                    eventCard.appendChild(a);
 
-                            if (event.label != 0) {
-                                var ul = document.createElement("ul");
-                                ul.setAttribute("class", "m_fb");
-                                var li = document.createElement("li");
+                    if (event.label != 0) {
+                        var ul = document.createElement("ul");
+                        ul.setAttribute("class", "m_fb");
+                        var li = document.createElement("li");
 
-                                var span = document.createElement("span");
-                                span.setAttribute("class", "m_23");
-                                var i = document.createElement("i");
-                                var img = document.createElement("img");
-                                img.width = "30";
-                                i.appendChild(img);
-                                span.appendChild(i);
-                                li.appendChild(span);
-                                if (event.label == 1) {
-                                    img.src = "images/food.png";
-                                }
-                                else if (event.label == 2) {
-                                    img.src = "images/hq.png";
-                                }
-                                else if (event.label == 3) {
-                                    img.src = "images/hq.png";
-                                    li.appendChild(span);
+                        var span = document.createElement("span");
+                        span.setAttribute("class", "m_23");
+                        var i = document.createElement("i");
+                        var img = document.createElement("img");
+                        img.width = "30";
+                        i.appendChild(img);
+                        span.appendChild(i);
+                        li.appendChild(span);
+                        if (event.label == 1) {
+                            img.src = "images/food.png";
+                        }
+                        else if (event.label == 2) {
+                            img.src = "images/hq.png";
+                        }
+                        else if (event.label == 3) {
+                            img.src = "images/hq.png";
+                            li.appendChild(span);
 
-                                    span = document.createElement("span");
-                                    span.setAttribute("class", "m_23");
-                                    i = document.createElement("i");
-                                    img = document.createElement("img");
-                                    img.src = "images/food.png";
-                                    img.width = "30";
-                                    i.appendChild(img);
-                                    span.appendChild(i);
-                                    li.appendChild(span);
-                                }
-                                else if (event.label == 4) {
-                                    img.src = "images/ic_90_percent_discount.png";
-                                }
-                                else if (event.label == 10) {
-                                    img.src = "images/hq.png";
-                                    li.appendChild(span);
-
-                                    span = document.createElement("span");
-                                    span.setAttribute("class", "m_23");
-                                    i = document.createElement("i");
-                                    img = document.createElement("img");
-                                    img.src = "images/ic_editors_choice.png";
-                                    img.width = "30";
-                                    i.appendChild(img);
-                                    span.appendChild(i);
-                                    li.appendChild(span);
-                                }
-                                else if (event.label == 11) {
-                                    img.src = "images/ic_editors_choice.png";
-                                }
-                                span = document.createElement("span");
-                                span.setAttribute("class", "m_22 favorite");
-                                var div = document.createElement("div");
-                                if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
-                                    div.setAttribute("class", "star glyphicon glyphicon-star");
-                                }
-                                else {
-                                    div.setAttribute("class", "star glyphicon glyphicon-star-empty");
-                                }
-                                span.appendChild(div);
-                                li.appendChild(span);
-                                ul.appendChild(li);
-                                eventCard.appendChild(ul);
-                            }
-                            var desc = document.createElement("div");
-                            desc.setAttribute("class", "desc");
-                            var h3 = document.createElement("h3");
-                            a = document.createElement("a");
-                            a.href = event.link_value;
-                            a.target = "_blank";
-                            a.setAttribute("rel", "no-refresh");
-                            a.innerHTML = event.title;
-                            var p = document.createElement("p");
-                            p.innerHTML = event.message_text;
-                            h3.appendChild(a);
-                            var h4 = document.createElement("h4");
-                            h4.setAttribute("class", "m_2");
-                            h4.innerHTML = event.date;
-                            desc.appendChild(h4);
-                            desc.appendChild(h3);
-                            desc.appendChild(p);
-                            if (event.location.distance != "") {
-                                p = p = document.createElement("p");
-                                p.innerHTML = event.location.distance;
-                                desc.appendChild(p);
-                            }
-                            eventCard.appendChild(desc);
-
-                            var hr = document.createElement("hr");
-                            hr.setAttribute("class", "hr");
-                            eventCard.appendChild(hr);
-                            div = document.createElement("div");
-                            div.setAttribute("class", "section group center");
-                            div.setAttribute("style", "padding: 0% 0% 2% 3%");
-                            var label = document.createElement("label");
-                            label.setAttribute("class", "btn myBtn popup");
-                            label.setAttribute("style", "margin-right: 10px");
-                            label.setAttribute("onclick", "openSharePopup(this.children[1])");
-                            img = document.createElement("img");
-                            img.src = "images/share.png";
-                            img.setAttribute("class", "img-thumbnail");
-                            img.setAttribute("style", "border:0;opacity: 0.5");
                             span = document.createElement("span");
-                            span.setAttribute("class", "popuptext");
-                            a = document.createElement("a");
-                            a.setAttribute("class", "fa fa-twitter");
-                            a.setAttribute("href", "https://twitter.com/intent/tweet?text=" + event.title + " : " + event.link_value);
-                            a.setAttribute("target", "_blank");
-                            a.setAttribute("rel", "no-refresh");
-                            span.appendChild(a);
-                            a = document.createElement("a");
-                            a.setAttribute("class", "fa fa-facebook");
-                            a.setAttribute("href", "https://www.facebook.com/sharer/sharer.php?u=" + event.link_value);
-                            a.setAttribute("target", "_blank");
-                            a.setAttribute("rel", "no-refresh");
-                            span.appendChild(a);
-                            a = document.createElement("a");
-                            a.setAttribute("class", "fa fa-whatsapp");
-                            a.setAttribute("href", "https://api.whatsapp.com/send?text=" + event.link_value);
-                            a.setAttribute("target", "_blank");
-                            a.setAttribute("rel", "no-refresh");
-                            span.appendChild(a);
-                            label.appendChild(img);
-                            label.appendChild(span);
-                            div.appendChild(label);
-                            if (event.location.address != "") {
-                                label = document.createElement("label");
-                                label.setAttribute("class", "btn myBtn");
-                                label.setAttribute("style", "margin-right: 10px");
-                                label.setAttribute("onclick", "showMap('" + event.location.address + "');return false;");
-                                label.setAttribute("title", event.location.address);
-                                img = document.createElement("img");
-                                img.src = "images/map.png";
-                                img.setAttribute("class", "img-thumbnail");
-                                img.setAttribute("style", "border:0;opacity: 0.5;");
-                                label.appendChild(img);
-                                div.appendChild(label);
-                            }
-                            eventCard.appendChild(div);
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/food.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
+                        }
+                        else if (event.label == 4) {
+                            img.src = "images/ic_90_percent_discount.png";
+                        }
+                        else if (event.label == 10) {
+                            img.src = "images/hq.png";
+                            li.appendChild(span);
 
-                            sectionGroup.appendChild(eventCard);
-
-                            var div = document.getElementById("selectedPinEvent");
-                            div.innerHTML = "";
-                            div.appendChild(sectionGroup);
-                            favoriteClicked();
-
-                            $('html, body').animate({
-                                scrollTop: $("#selectedPinEvent").offset().top
-                            }, 500);
-                        });
-                        debugger;
-                        markers.push(marker);
-                    //}
-                    /*else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                        timeouts.push(setTimeout(function () {
-                            addMarker(event);
-                        }, 1000));
-                        console.log("OVER_QUERY_LIMIT");
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/ic_editors_choice.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
+                        }
+                        else if (event.label == 11) {
+                            img.src = "images/ic_editors_choice.png";
+                        }
+                        span = document.createElement("span");
+                        span.setAttribute("class", "m_22 favorite");
+                        var div = document.createElement("div");
+                        if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
+                            div.setAttribute("class", "star glyphicon glyphicon-star");
+                        }
+                        else {
+                            div.setAttribute("class", "star glyphicon glyphicon-star-empty");
+                        }
+                        span.appendChild(div);
+                        li.appendChild(span);
+                        ul.appendChild(li);
+                        eventCard.appendChild(ul);
                     }
-                    else {
-                        console.log("Geocode was not successful for the following reason: " + status);
-                    }*/
+                    var desc = document.createElement("div");
+                    desc.setAttribute("class", "desc");
+                    var h3 = document.createElement("h3");
+                    a = document.createElement("a");
+                    a.href = event.link_value;
+                    a.target = "_blank";
+                    a.setAttribute("rel", "no-refresh");
+                    a.innerHTML = event.title;
+                    var p = document.createElement("p");
+                    p.innerHTML = event.message_text;
+                    h3.appendChild(a);
+                    var h4 = document.createElement("h4");
+                    h4.setAttribute("class", "m_2");
+                    h4.innerHTML = event.date;
+                    desc.appendChild(h4);
+                    desc.appendChild(h3);
+                    desc.appendChild(p);
+                    if (event.location.distance != "") {
+                        p = p = document.createElement("p");
+                        p.innerHTML = event.location.distance;
+                        desc.appendChild(p);
+                    }
+                    eventCard.appendChild(desc);
+
+                    var hr = document.createElement("hr");
+                    hr.setAttribute("class", "hr");
+                    eventCard.appendChild(hr);
+                    div = document.createElement("div");
+                    div.setAttribute("class", "section group center");
+                    div.setAttribute("style", "padding: 0% 0% 2% 3%");
+                    var label = document.createElement("label");
+                    label.setAttribute("class", "btn myBtn popup");
+                    label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("onclick", "openSharePopup(this.children[1])");
+                    img = document.createElement("img");
+                    img.src = "images/share.png";
+                    img.setAttribute("class", "img-thumbnail");
+                    img.setAttribute("style", "border:0;opacity: 0.5");
+                    span = document.createElement("span");
+                    span.setAttribute("class", "popuptext");
+                    a = document.createElement("a");
+                    a.setAttribute("class", "fa fa-twitter");
+                    a.setAttribute("href", "https://twitter.com/intent/tweet?text=" + event.title + " : " + event.link_value);
+                    a.setAttribute("target", "_blank");
+                    a.setAttribute("rel", "no-refresh");
+                    span.appendChild(a);
+                    a = document.createElement("a");
+                    a.setAttribute("class", "fa fa-facebook");
+                    a.setAttribute("href", "https://www.facebook.com/sharer/sharer.php?u=" + event.link_value);
+                    a.setAttribute("target", "_blank");
+                    a.setAttribute("rel", "no-refresh");
+                    span.appendChild(a);
+                    a = document.createElement("a");
+                    a.setAttribute("class", "fa fa-whatsapp");
+                    a.setAttribute("href", "https://api.whatsapp.com/send?text=" + event.link_value);
+                    a.setAttribute("target", "_blank");
+                    a.setAttribute("rel", "no-refresh");
+                    span.appendChild(a);
+                    label.appendChild(img);
+                    label.appendChild(span);
+                    div.appendChild(label);
+                    if (event.location.address != "") {
+                        label = document.createElement("label");
+                        label.setAttribute("class", "btn myBtn");
+                        label.setAttribute("style", "margin-right: 10px");
+                        label.setAttribute("onclick", "showMap('" + event.location.address + "');return false;");
+                        label.setAttribute("title", event.location.address);
+                        img = document.createElement("img");
+                        img.src = "images/map.png";
+                        img.setAttribute("class", "img-thumbnail");
+                        img.setAttribute("style", "border:0;opacity: 0.5;");
+                        label.appendChild(img);
+                        div.appendChild(label);
+                    }
+                    eventCard.appendChild(div);
+
+                    sectionGroup.appendChild(eventCard);
+
+                    var div = document.getElementById("selectedPinEvent");
+                    div.innerHTML = "";
+                    div.appendChild(sectionGroup);
+                    favoriteClicked();
+
+                    $('html, body').animate({
+                        scrollTop: $("#selectedPinEvent").offset().top
+                    }, 500);
+                });
+                debugger;
+                markers.push(marker);
+                //}
+                /*else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                    timeouts.push(setTimeout(function () {
+                        addMarker(event);
+                    }, 1000));
+                    console.log("OVER_QUERY_LIMIT");
+                }
+                else {
+                    console.log("Geocode was not successful for the following reason: " + status);
+                }*/
                 //});
             }
             function clearTimeouts() {

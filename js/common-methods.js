@@ -57,7 +57,13 @@ function createEventLocationList() {
     eventsLocation["-LEsTX5ALg4PumiV4RWK"] = { address: "Azrieli Sarona Tower. 53rd floor, Tel Aviv, il" };
     eventsLocation["-LFkjLa5y_Zu-8GQ3QDr"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LFCD0r5d32WWiaIWbC2"] = { address: "אחוזת בית 2, תל אביב יפו" };
-
+    eventsLocation["-LGLufU75AJOvu3uy6af"] = { address: "יגאל אלון 98, תל אביב יפו" };
+    eventsLocation["-LGLuDw9DXNnoUzwxWfi"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LGLtvw2dGE9TrU3brg_"] = { address: "הנרייטה סולד 23, תל אביב יפו" };
+    eventsLocation["-LGLtEi5p4qL2y67Hp1y"] = { address: "29 Nahalat Binyamin" };
+    eventsLocation["-LGLszKenzCRkbhEBVuf"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LGLsdTJSIFzPBIfJioE"] = { address: "ריינס 1, תל אביב יפו" };
+    eventsLocation["-LGLsLeN5qjlSI8dd7J5"] = { address: "30 Ibn Gabirol Tel Aviv" };
     //eventsLocation[""] = { address: "" };
     return eventsLocation;
 }

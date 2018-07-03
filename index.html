@@ -27,8 +27,35 @@
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
-    
+
     <style>
+        #back-to-top {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 30px;
+            background: lightgray;
+            color: #444;
+            cursor: pointer;
+            border: 0;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: opacity 0.2s ease-out;
+            opacity: 0;
+        }
+
+        #back-to-top:hover {
+            background: #e9ebec;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+        }
+
         .panel-group .panel {
             margin-top: 10px;
         }
@@ -360,6 +387,7 @@
 </head>
 
 <body>
+    <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
     <div class="header-top">
         <div class="wrap">
             <div class="center">
@@ -367,6 +395,7 @@
                     <img width="280px" height="120px" src="images/tlfree feature graphic.png" alt="" />
                 </a>
             </div>
+
             <!--
             <div class="cssmenu">
                 <nav id="nav" role="navigation">
@@ -1561,6 +1590,28 @@
                 closeButton.parentNode.classList.remove('show');
                 closeButton.parentNode.classList.add('hide');
                 localStorage.setItem("showGooglePlayPopup", false);
+            }
+            //back to top scroll
+            if ($('#back-to-top').length) {
+                var scrollTrigger = 100, // px
+                    backToTop = function () {
+                        var scrollTop = $(window).scrollTop();
+                        if (scrollTop > scrollTrigger) {
+                            $('#back-to-top').addClass('show');
+                        } else {
+                            $('#back-to-top').removeClass('show');
+                        }
+                    };
+                backToTop();
+                $(window).on('scroll', function () {
+                    backToTop();
+                });
+                $('#back-to-top').on('click', function (e) {
+                    e.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: 0
+                    }, 700);
+                });
             }
             //<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNlYlXjmjgDGoxeBxtWWUQYhxFGOyjCeo&sensor=false&language=he&libraries=visualization,places">
         </script>

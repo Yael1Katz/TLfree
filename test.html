@@ -6,90 +6,51 @@
     <title>test</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-        crossorigin="anonymous"></script>
-
-    <!-- SnackbarJS plugin -->
-    <script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script>
-
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/instafeed@2.0.0/lib/instafeed.min.js"></script>
 
     <style>
-        .close {
-            float: right;
-            font-size: 25px;
-            color: white;
-            filter: alpha(opacity=20);
-            opacity: 0.7;
-            margin-top: 9px;
-            margin-right: 13px;
-            font-weight: 200;
-        }
-
-        /* The snackbar - position it at the bottom and in the middle of the screen */
-
-        #snackbar {
-            visibility: hidden;
-            /* min-width: 250px; */
-            /* margin-left: -125px; */
-            background-color: black;
-            /*color: #fff;*/
-            /*text-align: center;*/
-            /* border-radius: 2px; */
-            /*padding: 5px;*/
-            /* position: fixed; */
-            z-index: 1;
-            /* left: 50%; */
-            /* bottom: 30px; */
-            opacity: 0.6;
-        }
-
-        /* Show the snackbar when clicking on a button (class added with JavaScript) */
-
-        #snackbar.show {
-            visibility: visible;
-            /* Show the snackbar */
-            /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
-However, delay the fade out process for 2.5 seconds */
-        }
-
-        /* Animations to fade the snackbar in and out */
     </style>
 </head>
 
 <body>
-    <!-- Use a button to open the snackbar -->
-    <button onclick="myFunction()">Show Snackbar</button>
+    <ul>
 
-    <!-- The actual snackbar -->
-    <div id="snackbar">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close" onClick="this.parentNode.classList.remove('show');">&times;</a>
-        <img width="140" src="images/xxxx.png" onclick="window.open('https://play.google.com/store/apps/details?id=com.omeric.android.tlfree', '_blank');"/>
-
-    </div>
+    </ul>
     <script>
-        function myFunction() {
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar");
+        /*var feed = new Instafeed({
+            get: 'user',
+            userId: '225866654',
+            accessToken: '225866654.db142f6.d4faeb2940e44a9d827e1c224f03a533',
+            filter: function (image) {
+                debugger;
+                //return image.tags.indexOf('TAG_NAME') >= 0;
+            }
+        });
+        feed.run();*/
 
-            // Add the "show" class to DIV
-            x.className = "show";
+        var token = '225866654.db142f6.d4faeb2940e44a9d827e1c224f03a533', // learn how to obtain it below
+            userid = 225866654, // User ID - get it in source HTML of your Instagram profile or look at the next example :)
+            num_photos = 20; // how much photos do you want to get
 
-            // After 3 seconds, remove the show class from DIV
-            //setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-        }
+        $.ajax({
+            url: 'https://api.instagram.com/v1/users/' + userid + '/media/recent', // or /users/self/media/recent for Sandbox
+            dataType: 'jsonp',
+            type: 'GET',
+            data: { access_token: token, count: num_photos },
+            success: function (data) {
+                console.log(data);
+                for (x in data.data) {
+                    $('ul').append('<li><img src="' + data.data[x].images.low_resolution.url + '"></li>'); // data.data[x].images.low_resolution.url - URL of image, 306х306
+                    // data.data[x].images.thumbnail.url - URL of image 150х150
+                    // data.data[x].images.standard_resolution.url - URL of image 612х612
+                    // data.data[x].link - Instagram post URL 
+                }
+            },
+            error: function (data) {
+                console.log(data); // send the error notifications to console
+            }
+        });
     </script>
 </body>
 

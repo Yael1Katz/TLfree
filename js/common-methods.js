@@ -78,8 +78,7 @@ function createEventLocationList() {
     eventsLocation["-LGgMYQQnqYvrEwWPDhQ"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LGgLo3qnZjooO5oblSV"] = { address: "Namal Tel Aviv" };
     eventsLocation["-LGgLOLw7d2kP_V_mFRB"] = { address: "קומה 1, קרליבך 10, תל אביב יפו" };
-    eventsLocation["-LGgL93JiOKy45o6k-XQ"] = { address: "Yigal Alon Street 94, תל אביב יפו" };*/
-
+    eventsLocation["-LGgL93JiOKy45o6k-XQ"] = { address: "Yigal Alon Street 94, תל אביב יפו" };
     eventsLocation["-LGzdv2YfK9OGD2XGJIn"] = { address: "9 Ahad HaAm Street" };
     eventsLocation["-LGzdZ1q6A3r-sFL3TJ6"] = { address: "בית אריאלה" };
     eventsLocation["-LGzd60vUHCslIMhS8ir"] = { address: "רחוב יוסף יקותיאלי 4, תל אביב יפו" };
@@ -88,7 +87,7 @@ function createEventLocationList() {
     eventsLocation["-LGzbslo7DjXKJgmBQVu"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LGzbS7BHmhXd_ssm6wr"] = { address: "עיריית תל אביב, תל אביב יפו" };
     eventsLocation["-LGiUTfGgs3_Lz39Rw2N"] = { address: "Raoul Wallenberg 36, building no. 8, 3rd floor, Kiriat Atidim Tel Aviv" };
-    eventsLocation["-LGiUB3a1sTR1AY8JROm"] = { address: "Dizzy Frishdon" };
+    eventsLocation["-LGiUB3a1sTR1AY8JROm"] = { address: "Dizzy Frishdon" };*/
 
 
     //eventsLocation[""] = { address: "" };

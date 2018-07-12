@@ -82,7 +82,7 @@ function createEventLocationList() {
 
     eventsLocation["-LGzdv2YfK9OGD2XGJIn"] = { address: "9 Ahad HaAm Street" };
     eventsLocation["-LGzdZ1q6A3r-sFL3TJ6"] = { address: "בית אריאלה" };
-    eventsLocation["-LGzd60vUHCslIMhS8ir"] = { address: "ביתן 27, Yosef Yekutieli 4, תל אביב יפו" };
+    eventsLocation["-LGzd60vUHCslIMhS8ir"] = { address: "רחוב יוסף יקותיאלי 4, תל אביב יפו" };
     eventsLocation["-LGzcbTS81K16eFWe77Y"] = { address: "מנחם בגין 121, תל אביב יפו" };
     eventsLocation["-LGzc9xEueqM7RjA8VON"] = { address: "Dizzy Frishdon" };
     eventsLocation["-LGzbslo7DjXKJgmBQVu"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };

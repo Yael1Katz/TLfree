@@ -97,7 +97,7 @@ function createEventLocationList() {
     eventsLocation["-LHSrY5em4P31DqObVXF"] = { address: "ידע עם 8, רמת גן" };
     eventsLocation["-LHSrHlJ_JU_LjoXDLW4"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LHSqMbdPsBu_Oe-_4_M"] = { address: "מכללת מנטור רמת גן" };
-    eventsLocation["-LHSpklGoBC6PCkVgWxD"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };*/
+    eventsLocation["-LHSpklGoBC6PCkVgWxD"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LHYKhh_0uOIYcAPEL87"] = { address: "Dizzy Frishdon" };
     eventsLocation["-LHYKWdq_qh7KmQR-aCF"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LHYKIkp0XD2cYHv0-GV"] = { address: "54 Ahad HaAm Street" };
@@ -105,7 +105,7 @@ function createEventLocationList() {
     eventsLocation["-LHYJqJJGClfVsWuSLPZ"] = { address: "Dizzy Frishdon" };
     eventsLocation["-LHYHMMEsm2MLyz2Vwdz"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LHYGW46z0ZQRftCBewi"] = { address: "54 Ahad HaAm Street" };
-    eventsLocation["-LHYFo6zF7nqIwAgoPOg"] = { address: "Osvaldo Aranha St 17, תל אביב יפו" };
+    eventsLocation["-LHYFo6zF7nqIwAgoPOg"] = { address: "Osvaldo Aranha St 17, תל אביב יפו" };*/
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;

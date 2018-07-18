@@ -237,14 +237,32 @@
             margin-left: auto;
             margin-right: auto;
             display: block;
-            min-height: 70px;
         }
 
         div[class='col_1_of_3'] a img {
             margin-left: auto;
             margin-right: auto;
             display: block;
-            min-height: 70px;
+        }
+
+        div[class='col_1_of_4 span_1_of_4'] a img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        div[class='col_1_of_4'] a img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .span_1_of_4 {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #fff;
         }
 
         .imgCheckbox {
@@ -525,13 +543,16 @@
             </div>
             <ul class="events">
                 <li class="active">
-                    <a href="" onclick="eventsTab();return false;">Hot Events</a>
+                    <a href="" onclick="eventsTab();return false;">Events</a>
                 </li>
                 <li>
                     <a href="" onclick="favoritesTab();return false;">Favorites</a>
                 </li>
                 <li>
                     <a href="" onclick="mapTab();return false;">Map</a>
+                </li>
+                <li>
+                    <a href="" onclick="photosTab();return false;">Photos</a>
                 </li>
             </ul>
             <div class="clear"></div>
@@ -666,7 +687,6 @@
             var geocoder;
             var map;
             var markers = [];
-            var timeouts = [];
             var service;
             var wrap = document.getElementsByClassName("wrap")[2];
             var modal = document.getElementById('myModal');
@@ -804,7 +824,7 @@
                 return dayNumber + "-" + month + "-" + year;
             }
             function filterChanged() {
-                clearTimeouts();
+                showFilterBar(true);
                 var iconFilterSelected = false;
                 filteredEvents = [];
                 var searchTerm = document.getElementById("searchinput").value.toUpperCase();
@@ -869,6 +889,119 @@
                     }
                 });
             }
+
+            function createPhotos() {
+                var token = '7827332378.967b255.d814bd12122c47e1b4455ba6bf20810e'; // learn how to obtain it below
+                var userid = 7827332378; // User ID - get it in source HTML of your Instagram profile or look at the next example :)
+                var num_photos = 20; // how much photos do you want to get
+
+                $.ajax({
+                    url: 'https://api.instagram.com/v1/users/' + userid + '/media/recent', // or /users/self/media/recent for Sandbox
+                    dataType: 'jsonp',
+                    type: 'GET',
+                    data: { access_token: token, count: num_photos },
+                    success: function (data) {
+                        var itemsCounter = 0;
+                        var sectionGroup;
+                        wrap.innerHTML = "";
+                        data.data.forEach(item => {
+                            if (itemsCounter % 4 == 0) {
+                                sectionGroup = document.createElement("div");
+                                sectionGroup.setAttribute("calss", "section group");
+                                wrap.appendChild(sectionGroup);
+                                clear = document.createElement("div");
+                                clear.setAttribute("class", "clear");
+                                wrap.appendChild(clear);
+                            }
+                            var eventCard = document.createElement("div");
+                            eventCard.setAttribute("class", "col_1_of_4 span_1_of_4");
+                            var a = document.createElement("a");
+                            a.href = item.link;
+                            a.target = "_blank";
+                            var img = document.createElement("img");
+                            img.src = item.images.low_resolution.url;
+                            a.appendChild(img)
+                            eventCard.appendChild(a);
+
+                            var desc = document.createElement("div");
+                            desc.setAttribute("class", "desc");
+                            var h4 = document.createElement("h4");
+                            h4.setAttribute("class", "m_2");
+                            h4.innerHTML = convertFromTimestmapToDate(item.created_time);
+                            var p = document.createElement("p");
+                            p.setAttribute("style", "word-wrap: break-word;");
+                            p.innerHTML = item.caption.text;
+                            desc.appendChild(h4);
+                            desc.appendChild(p);
+                            eventCard.appendChild(desc);
+
+                            var hr = document.createElement("div");
+                            hr.setAttribute("class", "hr");
+                            eventCard.appendChild(hr);
+
+                            var div = document.createElement("div");
+                            div.setAttribute("class", "section group center");
+                            div.setAttribute("style", "padding: 0% 0% 2% 3%;");
+                            var label = document.createElement("label");
+                            label.setAttribute("class", "btn myBtn popup");
+                            label.setAttribute("style", "margin-right: 10px");
+                            label.setAttribute("onclick", "openSharePopup(this.children[1])");
+                            var img = document.createElement("img");
+                            img.src = "images/share.png";
+                            img.setAttribute("class", "img-thumbnail");
+                            img.setAttribute("style", "border:0;opacity: 0.5;");
+                            var span = document.createElement("span");
+                            span.setAttribute("class", "popuptext");
+                            a = document.createElement("a");
+                            a.href = "https://twitter.com/intent/tweet?text=" + item.link;
+                            a.target = "_blank";
+                            a.setAttribute("class", "fa fa-twitter");
+                            span.appendChild(a);
+                            a = document.createElement("a");
+                            a.href = "https://www.facebook.com/sharer/sharer.php?u=" + item.link;
+                            a.target = "_blank";
+                            a.setAttribute("class", "fa fa-facebook");
+                            span.appendChild(a);
+                            a = document.createElement("a");
+                            a.href = "https://api.whatsapp.com/send?text=" + item.link;
+                            a.target = "_blank";
+                            a.setAttribute("class", "fa fa-whatsapp");
+                            span.appendChild(a);
+                            label.appendChild(img);
+                            label.appendChild(span);
+                            div.appendChild(label);
+                            label = document.createElement("label");
+                            label.setAttribute("class", "btn myBtn");
+                            label.setAttribute("style", "margin-right: 10px");
+                            label.setAttribute("onclick", "showMap('" + item.location.name + "')");
+                            img = document.createElement("img");
+                            img.src = "images/map.png";
+                            img.setAttribute("class", "img-thumbnail");
+                            img.setAttribute("style", "border:0;opacity: 0.5;");
+                            label.appendChild(img);
+                            div.appendChild(label);
+                            eventCard.appendChild(div);
+
+                            sectionGroup.appendChild(eventCard);
+                            itemsCounter++;
+                        });
+                    },
+                    error: function (data) {
+                        console.log(data); // send the error notifications to console
+                    }
+                });
+            }
+
+            function convertFromTimestmapToDate(UNIX_timestamp) {
+                var a = new Date(UNIX_timestamp * 1000);
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var year = a.getFullYear();
+                var month = months[a.getMonth()];
+                var date = a.getDate();
+                var time = date + '-' + month + '-' + year;
+                return time;
+            }
+
             function createEvents(events) {
                 var itemsCounter = 0;
                 wrap.innerHTML = "";
@@ -894,6 +1027,7 @@
                     a.setAttribute("rel", "no-refresh");
                     var img = document.createElement("img");
                     img.src = event.banner_uri;
+                    img.setAttribute("onerror", "this.src='images/tlfree feature graphic - transparent.png';this.style='opacity: 0.5';");
                     a.appendChild(img)
                     eventCard.appendChild(a);
 
@@ -932,6 +1066,23 @@
                         }
                         else if (event.label == 4) {
                             img.src = "images/ic_90_percent_discount.png";
+                        }
+                        else if (event.label == 8) {
+                            img.src = "images/ic_editors_choice.png";
+                        }
+                        else if (event.label == 9) {
+                            img.src = "images/food.png";
+                            li.appendChild(span);
+
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/ic_editors_choice.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
                         }
                         else if (event.label == 10) {
                             img.src = "images/hq.png";
@@ -1146,6 +1297,26 @@
 
                 filterChanged();
             }
+            function photosTab() {
+                selectedTab = "photosTab";
+                showFilterBar(false);
+
+                createPhotos();
+            }
+            function showFilterBar(show) {
+                if (show == true) {
+                    document.getElementsByClassName('content-box-right')[0].style.display = 'block';
+                    if (mode == "mobile") {
+                        $('#accordion').css("display", "block");
+                    }
+                }
+                else {
+                    document.getElementsByClassName('content-box-right')[0].style.display = 'none';
+                    if (mode == "mobile") {
+                        $('#accordion').css("display", "none");
+                    }
+                }
+            }
             function clearFilters() {
                 $("#searchinput").val('');
                 document.getElementById("calendar").value = "";
@@ -1270,6 +1441,7 @@
                     eventCard.appendChild(div);
                     var img = document.createElement("img");
                     img.src = event.banner_uri;
+                    img.setAttribute("onerror", "this.src='images/tlfree feature graphic - transparent.png';this.style='opacity: 0.5';");
                     var a = document.createElement("a");
                     a.href = event.link_value;
                     a.target = "_blank";
@@ -1312,6 +1484,23 @@
                         }
                         else if (event.label == 4) {
                             img.src = "images/ic_90_percent_discount.png";
+                        }
+                        else if (event.label == 8) {
+                            img.src = "images/ic_editors_choice.png";
+                        }
+                        else if (event.label == 9) {
+                            img.src = "images/food.png";
+                            li.appendChild(span);
+
+                            span = document.createElement("span");
+                            span.setAttribute("class", "m_23");
+                            i = document.createElement("i");
+                            img = document.createElement("img");
+                            img.src = "images/ic_editors_choice.png";
+                            img.width = "30";
+                            i.appendChild(img);
+                            span.appendChild(i);
+                            li.appendChild(span);
                         }
                         else if (event.label == 10) {
                             img.src = "images/hq.png";
@@ -1432,24 +1621,8 @@
                     }, 500);
                 });
                 markers.push(marker);
-                //}
-                /*else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                    timeouts.push(setTimeout(function () {
-                        addMarker(event);
-                    }, 1000));
-                    console.log("OVER_QUERY_LIMIT");
-                }
-                else {
-                    console.log("Geocode was not successful for the following reason: " + status);
-                }*/
-                //});
             }
-            function clearTimeouts() {
-                for (var i = 0; i < timeouts.length; i++) {
-                    clearTimeout(timeouts[i]);
-                }
-                timeouts = [];
-            }
+
             function removeMarkers() {
                 //Loop through all the markers and remove
                 for (var i = 0; i < markers.length; i++) {

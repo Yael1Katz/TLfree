@@ -2848,7 +2848,7 @@ fieldset.input input[type="submit"]:hover {
 	ul.events {
 		float: none;
 		width: 100%;
-		margin-top: 0px;
+		margin-top: 10px;
 	}
 	ul.events > li.active a, ul.events > li a:hover {
 		border-bottom: 2px solid #FE2232;
@@ -2982,7 +2982,7 @@ fieldset.input input[type="submit"]:hover {
 	ul.events {
 		float: none;
 		width: 100%;
-		margin-top: 0px;
+		margin-top: 10px;
 	}
 	ul.events > li.active a, ul.events > li a:hover {
 		border-bottom: 2px solid #FE2232;
@@ -3134,7 +3134,7 @@ fieldset.input input[type="submit"]:hover {
 	ul.events {
 		float: none;
 		width: 100%;
-		margin-top: 0px;
+		margin-top: 10px;
 	}
 	ul.events > li.active a, ul.events > li a:hover {
 		border-bottom: 2px solid #FE2232;

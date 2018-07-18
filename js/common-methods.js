@@ -106,7 +106,15 @@ function createEventLocationList() {
     eventsLocation["-LHYHMMEsm2MLyz2Vwdz"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LHYGW46z0ZQRftCBewi"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LHYFo6zF7nqIwAgoPOg"] = { address: "Osvaldo Aranha St 17, תל אביב יפו" };*/
-
+    eventsLocation["-LHcTixnRHZH-Vsg5qey"] = { address: "פארק הירקון, תל אביב יפו" };
+    eventsLocation["-LHcTWdghjg6yJtv69I_"] = { address: "Ibe Gabirol Street 2, Tel Aviv-Yafo" };
+    eventsLocation["-LHcSvyJRlI42-89x7cg"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LHcSXWISi5CrYW4Bslx"] = { address: "הוברמן 1, תל אביב יפו" };
+    eventsLocation["-LHcRrKWdqF66ivK2_bD"] = { address: "חילזון 12, רמת גן" };
+    eventsLocation["-LHcM9DXEBTjMbu_IVkA"] = { address: "Nahalat Binyamin 52, Tel Aviv-Yafo" };
+    eventsLocation["-LHcLjPsse0lJgKD2hnr"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LHcLOvBixwckqoTfUF0"] = { address: "Aluf Kalman Magen 3, Tel Aviv-Yafo" };
+    eventsLocation["-LHcL6Ok30lCnIgDNnaO"] = { address: "טיילור מייד, אלנבי, תל אביב יפו" };
     //eventsLocation[""] = { address: "" };
     return eventsLocation;
 }

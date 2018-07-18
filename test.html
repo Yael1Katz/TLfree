@@ -8,13 +8,483 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/instafeed@2.0.0/lib/instafeed.min.js"></script>
+    <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/common-methods.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
     <style>
+        #back-to-top {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 30px;
+            background: lightgray;
+            color: #444;
+            cursor: pointer;
+            border: 0;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: opacity 0.2s ease-out;
+            opacity: 0;
+        }
+
+        #back-to-top:hover {
+            background: #e9ebec;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+        }
+
+        .panel-group .panel {
+            margin-top: 10px;
+        }
+
+        .head {
+            margin-bottom: 0px;
+        }
+
+        .closeGooglePlay {
+            float: right;
+            font-size: 25px;
+            color: white;
+            opacity: 0.7;
+            margin-top: 5px;
+            margin-right: 13px;
+            font-weight: 200;
+        }
+
+        #snackbar {
+            /*visibility: hidden;*/
+            display: none;
+            background-color: black;
+            opacity: 0.6;
+        }
+
+        #snackbar.show {
+            /*visibility: visible;*/
+            display: block;
+        }
+
+        #snackbar.hide {
+            /*visibility: collapse;*/
+            display: none;
+        }
+
+        #sharePopup a:focus,
+        a:hover {
+            text-decoration: none;
+        }
+
+        .fa {
+            padding: 10px;
+            font-size: 30px;
+            width: 52px;
+            text-align: center;
+            /*margin-left: -4.5px;*/
+        }
+
+        .fa:hover {
+            opacity: 0.7;
+        }
+
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+
+        .fa-whatsapp {
+            background: #39e329;
+            color: white;
+        }
+
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        /* Popup container - can be anything you want */
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+
+        .popup .popuptext {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -77px;
+            width: 153px;
+        }
+
+        /* Popup arrow */
+
+        .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #3B5998 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .transparentbutton {
+            background-color: Transparent;
+            background-repeat: no-repeat;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            outline: none;
+            background-image: url("images//map.png");
+        }
+
+        .panel-heading .accordion-toggle:after {
+            /* symbol for "opening" panels */
+            font-family: 'Glyphicons Halflings';
+            /* essential for enabling glyphicon */
+            content: "\e114";
+            /* adjust as needed, taken from bootstrap.css */
+            float: right;
+            /* adjust as needed */
+            color: grey;
+            /* adjust as needed */
+        }
+
+        .panel-heading .accordion-toggle.collapsed:after {
+            /* symbol for "collapsed" panels */
+            content: "\e080";
+            /* adjust as needed, taken from bootstrap.css */
+        }
+
+        #accordion {
+            display: none;
+        }
+
+        div[class='col_1_of_3 span_1_of_3'] a img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            min-height: 70px;
+        }
+
+
+
+        div[class='col_1_of_3'] a img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            min-height: 70px;
+        }
+
+        .imgCheckbox {
+            opacity: 0.5;
+            width: 33px;
+            height: 33px;
+        }
+
+        .check {
+            opacity: 1;
+            border-color: black;
+            background-color: lightgray;
+        }
+
+        .myBtn {
+            padding: 0;
+        }
+
+        .dateclass {
+            width: 100%;
+        }
+
+        .dateclass.placeholderclass::before {
+            width: 100%;
+            content: attr(placeholder);
+        }
+
+        .dateclass.placeholderclass:hover::before {
+            width: 0%;
+            content: "";
+        }
+
+        .btn-group {
+            display: block;
+        }
+
+        #searchinput {
+            width: 100%;
+        }
+
+        #searchclear {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            bottom: 0;
+            height: 14px;
+            margin: auto;
+            font-size: 14px;
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        #map {
+            height: 90%;
+            width: 100%;
+        }
+
+        i {
+            background: white;
+            border-radius: 20px;
+            font-size: 20px;
+            text-align: center;
+            /*margin-right: 10px;*/
+            border-radius: 50%;
+            display: inline-block;
+            padding: 5px;
+            border: solid lightgray 1.4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        i img {
+            opacity: 0.6;
+        }
+
+        .star {
+            font-size: 25px;
+            color: gold;
+        }
+
+        span.m_22.favorite {
+            margin: -5px 0px 0px 2px;
+        }
+
+        .eventGUID {
+            display: none;
+        }
+
+        /* The Modal (background) */
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 10px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 95%;
+            height: 95%;
+        }
+
+        /* The Close Button */
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
-    <ul>
+    <div class="section group">
+        <div class="col_1_of_4 span_1_of_4">
+            <a href="https://www.meetup.com/full-stack-developer-il/events/248953340" target="_blank">
+                <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg">
+            </a>
+            <div class="desc">
+                <h4 class="m_2">24-Jun-2018</h4>
+                <p>Are you a developer that is continually hearing about Deep Learning and wondering what all the fuss is about?</p>
+            </div>
+            <div class="hr"></div>
+            <div class="section group center" style="padding: 0% 0% 2% 3%;">
+                <label class="btn myBtn popup" style="margin-right: 10px" onclick="openSharePopup(this.children[1])">
+                    <img src="images/share.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                    <span class="popuptext">
+                        <a href="https://twitter.com/intent/tweet?text=www.ynet.co.il" target="_blank" class="fa fa-twitter"></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=www.ynet.co.il" target="_blank" class="fa fa-facebook"></a>
+                        <a href="https://api.whatsapp.com/send?text=www.ynet.co.il" target="_blank" class="fa fa-whatsapp"></a>
+                    </span>
+                </label>
+                <label class="btn myBtn" style="margin-right: 10px" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">
+                    <img src="images/map.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                </label>
+            </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <a href="https://www.meetup.com/full-stack-developer-il/events/248953340" target="_blank">
+                <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg">
+            </a>
+            <div class="desc">
+                <h4 class="m_2">24-Jun-2018</h4>
+                <p>Are you a developer that is continually hearing about Deep Learning and wondering what all the fuss is about?</p>
+            </div>
+            <div class="hr"></div>
+            <div class="section group center" style="padding: 0% 0% 2% 3%;">
+                <label class="btn myBtn popup" style="margin-right: 10px" onclick="openSharePopup(this.children[1])">
+                    <img src="images/share.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                    <span class="popuptext">
+                        <a href="https://twitter.com/intent/tweet?text=www.ynet.co.il" target="_blank" class="fa fa-twitter"></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=www.ynet.co.il" target="_blank" class="fa fa-facebook"></a>
+                        <a href="https://api.whatsapp.com/send?text=www.ynet.co.il" target="_blank" class="fa fa-whatsapp"></a>
+                    </span>
+                </label>
+                <label class="btn myBtn" style="margin-right: 10px" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">
+                    <img src="images/map.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                </label>
+            </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <a href="https://www.meetup.com/full-stack-developer-il/events/248953340" target="_blank">
+                <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg">
+            </a>
+            <div class="desc">
+                <h4 class="m_2">24-Jun-2018</h4>
+                <p>Are you a developer that is continually hearing about Deep Learning and wondering what all the fuss is about?</p>
+            </div>
+            <div class="hr"></div>
+            <div class="section group center" style="padding: 0% 0% 2% 3%;">
+                <label class="btn myBtn popup" style="margin-right: 10px" onclick="openSharePopup(this.children[1])">
+                    <img src="images/share.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                    <span class="popuptext">
+                        <a href="https://twitter.com/intent/tweet?text=www.ynet.co.il" target="_blank" class="fa fa-twitter"></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=www.ynet.co.il" target="_blank" class="fa fa-facebook"></a>
+                        <a href="https://api.whatsapp.com/send?text=www.ynet.co.il" target="_blank" class="fa fa-whatsapp"></a>
+                    </span>
+                </label>
+                <label class="btn myBtn" style="margin-right: 10px" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">
+                    <img src="images/map.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                </label>
+            </div>
+        </div>
+        <div class="col_1_of_4 span_1_of_4">
+            <a href="https://www.meetup.com/full-stack-developer-il/events/248953340" target="_blank">
+                <img src="https://secure.meetupstatic.com/photos/event/e/9/4/5/highres_471539717.jpeg">
+            </a>
+            <div class="desc">
+                <h4 class="m_2">24-Jun-2018</h4>
+                <p>Are you a developer that is continually hearing about Deep Learning and wondering what all the fuss is about?</p>
+            </div>
+            <div class="hr"></div>
+            <div class="section group center" style="padding: 0% 0% 2% 3%;">
+                <label class="btn myBtn popup" style="margin-right: 10px" onclick="openSharePopup(this.children[1])">
+                    <img src="images/share.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                    <span class="popuptext">
+                        <a href="https://twitter.com/intent/tweet?text=www.ynet.co.il" target="_blank" class="fa fa-twitter"></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=www.ynet.co.il" target="_blank" class="fa fa-facebook"></a>
+                        <a href="https://api.whatsapp.com/send?text=www.ynet.co.il" target="_blank" class="fa fa-whatsapp"></a>
+                    </span>
+                </label>
+                <label class="btn myBtn" style="margin-right: 10px" onclick="showMap('!1m18!1m12!1m3!1d3380.9692511188787!2d34.79414459999999!3d32.0700804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b9f0fb1749d%3A0x324efdf94c60554b!2z15nXkteQ15wg15DXnNeV158gOTgsINeq15wg15DXkdeZ15Eg15nXpNeV!5e0!3m2!1siw!2sil!4v1528958580653');return false;">
+                    <img src="images/map.png" class="img-thumbnail" style="border:0;opacity: 0.5;">
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+
+    <ul id="ul">
 
     </ul>
     <script>
@@ -29,8 +499,8 @@
         });
         feed.run();*/
 
-        var token = '225866654.db142f6.d4faeb2940e44a9d827e1c224f03a533', // learn how to obtain it below
-            userid = 225866654, // User ID - get it in source HTML of your Instagram profile or look at the next example :)
+        var token = '7827332378.967b255.d814bd12122c47e1b4455ba6bf20810e', // learn how to obtain it below
+            userid = 7827332378, // User ID - get it in source HTML of your Instagram profile or look at the next example :)
             num_photos = 20; // how much photos do you want to get
 
         $.ajax({
@@ -39,13 +509,12 @@
             type: 'GET',
             data: { access_token: token, count: num_photos },
             success: function (data) {
-                console.log(data);
-                for (x in data.data) {
-                    $('ul').append('<li><img src="' + data.data[x].images.low_resolution.url + '"></li>'); // data.data[x].images.low_resolution.url - URL of image, 306х306
-                    // data.data[x].images.thumbnail.url - URL of image 150х150
-                    // data.data[x].images.standard_resolution.url - URL of image 612х612
-                    // data.data[x].link - Instagram post URL 
-                }
+                console.log(data.data);
+
+                $.each(data.data, function (index, value) {
+                    $('#ul').append('<li><img src="' + value.images.low_resolution.url + '"></li>'); // data.data[x].images.low_resolution.url - URL of image, 306х306
+                });
+
             },
             error: function (data) {
                 console.log(data); // send the error notifications to console

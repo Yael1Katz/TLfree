@@ -305,7 +305,7 @@ span.m_1{
 ul.events{
 	/*float:left;*/
 	/*width: 22.5%;*/
-	width: 30%;
+	width: 100%;
 	margin-top: 10px;
 }
 ul.events li a {
@@ -2764,7 +2764,7 @@ fieldset.input input[type="submit"]:hover {
 	ul.events {
 		float: none;
 		width: 100%;
-		margin-top: 0px;
+		margin-top: 10px;
 	}
 	ul.events > li.active a, ul.events > li a:hover {
 		border-bottom: 2px solid #FE2232;

@@ -11,8 +11,8 @@
     <link href="https://rawgit.com/yael1katz/TLfree/master/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/common-methods.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4-core.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/yael1katz/TLfree/master/js/mootools-1.2.4.2-more.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.6.0/mootools-core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.6.0/mootools-more.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- jQuery library -->
@@ -726,6 +726,7 @@
                     ref.once("value", function (snapshot) {
                         var result = snapshot.val();
                         $.each(result, function (k, v) {
+                            debugger;
                             var date = Date.parse(v.full_date).toDateString();
                             date = getFormatedDate(date);
                             var currentDate = getFormatedDate(new Date().toDateString());
@@ -821,7 +822,7 @@
                 var month = date.toString().split(' ')[1];
                 var dayNumber = date.toString().split(' ')[2];
                 var year = date.toString().split(' ')[3];
-                return dayNumber + "-" + month + "-" + year;
+                return dayNumber + " " + month + " " + year;
             }
             function filterChanged() {
                 showFilterBar(true);
@@ -894,7 +895,7 @@
                 var token = '7827332378.967b255.d814bd12122c47e1b4455ba6bf20810e'; // learn how to obtain it below
                 var userid = 7827332378; // User ID - get it in source HTML of your Instagram profile or look at the next example :)
                 var num_photos = 20; // how much photos do you want to get
-
+                wrap.innerHTML = "";
                 $.ajax({
                     url: 'https://api.instagram.com/v1/users/' + userid + '/media/recent', // or /users/self/media/recent for Sandbox
                     dataType: 'jsonp',
@@ -903,7 +904,6 @@
                     success: function (data) {
                         var itemsCounter = 0;
                         var sectionGroup;
-                        wrap.innerHTML = "";
                         data.data.forEach(item => {
                             if (itemsCounter % 4 == 0) {
                                 sectionGroup = document.createElement("div");

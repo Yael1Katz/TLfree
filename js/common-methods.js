@@ -114,14 +114,14 @@ function createEventLocationList() {
     eventsLocation["-LHcM9DXEBTjMbu_IVkA"] = { address: "Nahalat Binyamin 52, Tel Aviv-Yafo" };
     eventsLocation["-LHcLjPsse0lJgKD2hnr"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LHcLOvBixwckqoTfUF0"] = { address: "Aluf Kalman Magen 3, Tel Aviv-Yafo" };
-    eventsLocation["-LHcL6Ok30lCnIgDNnaO"] = { address: "טיילור מייד, אלנבי, תל אביב יפו" };*/
+    eventsLocation["-LHcL6Ok30lCnIgDNnaO"] = { address: "טיילור מייד, אלנבי, תל אביב יפו" };
     eventsLocation["-LHn4UabYevbnSa3lnGh"] = { address: "מזאה 9, תל אביב יפו" };
     eventsLocation["-LHn4E5lWd8ZSDRKyhTa"] = { address: "מזאה 9, תל אביב יפו" };
     eventsLocation["-LHn4-cT9z7E4hTfMCs1"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LHn3ljotYNRgqThseM3"] = { address: "לייט האוס, נמל תל-אביב" };
     eventsLocation["-LHn3a3Vo-OW6oRVGI9F"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LHn3OMRi-rcoTRnITeQ"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
-    eventsLocation["-LHn2xnqt7Fx65QJTxB6"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LHn2xnqt7Fx65QJTxB6"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };*/
 
 
 

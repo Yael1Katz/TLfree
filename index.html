@@ -522,16 +522,16 @@
                     </div>
                     <div class="col-md-3">
                         <div class="labelsGroup">
-                            <label class="btn myBtn">
+                            <label class="btn myBtn" title="Great Content">
                                 <img src="images/hq.png" class="img-thumbnail img-check imgCheckbox" id="chkHQ">
                             </label>
-                            <label class="btn myBtn">
+                            <label class="btn myBtn" title="Food & Drinks">
                                 <img src="images/food.png" class="img-thumbnail img-check imgCheckbox" id="chkFood">
                             </label>
-                            <label class="btn myBtn">
+                            <label class="btn myBtn" title="90% Discount">
                                 <img src="images/ic_90_percent_discount.png" class="img-thumbnail img-check imgCheckbox" id="chk90">
                             </label>
-                            <label class="btn myBtn">
+                            <label class="btn myBtn" title="Editor's Choice">
                                 <img src="images/ic_editors_choice.png" class="img-thumbnail img-check imgCheckbox" id="chkEditorChoice">
                             </label>
                             <label class="btn myBtn">
@@ -726,7 +726,6 @@
                     ref.once("value", function (snapshot) {
                         var result = snapshot.val();
                         $.each(result, function (k, v) {
-                            debugger;
                             var date = Date.parse(v.full_date).toDateString();
                             date = getFormatedDate(date);
                             var currentDate = getFormatedDate(new Date().toDateString());
@@ -945,6 +944,7 @@
                             var label = document.createElement("label");
                             label.setAttribute("class", "btn myBtn popup");
                             label.setAttribute("style", "margin-right: 10px");
+                            label.setAttribute("title", "Share");
                             label.setAttribute("onclick", "openSharePopup(this.children[1])");
                             var img = document.createElement("img");
                             img.src = "images/share.png";
@@ -974,6 +974,7 @@
                             label.setAttribute("class", "btn myBtn");
                             label.setAttribute("style", "margin-right: 10px");
                             label.setAttribute("onclick", "showMap('" + item.location.name + "')");
+                            label.setAttribute("title", item.location.name);
                             img = document.createElement("img");
                             img.src = "images/map.png";
                             img.setAttribute("class", "img-thumbnail");
@@ -1172,6 +1173,7 @@
                     var label = document.createElement("label");
                     label.setAttribute("class", "btn myBtn popup");
                     label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("title", "Share");
                     label.setAttribute("onclick", "openSharePopup(this.children[1])");
                     img = document.createElement("img");
                     img.src = "images/share.png";
@@ -1213,6 +1215,18 @@
                         label.appendChild(img);
                         div.appendChild(label);
                     }
+                    label = document.createElement("label");
+                    label.setAttribute("class", "btn myBtn");
+                    label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("onclick", "window.open('https://calendar.google.com/calendar/r/eventedit?text=" + event.title + "&dates=" + getFormatedDatesForGoogleCalendar(event.date) + "&details=" + event.message_text + " " + event.link_value + "&location="+ event.location.address +"', '_blank');");
+                    label.setAttribute("title", "add to Google Calendar");
+                    img = document.createElement("img");
+                    img.src = "images/calendar.png";
+                    img.setAttribute("class", "img-thumbnail");
+                    img.setAttribute("style", "border:0;opacity: 0.5;");
+                    label.appendChild(img);
+                    div.appendChild(label);
+
                     eventCard.appendChild(div);
                     sectionGroup.appendChild(eventCard);
                     itemsCounter++;
@@ -1221,6 +1235,15 @@
                 favoriteClicked();
 
 
+            }
+            function getFormatedDatesForGoogleCalendar(date) {
+                date = new Date(date);
+                date = date.getFullYear() + addZeroBeforeNumberIfNecessary(date.getMonth() + 1) +  addZeroBeforeNumberIfNecessary(date.getDate());
+                date += "T150000Z/" + date + "T160000Z";
+                return date;
+            }
+            function addZeroBeforeNumberIfNecessary(number) {
+                return number < 10 ? '0' + number : '' + number; // ('' + month) for string result
             }
             function favoriteClicked() {
                 $(".star.glyphicon").click(function () {
@@ -1566,6 +1589,7 @@
                     var label = document.createElement("label");
                     label.setAttribute("class", "btn myBtn popup");
                     label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("title", "Share");
                     label.setAttribute("onclick", "openSharePopup(this.children[1])");
                     img = document.createElement("img");
                     img.src = "images/share.png";
@@ -1607,6 +1631,18 @@
                         label.appendChild(img);
                         div.appendChild(label);
                     }
+                    label = document.createElement("label");
+                    label.setAttribute("class", "btn myBtn");
+                    label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("onclick", "window.open('https://calendar.google.com/calendar/r/eventedit?text=" + event.title + "&dates=" + getFormatedDatesForGoogleCalendar(event.date) + "&details=" + event.message_text + " " + event.link_value + "&location="+ event.location.address +"', '_blank');");
+                    label.setAttribute("title", "Add to Google Calendar");
+                    img = document.createElement("img");
+                    img.src = "images/calendar.png";
+                    img.setAttribute("class", "img-thumbnail");
+                    img.setAttribute("style", "border:0;opacity: 0.5;");
+                    label.appendChild(img);
+                    div.appendChild(label);
+
                     eventCard.appendChild(div);
 
                     sectionGroup.appendChild(eventCard);

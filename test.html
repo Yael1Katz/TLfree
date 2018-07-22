@@ -26,39 +26,44 @@
     <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-database.js"></script>
     <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link type="text/css" href="css/jquery.icalendar.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.icalendar.js"></script>
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.6.0/mootools-core.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mootools-more/1.6.0/mootools-more.js"></script>
+
+
     <style>
     </style>
 </head>
 
 <body>
 
-    </div>
+
+    <div id="basicICal"></div>
     <script>
 
+        $(function () {
+            $('#basicICal').icalendar({
+                start: new Date(2008, 1 - 1, 26, 11, 30, 00),
+                end: new Date(2008, 1 - 1, 26, 12, 45, 00),
+                title: 'Australia Day lunch',
+                description: 'A traditional barbeque for our big day',
+                location: 'On your local beach'
+            });
+        });
         debugger;
-        var a = "20180724";
-        var date = Date.parse(a).toDateString();
-        //var date = new Date(a).toDateString("yyyy-MM-dd");
-        var date1 = "Tue Jul 24 2018 00:00:00 GMT+0300 (Israel Daylight Time)";
-        var date2 = new Date(date1).toLocaleDateString();
+        var date = "23 Jul 2018";
+        var test = new Date(date);
+        test = test.getFullYear() + getMonth(test) + test.getDate() + "T150000Z";
+        
+        window.open('https://calendar.google.com/calendar/r/eventedit?text=TheNest Graduation&dates=20180723T150000Z/20180723T160000Z&details=Each entrepreneur will present the new business, then the attendees will have time for one-on-one talks https://www.eventbrite.com/e/thenest-3-graduation-tickets-47704761225&location=רחוב יוסף יקותיאלי 4, תל אביב יפו', '_blank');
 
-        var n = getFormatedDate(date2);
-        //var n = date2.toDateString();
-
-        function getFormatedDate(date) {
-            debugger;
-            var month = date.toString().split('/')[0];
-            var dayNumber = date.toString().split('/')[1];
-            var year = date.toString().split('/')[2];
-            return dayNumber + "-" + month + "-" + year;
-        }
-
-
+        function getMonth(date) {
+            var month = date.getMonth() + 1;
+            return month < 10 ? '0' + month : '' + month; // ('' + month) for string result
+        } 
     </script>
 </body>
 

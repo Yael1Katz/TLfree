@@ -25,8 +25,8 @@ var smtpTransport = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         //type: 'OAuth2',
-        user: "yaelksam@gmail.com",
-        pass: "300464047"
+        user: "tlfreeonline@gmail.com",
+        pass: "Tlfree123123"
     }
 });
 
@@ -123,13 +123,13 @@ exports.backupDB = functions.https.onRequest((request, response) => {
     });
 });
 var maillist = [
-    'yaelksam@gmail.com',
+    'tlfreeonline@gmail.com',
     'omer.big@gmail.com '
 ];
 maillist.toString();
 function inputmail() {
     ///////Email
-    const from = 'yaelksam@gmail.com';
+    const from = 'tlfreeonline@gmail.com';
     const to = maillist;
     const subject = 'backup_tlfree_db';
     var mailOption = {

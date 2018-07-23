@@ -591,6 +591,7 @@ span.m_3{
 .social li {
 	background: none;
 	display: inline-block;
+	margin-left: 10px;
 }
 li.facebook a span {
 	height: 40px;

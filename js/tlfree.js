@@ -88,25 +88,24 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
         var ref = firebase.database().ref('db_tlfree');
+        var currentDate = new Date(Date.now());
+        currentDate = currentDate.getFullYear() + addZeroBeforeNumberIfNecessary(currentDate.getMonth() + 1) + addZeroBeforeNumberIfNecessary(currentDate.getDate());
 
-        ref.once("value", function (snapshot) {
+        ref.orderByChild('full_date').startAt(currentDate).once("value", function (snapshot) {
             var result = snapshot.val();
             $.each(result, function (k, v) {
                 var date = Date.parse(v.full_date).toDateString();
                 date = getFormatedDate(date);
-                var currentDate = getFormatedDate(new Date().toDateString());
-                if (new Date(currentDate) - new Date(date) <= 0) {
-                    var event = {
-                        guid: k, title: v.title, banner_uri: v.banner_uri,
-                        date: date, message_text: v.message_text, link_value: v.link_value,
-                        label: v.labels, labels: setLabels(v.labels), location: {
-                            distance: "", address: v.location.address,
-                            latitude: v.location.latitude, longtitude: v.location.longtitude
-                        }
-                    };
+                var event = {
+                    guid: k, title: v.title, banner_uri: v.banner_uri,
+                    date: date, message_text: v.message_text, link_value: v.link_value,
+                    label: v.labels, labels: setLabels(v.labels), location: {
+                        distance: "", address: v.location.address,
+                        latitude: v.location.latitude, longtitude: v.location.longtitude
+                    }
+                };
+                allEvents.push(event);
 
-                    allEvents.push(event);
-                }
             });
             sortEvents(allEvents);
             initFavorites();
@@ -616,6 +615,8 @@ function getFormatedDatesForGoogleCalendar(date) {
     return date;
 }
 function addZeroBeforeNumberIfNecessary(number) {
+    return number < 10 ? '0' + number : '' + number; // ('' + month) for string result
+} function addZeroBeforeNumberIfNecessary(number) {
     return number < 10 ? '0' + number : '' + number; // ('' + month) for string result
 }
 function favoriteClicked() {

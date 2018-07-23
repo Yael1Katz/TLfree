@@ -41,29 +41,18 @@
 <body>
 
 
-    <div id="basicICal"></div>
+
     <script>
 
-        $(function () {
-            $('#basicICal').icalendar({
-                start: new Date(2008, 1 - 1, 26, 11, 30, 00),
-                end: new Date(2008, 1 - 1, 26, 12, 45, 00),
-                title: 'Australia Day lunch',
-                description: 'A traditional barbeque for our big day',
-                location: 'On your local beach'
-            });
-        });
-        debugger;
-        var date = "23 Jul 2018";
-        var test = new Date(date);
-        test = test.getFullYear() + getMonth(test) + test.getDate() + "T150000Z";
-        
-        window.open('https://calendar.google.com/calendar/r/eventedit?text=TheNest Graduation&dates=20180723T150000Z/20180723T160000Z&details=Each entrepreneur will present the new business, then the attendees will have time for one-on-one talks https://www.eventbrite.com/e/thenest-3-graduation-tickets-47704761225&location=רחוב יוסף יקותיאלי 4, תל אביב יפו', '_blank');
 
-        function getMonth(date) {
-            var month = date.getMonth() + 1;
-            return month < 10 ? '0' + month : '' + month; // ('' + month) for string result
-        } 
+
+        var date = new Date(Date.now());
+        date = date.getFullYear() + addZeroBeforeNumberIfNecessary(date.getMonth() + 1) + addZeroBeforeNumberIfNecessary(date.getDate());
+
+        debugger;
+        function addZeroBeforeNumberIfNecessary(number) {
+            return number < 10 ? '0' + number : '' + number; // ('' + month) for string result
+        }
     </script>
 </body>
 

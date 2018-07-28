@@ -567,7 +567,7 @@ span.m_3{
 }
 .footer-menu li{
 	display: inline-block;
-	background: url(../images/dot.png)no-repeat 1px 12px;
+	/*background: url(../images/dot.png)no-repeat 1px 12px;*/
 }
 .footer-menu li a{
 	color: #CCC;

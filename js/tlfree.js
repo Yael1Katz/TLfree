@@ -110,7 +110,8 @@ firebase.auth().onAuthStateChanged(function (user) {
             sortEvents(allEvents);
             initFavorites();
             initFilteredEvents();
-            setCurrentLocation();
+            //setCurrentLocation();
+            tryGeolocation();
         }, function (error) {
             console.log("Error: " + error.code);
         });
@@ -732,6 +733,69 @@ function initMap() {
     });
 }
 
+
+var apiGeolocationSuccess = function(position) {
+    console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+    var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+    myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
+    service = new google.maps.DistanceMatrixService();
+    setDistancesFromCurrentLocation(allEvents);
+};
+
+var tryAPIGeolocation = function() {
+	$.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLpwoJVhKa1uYUmnBIcM1-lRf7w0akIHY", function(success) {
+		apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+  })
+  .fail(function(err) {
+    console.log("API Geolocation error! \n\n"+err);
+    createEvents(allEvents);
+  });
+};
+
+var browserGeolocationSuccess = function(position) {
+    //alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+    var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+    myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
+    service = new google.maps.DistanceMatrixService();
+    setDistancesFromCurrentLocation(allEvents);
+};
+
+var browserGeolocationFail = function(error) {
+  switch (error.code) {
+    case error.TIMEOUT:
+    console.log("Browser geolocation error !\n\nTimeout.");
+    createEvents(allEvents);
+      break;
+    case error.PERMISSION_DENIED:
+      if(error.message.indexOf("Only secure origins are allowed") == 0) {
+        tryAPIGeolocation();
+      }
+      break;
+    case error.POSITION_UNAVAILABLE:
+      console.log("Browser geolocation error !\n\nPosition unavailable.");
+      createEvents(allEvents);
+      break;
+  }  
+};
+
+var tryGeolocation = function() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+    	browserGeolocationSuccess,
+      browserGeolocationFail,
+      {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+  }
+};
+
+//tryGeolocation();
+
+
 function setCurrentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -743,9 +807,9 @@ function setCurrentLocation() {
             service = new google.maps.DistanceMatrixService();
             setDistancesFromCurrentLocation(allEvents);
         }, function (error) {
-            if (error.message == "User denied Geolocation") {
+            //if (error.message == "User denied Geolocation") {
                 createEvents(allEvents);
-            }
+            //}
         });
 
     }

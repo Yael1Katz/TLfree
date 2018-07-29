@@ -122,7 +122,24 @@ function createEventLocationList() {
     eventsLocation["-LHn3a3Vo-OW6oRVGI9F"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LHn3OMRi-rcoTRnITeQ"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LHn2xnqt7Fx65QJTxB6"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };*/
-
+    eventsLocation["-LI_u8M4Wd8ZSDRKyhTa"] = { address: "9 Ahad HaAm Street" };
+    eventsLocation["-LI_tv2h9z7E4hTfMCs1"] = { address: "Shaul Hameleh 4, Tel Aviv-Yafo" };
+    eventsLocation["-LI_tXm-tYNRgqThseM3"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LI_tIq8o-OW6oRVGI9F"] = { address: "Check Point Software Technologies, הסוללים, תל אביב יפו" };
+    eventsLocation["-LI_tA0Ei-rcoTRnITeQ"] = { address: "35 Ahad HaAm Street" };
+    eventsLocation["-LI_smYMt7Fx65QJTxB6"] = { address: "Dizzy Frishdon" };
+    eventsLocation["-LIQpRW5Zr2DPkE3Vuf1"] = { address: "Dizengoff St 99, תל אביב יפו" };
+    eventsLocation["-LIQp6ucLQ9On1pzZQN4"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LIQoqpIYevbnSa3lnGh"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LIQoJxaWd8ZSDRKyhTa"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LIQnzMP9z7E4hTfMCs1"] = { address: "Abraham Hostel Tel Aviv, לבונטין, תל אביב יפו" };
+    eventsLocation["-LIQnpV5tYNRgqThseM3"] = { address: "Sderot Rothschild 60, תל אביב יפו" };
+    eventsLocation["-LIQnekto-OW6oRVGI9F"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LIQnKzAi-rcoTRnITeQ"] = { address: "Le Wagon TLV, בן יהודה, תל אביב יפו" };
+    eventsLocation["-LIQmaV3t7Fx65QJTxB6"] = { address: "דרך זאב זבוטינסקי 1, Ramat Gan" };
+    eventsLocation["-LI6he2h9z7E4hTfMCs1"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+    eventsLocation["-LI6hTo3tYNRgqThseM3"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LI6h0jbo-OW6oRVGI9F"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
 
 
     //eventsLocation[""] = { address: "" };

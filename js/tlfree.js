@@ -94,8 +94,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         ref.orderByChild('full_date').startAt(currentDate).once("value", function (snapshot) {
             var result = snapshot.val();
             $.each(result, function (k, v) {
-                var date = Date.parse(v.full_date).toDateString();
-                date = getFormatedDate(date);
+                var date = getFormatedDate(v.full_date);
                 var event = {
                     guid: k, title: v.title, banner_uri: v.banner_uri,
                     date: date, message_text: v.message_text, link_value: v.link_value,
@@ -184,10 +183,19 @@ function setLabels(label) {
     return labels;
 }
 function getFormatedDate(date) {
-    var month = date.toString().split(' ')[1];
-    var dayNumber = date.toString().split(' ')[2];
-    var year = date.toString().split(' ')[3];
-    return dayNumber + " " + month + " " + year;
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+    ];
+    // var month = date.toString().split(' ')[1];
+    // var dayNumber = date.toString().split(' ')[2];
+    // var year = date.toString().split(' ')[3];
+    // return dayNumber + " " + month + " " + year;
+    //var date = v.full_date;
+    var year = date.substring(0, 4);
+    var month = date.substring(6, 4);
+    var day = date.substring(8, 6);
+    date = day + " " + monthNames[parseInt(month) - 1] + " " + year;
+    return date;
 }
 function filterChanged() {
     showFilterBar(true);
@@ -241,9 +249,8 @@ function addEventsToFilteredList(events, selectedDate, searchTerm, filteredEvent
                 || event.message_text.toUpperCase().indexOf(searchTerm) > -1) {
                 if (labels.some(label => event.labels.includes(label)) || labels.length == 0) {
                     if (selectedDate != "") {
-                        selectedDate = new Date(selectedDate).toDateString();
-                        selectedDate = getFormatedDate(selectedDate);
-                        if (event.date == selectedDate) {
+                        var selectedDateFormated = getFormatedDate(selectedDate.replace(/-/g, ''));
+                        if (event.date == selectedDateFormated) {
                             filteredEvents.push(event);
                         }
                     }
@@ -734,7 +741,7 @@ function initMap() {
 }
 
 
-var apiGeolocationSuccess = function(position) {
+var apiGeolocationSuccess = function (position) {
     console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
     var pos = {
         lat: position.coords.latitude,
@@ -745,17 +752,17 @@ var apiGeolocationSuccess = function(position) {
     setDistancesFromCurrentLocation(allEvents);
 };
 
-var tryAPIGeolocation = function() {
-	$.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLpwoJVhKa1uYUmnBIcM1-lRf7w0akIHY", function(success) {
-		apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
-  })
-  .fail(function(err) {
-    console.log("API Geolocation error! \n\n"+err);
-    createEvents(allEvents);
-  });
+var tryAPIGeolocation = function () {
+    $.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCLpwoJVhKa1uYUmnBIcM1-lRf7w0akIHY", function (success) {
+        apiGeolocationSuccess({ coords: { latitude: success.location.lat, longitude: success.location.lng } });
+    })
+        .fail(function (err) {
+            console.log("API Geolocation error! \n\n" + err);
+            createEvents(allEvents);
+        });
 };
 
-var browserGeolocationSuccess = function(position) {
+var browserGeolocationSuccess = function (position) {
     //alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
     var pos = {
         lat: position.coords.latitude,
@@ -766,31 +773,31 @@ var browserGeolocationSuccess = function(position) {
     setDistancesFromCurrentLocation(allEvents);
 };
 
-var browserGeolocationFail = function(error) {
-  switch (error.code) {
-    case error.TIMEOUT:
-    console.log("Browser geolocation error !\n\nTimeout.");
-    createEvents(allEvents);
-      break;
-    case error.PERMISSION_DENIED:
-      if(error.message.indexOf("Only secure origins are allowed") == 0) {
-        tryAPIGeolocation();
-      }
-      break;
-    case error.POSITION_UNAVAILABLE:
-      console.log("Browser geolocation error !\n\nPosition unavailable.");
-      createEvents(allEvents);
-      break;
-  }  
+var browserGeolocationFail = function (error) {
+    switch (error.code) {
+        case error.TIMEOUT:
+            console.log("Browser geolocation error !\n\nTimeout.");
+            createEvents(allEvents);
+            break;
+        case error.PERMISSION_DENIED:
+            if (error.message.indexOf("Only secure origins are allowed") == 0) {
+                tryAPIGeolocation();
+            }
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("Browser geolocation error !\n\nPosition unavailable.");
+            createEvents(allEvents);
+            break;
+    }
 };
 
-var tryGeolocation = function() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-    	browserGeolocationSuccess,
-      browserGeolocationFail,
-      {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
-  }
+var tryGeolocation = function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            browserGeolocationSuccess,
+            browserGeolocationFail,
+            { maximumAge: 50000, timeout: 20000, enableHighAccuracy: true });
+    }
 };
 
 //tryGeolocation();
@@ -808,7 +815,7 @@ function setCurrentLocation() {
             setDistancesFromCurrentLocation(allEvents);
         }, function (error) {
             //if (error.message == "User denied Geolocation") {
-                createEvents(allEvents);
+            createEvents(allEvents);
             //}
         });
 

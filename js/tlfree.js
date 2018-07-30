@@ -290,10 +290,86 @@ function createPhotos() {
                 var a = document.createElement("a");
                 a.href = item.link;
                 a.target = "_blank";
-                var img = document.createElement("img");
-                img.src = item.images.low_resolution.url;
-                a.appendChild(img)
+
                 eventCard.appendChild(a);
+                if (item.carousel_media === undefined) {
+                    var img = document.createElement("img");
+                    img.src = item.images.low_resolution.url;
+                    a.appendChild(img);
+                }
+                else {
+                    debugger;
+                    var carousel = document.createElement("div");
+                    carousel.setAttribute("id", "myCarousel_" + item.id);
+                    carousel.setAttribute("class", "carousel slide");
+                    carousel.setAttribute("data-ride", "carousel");
+
+                    var ol = document.createElement("ol");
+                    ol.setAttribute("class", "carousel-indicators");
+                    var carouselInner = document.createElement("div");
+                    carouselInner.setAttribute("class", "carousel-inner");
+                    var couner = 0;
+
+                    item.carousel_media.forEach(image => {
+                        if (image.images !== undefined) {
+                            var li = document.createElement("li");
+                            li.setAttribute("data-target", "#myCarousel_" + item.id);
+                            li.setAttribute("data-slide-to",  couner);
+                            var item1 = document.createElement("div");
+                            var img = document.createElement("img");
+                            img.setAttribute("src", image.images.low_resolution.url);
+                            item1.appendChild(img);
+                            if (couner == 0) {
+                                item1.setAttribute("class", "item active");
+                                li.setAttribute("class", "active");
+                            }
+                            else {
+                                item1.setAttribute("class", "item");
+                            }
+                            ol.appendChild(li);
+                            carouselInner.appendChild(item1);
+                        }
+
+                        couner++;
+                    });
+
+                    var leftCarouselControl = document.createElement("a");
+                    leftCarouselControl.setAttribute("class", "left carousel-control");
+                    leftCarouselControl.setAttribute("href", "#myCarousel_" + item.id);
+                    leftCarouselControl.setAttribute("data-slide", "prev");
+                    var span = document.createElement("span");
+                    span.setAttribute("class", "glyphicon glyphicon-chevron-left");
+                    leftCarouselControl.appendChild(span);
+                    span = document.createElement("span");
+                    span.setAttribute("class", "sr-only");
+                    span.innerHTML = "Previous";
+                    leftCarouselControl.appendChild(span);
+                    var rightCarouselControl = document.createElement("a");
+                    rightCarouselControl.setAttribute("class", "right carousel-control");
+                    rightCarouselControl.setAttribute("href", "#myCarousel_" + item.id);
+                    rightCarouselControl.setAttribute("data-slide", "next");
+                    var span = document.createElement("span");
+                    span.setAttribute("class", "glyphicon glyphicon-chevron-right");
+                    rightCarouselControl.appendChild(span);
+                    span = document.createElement("span");
+                    span.setAttribute("class", "sr-only");
+                    span.innerHTML = "Next";
+                    rightCarouselControl.appendChild(span);
+
+                    a = document.createElement("a");
+                    a.href = item.link;
+                    a.target = "_blank";
+                    a.appendChild(ol);
+                    a.appendChild(carouselInner);
+                    
+                    carousel.appendChild(a);
+                    carousel.appendChild(leftCarouselControl);
+                    carousel.appendChild(rightCarouselControl);
+                    eventCard.appendChild(carousel);
+                }
+
+
+
 
                 var desc = document.createElement("div");
                 desc.setAttribute("class", "desc");
@@ -350,6 +426,43 @@ function createPhotos() {
                 label.setAttribute("title", item.location.name);
                 label.setAttribute("data-toggle", "modal");
                 label.setAttribute("data-target", "#mapModal");
+
+                /*<div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="https://scontent.cdninstagram.com/vp/9164550db8beaa6fc3ff94bdc90f5f1a/5C0A2535/t51.2885-15/e35/s320x320/37585870_248095559338066_2932258581971468288_n.jpg"
+                                alt="Los Angeles">
+                        </div>
+
+                        <div class="item">
+                            <img src="https://scontent.cdninstagram.com/vp/9164550db8beaa6fc3ff94bdc90f5f1a/5C0A2535/t51.2885-15/e35/s320x320/37585870_248095559338066_2932258581971468288_n.jpg"
+                                alt="Chicago">
+                        </div>
+
+                        <div class="item">
+                            <img src="https://scontent.cdninstagram.com/vp/9164550db8beaa6fc3ff94bdc90f5f1a/5C0A2535/t51.2885-15/e35/s320x320/37585870_248095559338066_2932258581971468288_n.jpg"
+                                alt="New York">
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>*/
                 img = document.createElement("img");
                 img.src = "images/map.png";
                 img.setAttribute("class", "img-thumbnail");
@@ -374,7 +487,7 @@ function convertFromTimestmapToDate(UNIX_timestamp) {
     var year = a.getFullYear();
     var month = months[a.getMonth()];
     var date = a.getDate();
-    var time = date + '-' + month + '-' + year;
+    var time = date + ' ' + month + ' ' + year;
     return time;
 }
 

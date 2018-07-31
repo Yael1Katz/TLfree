@@ -140,7 +140,12 @@ function createEventLocationList() {
     eventsLocation["-LI6he2h9z7E4hTfMCs1"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
     eventsLocation["-LI6hTo3tYNRgqThseM3"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LI6h0jbo-OW6oRVGI9F"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };*/
-
+    eventsLocation["-LIjop6dYevbnSa3lnGh"] = { address: "Dizzy Frishdon" };
+    eventsLocation["-LIjocgIWd8ZSDRKyhTa"] = { address: "32 HaArbaa Street" };
+    eventsLocation["-LIjoU7f9z7E4hTfMCs1"] = { address: "Dizzy Frishdon" };
+    eventsLocation["-LIjn8QKo-OW6oRVGI9F"] = { address: "Tel Aviv University" };
+    eventsLocation["-LIjmxF4i-rcoTRnITeQ"] = { address: "רוטשילד 20, תל אביב יפו" };
+    eventsLocation["-LIjmctHt7Fx65QJTxB6"] = { address: "Ahad Haam 54, Tel Aviv" };
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;

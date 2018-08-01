@@ -887,6 +887,7 @@ var browserGeolocationSuccess = function (position) {
 };
 
 var browserGeolocationFail = function (error) {
+    debugger;
     switch (error.code) {
         case error.TIMEOUT:
             console.log("Browser geolocation error !\n\nTimeout.");
@@ -895,6 +896,9 @@ var browserGeolocationFail = function (error) {
         case error.PERMISSION_DENIED:
             if (error.message.indexOf("Only secure origins are allowed") == 0) {
                 tryAPIGeolocation();
+            }
+            else if (error.message.indexOf("User denied Geolocation") == 0){
+                createEvents(allEvents);
             }
             break;
         case error.POSITION_UNAVAILABLE:

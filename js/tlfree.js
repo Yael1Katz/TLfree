@@ -616,6 +616,7 @@ function createEvents(events) {
             span = document.createElement("span");
             span.setAttribute("class", "m_22 favorite");
             var div = document.createElement("div");
+            div.setAttribute("Title", "Favorites");
             if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
                 div.setAttribute("class", "star glyphicon glyphicon-star");
             }
@@ -1097,6 +1098,7 @@ var addMarker = function (event) {
             span = document.createElement("span");
             span.setAttribute("class", "m_22 favorite");
             var div = document.createElement("div");
+            div.setAttribute("Title", "Favorites");
             if (favoritesEventsGUIDs.indexOf(event.guid) > -1) {
                 div.setAttribute("class", "star glyphicon glyphicon-star");
             }

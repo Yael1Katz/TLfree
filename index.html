@@ -32,6 +32,40 @@
 </head>
 
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="mapModal" role="dialog">
+        <!-- Modal content-->
+        <div class="modal-content-map">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <iframe id="googleMapsWindow" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843"
+                width="100%" height="95%" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">What's TLfree About</h3>
+                </div>
+                <div class="modal-body">
+                    <p>We started this website to promote
+                        <strong>FREE</strong> events and special meetups of Tel Aviv's best organizations and companies. Looking
+                        for an interesting event to attend after work? Enjoying mingling with other people? With TLfree you'll
+                        be able to find a wide variety of
+                        <strong>FREE</strong> events from across the city. Please contact us for any comments or remarks at:
+                        <a href="mailto:tlfreeonline@gmail.com">
+                            <strong>tlfreeonline@gmail.com</strong>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
     <div class="header-top">
         <div class="wrap">
@@ -195,44 +229,9 @@
             </div>
         </div>-->
 
-        <!-- Modal -->
-        <div class="modal fade" id="mapModal" role="dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content-map">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <iframe id="googleMapsWindow" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.409451336641!2d34.790327385453736!3d32.08521782624389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b93b59302cb%3A0x5bfa6aa1e6d6a001!2z157XqdeUINep16jXqiA3LCDXqtecINeQ15HXmdeRINeZ16TXlQ!5e0!3m2!1siw!2sil!4v1528795489843"
-                    width="100%" height="95%" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
 
 
-        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="aboutModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">What's TLfree About</h3>
-                    </div>
-                    <div class="modal-body">
-                        <p>We started this website to promote
-                            <strong>FREE</strong> events and special meetups of Tel Aviv's best organizations and companies. Looking
-                            for an interesting event to attend after work? Enjoying mingling with other people? With TLfree
-                            you'll be able to find a wide variety of
-                            <strong>FREE</strong> events from across the city. Please contact us for any comments or remarks at:
-                            <a href="mailto:tlfreeonline@gmail.com">
-                                <strong>tlfreeonline@gmail.com</strong>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
 
         <div class="wrap">
 
@@ -308,10 +307,9 @@
 
 
     <script type="text/javascript" src="js/tlfree.js"></script>
-    <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdZD0Rsf1mCKYSh1Xu9I1d3uNIZM2hNEo&libraries=places&callback=initMap"
-        type="text/javascript"></script>-->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBJYQtdjzLH6v4_bftrBdwT1VgNYxrVrs&libraries=places&callback=initMap"
-        type="text/javascript"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBJYQtdjzLH6v4_bftrBdwT1VgNYxrVrs&libraries=places&callback=initMap"
+        type="text/javascript"></script> -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBBJYQtdjzLH6v4_bftrBdwT1VgNYxrVrs"></script>
     <script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </body>

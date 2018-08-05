@@ -52,7 +52,6 @@ var filter90Checked;
 var editorChoiceFilterChecked;
 var allFilterChecked = true;
 var myCurrentLocation;
-var geocoder;
 var map;
 var markers = [];
 var service;
@@ -61,12 +60,10 @@ var allEvents = [];
 var favoritesEventsGUIDs = [];
 var favoritesEvents = [];
 var filteredEvents = [];
-var mapDiv = document.createElement("div");
-mapDiv.setAttribute("id", "map");
 setDisplayMode();
-getAllEvents();
+start();
 var selectedTab = "eventsTab";
-function getAllEvents() {
+function start() {
 
     var config = {
         apiKey: "AIzaSyDn2VWzzsZBK_q-VwEk0FksBW-z0MNE17Q",
@@ -314,7 +311,7 @@ function createPhotos() {
                         if (image.images !== undefined) {
                             var li = document.createElement("li");
                             li.setAttribute("data-target", "#myCarousel_" + item.id);
-                            li.setAttribute("data-slide-to",  couner);
+                            li.setAttribute("data-slide-to", couner);
                             var item1 = document.createElement("div");
                             var img = document.createElement("img");
                             img.setAttribute("src", image.images.low_resolution.url);
@@ -361,7 +358,7 @@ function createPhotos() {
                     a.target = "_blank";
                     a.appendChild(ol);
                     a.appendChild(carouselInner);
-                    
+
                     carousel.appendChild(a);
                     carousel.appendChild(leftCarouselControl);
                     carousel.appendChild(rightCarouselControl);
@@ -804,6 +801,14 @@ function mapTab() {
     div.setAttribute("class", "col-sm-8");
     div.style.height = "600px";
     raw.appendChild(div);
+
+    var mapDiv = document.createElement("div");
+    mapDiv.setAttribute("id", "map");
+    map = new google.maps.Map(mapDiv, {
+        center: { lat: 32.069396, lng: 34.7869129 },
+        zoom: 13.5
+    });
+
     div.appendChild(mapDiv);
     div = document.createElement("div");
     div.setAttribute("class", "col-sm-4");
@@ -846,21 +851,13 @@ function showMap(address) {
     googleMapsWindow.src = src;
 }
 
-function initMap() {
-    geocoder = new google.maps.Geocoder();
-    map = new google.maps.Map(mapDiv, {
-        center: { lat: 32.069396, lng: 34.7869129 },
-        zoom: 13.5
-    });
-}
-
-
 var apiGeolocationSuccess = function (position) {
     console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
     var pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
+    debugger;
     myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
     service = new google.maps.DistanceMatrixService();
     setDistancesFromCurrentLocation(allEvents);
@@ -882,6 +879,7 @@ var browserGeolocationSuccess = function (position) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
+    debugger;
     myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
     service = new google.maps.DistanceMatrixService();
     setDistancesFromCurrentLocation(allEvents);
@@ -898,7 +896,7 @@ var browserGeolocationFail = function (error) {
             if (error.message.indexOf("Only secure origins are allowed") == 0) {
                 tryAPIGeolocation();
             }
-            else if (error.message.indexOf("User denied Geolocation") == 0){
+            else if (error.message.indexOf("User denied Geolocation") == 0) {
                 createEvents(allEvents);
             }
             break;
@@ -990,8 +988,6 @@ function addMarkers() {
     });
 }
 var addMarker = function (event) {
-    //geocoder.geocode({ 'address': event.address }, function (results, status) {
-    //if (status == 'OK') {
     var marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(event.location.latitude, event.location.longtitude),

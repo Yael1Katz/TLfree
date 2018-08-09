@@ -106,7 +106,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             sortEvents(allEvents);
             initFavorites();
             initFilteredEvents();
-            //setCurrentLocation();
+            //createEvents(allEvents);
             tryGeolocation();
         }, function (error) {
             console.log("Error: " + error.code);

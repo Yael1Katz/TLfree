@@ -168,6 +168,24 @@ function createEventLocationList() {
     // eventsLocation["-LIvq4istYNRgqThseM3"] = { address: "WeWork Dubnov, תל אביב יפו" };
     // eventsLocation["-LIvpfC3o-OW6oRVGI9F"] = { address: "Maze Street 9, תל אביב יפו" };
     // eventsLocation["-LIvpQmVi-rcoTRnITeQ"] = { address: "HaBarzel 19d, תל אביב יפו" };
+    eventsLocation["-LJOo_pM2U_g8-swBe5w"] = { address: "Rothschild Boulevard 22, Tel Aviv-Yafo" };
+    eventsLocation["-LJOny8TZr2DPkE3Vuf1"] = { address: "בית רובינשטיין, תל אביב יפו" };
+    eventsLocation["-LJOngdELQ9On1pzZQN4"] = { address: "קפה שפירא, רלבג, תל אביב יפו" };
+    eventsLocation["-LJOnXwTYevbnSa3lnGh"] = { address: "Rothschild 11, Tel Aviv-Yafo" };
+    eventsLocation["-LJOnPAFWd8ZSDRKyhTa"] = { address: "Rothschild 11, Tel Aviv-Yafo" };
+    eventsLocation["-LJOnGlU9z7E4hTfMCs1"] = { address: "עיריית תל אביב תל אביב יפו" };
+    eventsLocation["-LJOn7vctYNRgqThseM3"] = { address: "גן הפסגה, תל אביב יפו" };
+    eventsLocation["-LJOmzYMo-OW6oRVGI9F"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LJOmfEkt7Fx65QJTxB6"] = { address: "שדרות רוטשילד 60, תל אביב יפו" };
+    eventsLocation["-LJEaH0lZr2DPkE3Vuf1"] = { address: "קפה שפירא, רלבג, תל אביב יפו" };
+    eventsLocation["-LJEa7GWLQ9On1pzZQN4"] = { address: "עיריית תל אביב תל אביב יפו" };
+    eventsLocation["-LJE_yMTYevbnSa3lnGh"] = { address: "Rothschild 11, Tel Aviv-Yafo" };
+    eventsLocation["-LJE_i7QWd8ZSDRKyhTa"] = { address: "Rothschild 11, Tel Aviv-Yafo" };
+    eventsLocation["-LJE_XtM9z7E4hTfMCs1"] = { address: "Yigal Alon Street 94, Tel Aviv-Yafo" };
+    eventsLocation["-LJE_995tYNRgqThseM3"] = { address: "Yigal Alon Street 98, Tel Aviv-Yafo" };
+
+
+    eventsLocation[""] = { address: "" };
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;

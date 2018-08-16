@@ -271,6 +271,7 @@ function createPhotos() {
         type: 'GET',
         data: { access_token: token, count: num_photos },
         success: function (data) {
+            
             var itemsCounter = 0;
             var sectionGroup;
             data.data.forEach(item => {
@@ -295,7 +296,6 @@ function createPhotos() {
                     a.appendChild(img);
                 }
                 else {
-                    debugger;
                     var carousel = document.createElement("div");
                     carousel.setAttribute("id", "myCarousel_" + item.id);
                     carousel.setAttribute("class", "carousel slide");
@@ -416,58 +416,22 @@ function createPhotos() {
                 label.appendChild(img);
                 label.appendChild(span);
                 div.appendChild(label);
-                label = document.createElement("label");
-                label.setAttribute("class", "btn myBtn");
-                label.setAttribute("style", "margin-right: 10px");
-                label.setAttribute("onclick", "showMap('" + item.location.name + "')");
-                label.setAttribute("title", item.location.name);
-                label.setAttribute("data-toggle", "modal");
-                label.setAttribute("data-target", "#mapModal");
-
-                /*<div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="https://scontent.cdninstagram.com/vp/9164550db8beaa6fc3ff94bdc90f5f1a/5C0A2535/t51.2885-15/e35/s320x320/37585870_248095559338066_2932258581971468288_n.jpg"
-                                alt="Los Angeles">
-                        </div>
-
-                        <div class="item">
-                            <img src="https://scontent.cdninstagram.com/vp/9164550db8beaa6fc3ff94bdc90f5f1a/5C0A2535/t51.2885-15/e35/s320x320/37585870_248095559338066_2932258581971468288_n.jpg"
-                                alt="Chicago">
-                        </div>
-
-                        <div class="item">
-                            <img src="https://scontent.cdninstagram.com/vp/9164550db8beaa6fc3ff94bdc90f5f1a/5C0A2535/t51.2885-15/e35/s320x320/37585870_248095559338066_2932258581971468288_n.jpg"
-                                alt="New York">
-                        </div>
-                    </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>*/
-                img = document.createElement("img");
-                img.src = "images/map.png";
-                img.setAttribute("class", "img-thumbnail");
-                img.setAttribute("style", "border:0;opacity: 0.5;");
-                label.appendChild(img);
-                div.appendChild(label);
+                if(item.location != null){
+                    label = document.createElement("label");
+                    label.setAttribute("class", "btn myBtn");
+                    label.setAttribute("style", "margin-right: 10px");
+                    label.setAttribute("onclick", "showMap('" + item.location.name + "')");
+                    label.setAttribute("title", item.location.name);
+                    label.setAttribute("data-toggle", "modal");
+                    label.setAttribute("data-target", "#mapModal");
+                    img = document.createElement("img");
+                    img.src = "images/map.png";
+                    img.setAttribute("class", "img-thumbnail");
+                    img.setAttribute("style", "border:0;opacity: 0.5;");
+                    label.appendChild(img);
+                    div.appendChild(label);
+                }
                 eventCard.appendChild(div);
-
                 sectionGroup.appendChild(eventCard);
                 itemsCounter++;
             });
@@ -857,7 +821,6 @@ var apiGeolocationSuccess = function (position) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
-    debugger;
     myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
     service = new google.maps.DistanceMatrixService();
     setDistancesFromCurrentLocation(allEvents);
@@ -879,14 +842,12 @@ var browserGeolocationSuccess = function (position) {
         lat: position.coords.latitude,
         lng: position.coords.longitude
     };
-    debugger;
     myCurrentLocation = new google.maps.LatLng(pos.lat, pos.lng);
     service = new google.maps.DistanceMatrixService();
     setDistancesFromCurrentLocation(allEvents);
 };
 
 var browserGeolocationFail = function (error) {
-    debugger;
     switch (error.code) {
         case error.TIMEOUT:
             console.log("Browser geolocation error !\n\nTimeout.");

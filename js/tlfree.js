@@ -90,7 +90,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         ref.orderByChild('full_date').startAt(currentDate).once("value", function (snapshot) {
             var result = snapshot.val();
-            $.each(result, function (k, v) {
+            $.each(result, (k, v) => {
                 var date = getFormatedDate(v.full_date);
                 var event = {
                     guid: k, title: v.title, banner_uri: v.banner_uri,
@@ -271,7 +271,7 @@ function createPhotos() {
         type: 'GET',
         data: { access_token: token, count: num_photos },
         success: function (data) {
-            
+
             var itemsCounter = 0;
             var sectionGroup;
             data.data.forEach(item => {
@@ -416,7 +416,7 @@ function createPhotos() {
                 label.appendChild(img);
                 label.appendChild(span);
                 div.appendChild(label);
-                if(item.location != null){
+                if (item.location != null) {
                     label = document.createElement("label");
                     label.setAttribute("class", "btn myBtn");
                     label.setAttribute("style", "margin-right: 10px");

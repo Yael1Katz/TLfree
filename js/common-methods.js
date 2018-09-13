@@ -217,6 +217,17 @@ function createEventLocationList() {
     // eventsLocation["-LKGm_DN4HL4kdNkKf-M"] = { address: "Rothschild 1 Tel Aviv" };
     // eventsLocation["-LKGlq27z_Ubb0k9XnRt"] = { address: "Dizengoff St 200, Tel Aviv-Yafo" };
     // eventsLocation["-LKGleVG2uNnS1B0nIPd"] = { address: "Ben Yehuda 32, Tel Aviv" };
+    eventsLocation["-LKuK4zEHbm1JxLiO1yh"] = { address: "Iban Gabirol 30" };
+    eventsLocation["-LLV3z1376BSXqZyaHjU"] = { address: "הברזל 34, תל אביב יפו" };
+    eventsLocation["-LKuJuX8h_bxDfyi05Y-"] = { address: "Yaglom Hall" };
+    eventsLocation["-LLiMWKQz_F_CtzFYGLa"] = { address: "69 Ibn Givorol" };
+    eventsLocation["-LLiMFgQ3eT5ObBqGT61"] = { address: "9 Ahad HaAm Street" };
+    eventsLocation["-LKuJA3hie-QhGRgYtu7"] = { address: "2 Jabotinsky Ramat Gan" };
+    eventsLocation["-LLiLx-9z1wq_Ve8-ssi"] = { address: "Dvora HaNevia 121, תל אביב יפו" };
+    eventsLocation["-LKuJLH4jeC7GfbFGVVA"] = { address: "Rothschild blvd 39" };
+    eventsLocation["-LLV4MFdEq_7sGY7IcNW"] = { address: "עיריית תל אביב" };
+    eventsLocation["-LLV4XZ-Wv_f8npLGM6L"] = { address: "ארניה אסוולדו 17, תל אביב יפו" };
+    eventsLocation["-LLOCD112kXempL2To9q"] = { address: "נמל תל אביב" };
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;

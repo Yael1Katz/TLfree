@@ -246,7 +246,7 @@ function createEventLocationList() {
     eventsLocation["-LNq-LIpFo9-czclVUJk"] = { address: "Ibe Gabirol Street 30, Tel Aviv-Yafo" };
     eventsLocation["-LNq-2F0LddkUknx9q2a"] = { address: "Zeev Jabotinsky Street 2, רמת גן" };
     eventsLocation["-LNQwvRjibcBDUJQUBAw"] = { address: "קרית עתידים בניין 7 תל אביב" };
-    eventsLocation["LNQwjv9Y6Pky5dW6JW6"] = { address: "דרך מנחם בגין 132 תל אביב" };
+    eventsLocation["-LNQwjv9Y6Pky5dW6JW6"] = { address: "דרך מנחם בגין 132 תל אביב" };
     eventsLocation["-LNQwYAD4X4tR2zcymr9"] = { address: "54 Ahad HaAm Street" };
     eventsLocation["-LNQwNkWx8AJ2-tuKoJD"] = { address: "Dizzy Frishdon" };
     eventsLocation["-LNQw8P9AS9oeYehNfKS"] = { address: "Ibe Gabirol Street 26, Tel Aviv-Yafo" };

@@ -259,21 +259,22 @@ function createEventLocationList() {
     // eventsLocation["-LMsAumO4A-hiTwxcBCC"] = { address: "ספריית בית אריאלה" };
     // eventsLocation["-LM8PlsOVQ1dWZeMs7CR"] = { address: "Tel Aviv District 6513307" };
     // eventsLocation["-LKuJc2oOG2cabmOsURE"] = { address: "Community Center Rozin, יחיאל דב דרזנר, תל אביב יפו" };
-    eventsLocation["-LOX1pFaoU2JEz82UuRh"] = { address: "Hangar 11, כג יורדי הסירה, תל אביב יפו" };
-    eventsLocation["-LOX1e-WG3x1shVGQnVC"] = { address: "54 Ahad HaAm Street" };
-    eventsLocation["-LOX1JwAf90swsOPTsud"] = { address: "הפלך 7, תל אביב" };
-    eventsLocation["-LOX10vxqSs8oeKFEeLE"] = { address: "הפלך 7, תל אביב" };
-    eventsLocation["-LOX0hE6M3svkKr4ESTZ"] = { address: "אלוף קלמן מגן 5, תל אביב" };
-    eventsLocation["-LOX0FCn8wBGGwaqAtxl"] = { address: "הפלך 7, תל אביב" };
-    eventsLocation["-LOX-SE842N0owuwP3EQ"] = { address: "Osvaldo Aranha Street 17, תל אביב יפו" };
-    eventsLocation["-LOS358XnieWsu0o4X8F"] = { address: "Rothschild Boulevard 22, Tel Aviv-Yafo" };
-    eventsLocation["-LOS2pF63Br_1KTIKpnM"] = { address: "Rothschild Avenue 32, Tel Aviv-Yafo" };
-    eventsLocation["-LOS2YuYwE2UEAU0jjIb"] = { address: "קרית עתידים בניין 7 תל אביב" };
-    eventsLocation["-LOS2JdoPn7z7r5IXq_G"] = { address: "ברוך הירש 14, תל אביב" };
-    eventsLocation["-LOS257Bm8pdcJon4I4t"] = { address: "Derech Menachem Begin 121, Tel Aviv-Yafo" };
-    eventsLocation["-LOS1nN98svGodFFMR2Y"] = { address: "Dubnov 7, Tel Aviv-Yafo" };
-    eventsLocation["-LOMb74veGbHXxNnLv4b"] = { address: "WeWork Dubnov, תל אביב יפו" };
-    eventsLocation["-LOMaqu90ohFWrMBfxFq"] = { address: "54 Ahad HaAm Street" };
+    // eventsLocation["-LOX1pFaoU2JEz82UuRh"] = { address: "Hangar 11, כג יורדי הסירה, תל אביב יפו" };
+    // eventsLocation["-LOX1e-WG3x1shVGQnVC"] = { address: "54 Ahad HaAm Street" };
+    // eventsLocation["-LOX1JwAf90swsOPTsud"] = { address: "הפלך 7, תל אביב" };
+    // eventsLocation["-LOX10vxqSs8oeKFEeLE"] = { address: "הפלך 7, תל אביב" };
+    // eventsLocation["-LOX0hE6M3svkKr4ESTZ"] = { address: "אלוף קלמן מגן 5, תל אביב" };
+    // eventsLocation["-LOX0FCn8wBGGwaqAtxl"] = { address: "הפלך 7, תל אביב" };
+    // eventsLocation["-LOX-SE842N0owuwP3EQ"] = { address: "Osvaldo Aranha Street 17, תל אביב יפו" };
+    // eventsLocation["-LOS358XnieWsu0o4X8F"] = { address: "Rothschild Boulevard 22, Tel Aviv-Yafo" };
+    // eventsLocation["-LOS2pF63Br_1KTIKpnM"] = { address: "Rothschild Avenue 32, Tel Aviv-Yafo" };
+    // eventsLocation["-LOS2YuYwE2UEAU0jjIb"] = { address: "קרית עתידים בניין 7 תל אביב" };
+    // eventsLocation["-LOS2JdoPn7z7r5IXq_G"] = { address: "ברוך הירש 14, תל אביב" };
+    // eventsLocation["-LOS257Bm8pdcJon4I4t"] = { address: "Derech Menachem Begin 121, Tel Aviv-Yafo" };
+    // eventsLocation["-LOS1nN98svGodFFMR2Y"] = { address: "Dubnov 7, Tel Aviv-Yafo" };
+    // eventsLocation["-LOMb74veGbHXxNnLv4b"] = { address: "WeWork Dubnov, תל אביב יפו" };
+    // eventsLocation["-LOMaqu90ohFWrMBfxFq"] = { address: "54 Ahad HaAm Street" };
+
     //eventsLocation[""] = { address: "" };
     return eventsLocation;
 }

@@ -165,6 +165,9 @@ function setLabels(label) {
     else if (label == 4) {
         labels = [4];
     }
+    else if (label == 6) {
+        labels = [2, 4];
+    }
     else if (label == 8) {
         labels = [8];
     }
@@ -516,6 +519,19 @@ function createEvents(events) {
             }
             else if (event.label == 4) {
                 img.src = "images/ic_90_percent_discount.png";
+            }
+            else if (event.label == 6) {
+                img.src = "images/hq.png";
+                li.appendChild(span);
+                span = document.createElement("span");
+                span.setAttribute("class", "m_23");
+                i = document.createElement("i");
+                img = document.createElement("img");
+                img.src = "images/ic_90_percent_discount.png";
+                img.width = "30";
+                i.appendChild(img);
+                span.appendChild(i);
+                li.appendChild(span);
             }
             else if (event.label == 8) {
                 img.src = "images/ic_editors_choice.png";
@@ -1017,6 +1033,19 @@ var addMarker = function (event) {
             }
             else if (event.label == 4) {
                 img.src = "images/ic_90_percent_discount.png";
+            }
+            else if (event.label == 6) {
+                img.src = "images/hq.png";
+                li.appendChild(span);
+                span = document.createElement("span");
+                span.setAttribute("class", "m_23");
+                i = document.createElement("i");
+                img = document.createElement("img");
+                img.src = "images/ic_90_percent_discount.png";
+                img.width = "30";
+                i.appendChild(img);
+                span.appendChild(i);
+                li.appendChild(span);
             }
             else if (event.label == 8) {
                 img.src = "images/ic_editors_choice.png";

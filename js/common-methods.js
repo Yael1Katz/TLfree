@@ -274,6 +274,16 @@ function createEventLocationList() {
     // eventsLocation["-LOS1nN98svGodFFMR2Y"] = { address: "Dubnov 7, Tel Aviv-Yafo" };
     // eventsLocation["-LOMb74veGbHXxNnLv4b"] = { address: "WeWork Dubnov, תל אביב יפו" };
     // eventsLocation["-LOMaqu90ohFWrMBfxFq"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LOm4WtH71_kPgwE9b0x"] = { address: "Habima Theater" };
+    eventsLocation["-LOm44UlQgkA1LeQfyg3"] = { address: "אידלסון 29, תל אביב יפו" };
+    eventsLocation["-LOm3tSEl7Kopd8C2VGz"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LOm3cO1JBIbarQ8Fm4h"] = { address: "בית אריאלה" };
+    eventsLocation["-LOm3SMHF4wBP5EWU3kc"] = { address: "Sderot Rothschild 22, Tel Aviv-Yafo" };
+    eventsLocation["-LOm3IZIneH0F5qqBZit"] = { address: "Abraham Hostel" };
+    eventsLocation["-LOm3A71FkB8yHXu0Ul0"] = { address: "Wix HQ" };
+    eventsLocation["-LOm2xND_bL0EFyncW4N"] = { address: "המכון לרפורמות מבניות" };
+    eventsLocation["-LOm2eLGiu5llbv6It3M"] = { address: "ידעיה הפניני 15 תל אביב" };
+    eventsLocation["-LOm2Ug40IVG-Xc3-ML-"] = { address: "Ahuzat Bayit Street 2, Tel Aviv-Yafo" };
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;

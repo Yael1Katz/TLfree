@@ -219,7 +219,7 @@ function createEventLocationList() {
     // eventsLocation["-LKGleVG2uNnS1B0nIPd"] = { address: "Ben Yehuda 32, Tel Aviv" };
     // eventsLocation["-LKuK4zEHbm1JxLiO1yh"] = { address: "Iban Gabirol 30" };
     // eventsLocation["-LLV3z1376BSXqZyaHjU"] = { address: "הברזל 34, תל אביב יפו" };
-    // eventsLocation["-LKuJuX8h_bxDfyi05Y-"] = { address: "Yaglom Hall" };
+     eventsLocation["-LKuJuX8h_bxDfyi05Y-"] = { address: "tel aviv university tel aviv-yafo" };
     // eventsLocation["-LLiMWKQz_F_CtzFYGLa"] = { address: "69 Ibn Givorol" };
     // eventsLocation["-LLiMFgQ3eT5ObBqGT61"] = { address: "9 Ahad HaAm Street" };
     // eventsLocation["-LKuJA3hie-QhGRgYtu7"] = { address: "2 Jabotinsky Ramat Gan" };
@@ -231,7 +231,6 @@ function createEventLocationList() {
     // eventsLocation["-LNq0n1KeYKRKhln14Xa"] = { address: "Community Center Rozin, יחיאל דב דרזנר, תל אביב יפו" };
     // eventsLocation["-LNq0anRd64pGX5DaRWu"] = { address: "Dizzy Frishdon" };
     // eventsLocation["-LNq0NmqSf_SeErO4YSd"] = { address: "Dizzy Frishdon" };
-    // eventsLocation["-LNq02TkShpxPP6RVi2u"] = { address: "HaTsfira St 21" };
     // eventsLocation["-LNq-o0Iu6D55Qy1KImV"] = { address: "Raoul Wallenberg St 18, Tel Aviv-Yafo" };
     // eventsLocation["-LOHz7xwG4wi6tjCBfks"] = { address: "דרך מנחם בגין 144 תל אביב" };
     // eventsLocation["-LOHyYXWs3oTRwbr9HrV"] = { address: "9 Ahad HaAm Street" };
@@ -239,10 +238,10 @@ function createEventLocationList() {
     // eventsLocation["-LOHy-Ou5oRJd37Jh1b0"] = { address: "54 Ahad HaAm Street" };
     // eventsLocation["-LOHxJuEH3zEsNCMJW9r"] = { address: "דרך מנחם בגין 52 תל אביב" };
     // eventsLocation["-LOHx0oqiebpJUEjpNHv"] = { address: "Kiryat Atidim 8, HaBarzel Street, Tel Aviv-Yafo" };
-    // eventsLocation["-LNq02TkShpxPP6RVi2u"] = { address: "HaTsfira St 21" };
+     eventsLocation["-LNq02TkShpxPP6RVi2u"] = { address: "HaTsfira 21, Tel Aviv" };
     // eventsLocation["-LOHwRsfRXvvh2Zhqu-B"] = { address: "wework ibn gvirol 30 (london ministore) 3rd floor tel aviv il" };
     // eventsLocation["-LNq-o0Iu6D55Qy1KImV"] = { address: "Raoul Wallenberg St 18, Tel Aviv-Yafo" };
-    // eventsLocation["-LNq-cDf0_IPEDWAxh-u"] = { address: "Yosef Yekutieli 4" };
+     eventsLocation["-LNq-cDf0_IPEDWAxh-u"] = { address: "יוסף יקותיאלי 4, תל אביב" };
     // eventsLocation["-LNq-LIpFo9-czclVUJk"] = { address: "Ibe Gabirol Street 30, Tel Aviv-Yafo" };
     // eventsLocation["-LNq-2F0LddkUknx9q2a"] = { address: "Zeev Jabotinsky Street 2, רמת גן" };
     // eventsLocation["-LNQwvRjibcBDUJQUBAw"] = { address: "קרית עתידים בניין 7 תל אביב" };
@@ -274,13 +273,13 @@ function createEventLocationList() {
     // eventsLocation["-LOS1nN98svGodFFMR2Y"] = { address: "Dubnov 7, Tel Aviv-Yafo" };
     // eventsLocation["-LOMb74veGbHXxNnLv4b"] = { address: "WeWork Dubnov, תל אביב יפו" };
     // eventsLocation["-LOMaqu90ohFWrMBfxFq"] = { address: "54 Ahad HaAm Street" };
-    // eventsLocation["-LOm4WtH71_kPgwE9b0x"] = { address: "Habima Theater" };
+     eventsLocation["-LOm4WtH71_kPgwE9b0x"] = { address: "שדרות תרסט 2, תל אביב יפו" };
     // eventsLocation["-LOm44UlQgkA1LeQfyg3"] = { address: "אידלסון 29, תל אביב יפו" };
     // eventsLocation["-LOm3tSEl7Kopd8C2VGz"] = { address: "54 Ahad HaAm Street" };
     // eventsLocation["-LOm3cO1JBIbarQ8Fm4h"] = { address: "בית אריאלה" };
     // eventsLocation["-LOm3SMHF4wBP5EWU3kc"] = { address: "Sderot Rothschild 22, Tel Aviv-Yafo" };
-    // eventsLocation["-LOm3IZIneH0F5qqBZit"] = { address: "Abraham Hostel" };
-    // eventsLocation["-LOm3A71FkB8yHXu0Ul0"] = { address: "Wix HQ" };
+     eventsLocation["-LOm3IZIneH0F5qqBZit"] = { address: "לבונטין 21, תל אביב יפו" };
+     eventsLocation["-LOm3A71FkB8yHXu0Ul0"] = { address: "נמל תל אביב נמל תל אביב 40, תל אביב יפו"};
     // eventsLocation["-LOm2xND_bL0EFyncW4N"] = { address: "המכון לרפורמות מבניות" };
     // eventsLocation["-LOm2eLGiu5llbv6It3M"] = { address: "ידעיה הפניני 15 תל אביב" };
     // eventsLocation["-LOm2Ug40IVG-Xc3-ML-"] = { address: "Ahuzat Bayit Street 2, Tel Aviv-Yafo" };

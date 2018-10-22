@@ -283,6 +283,22 @@ function createEventLocationList() {
     // eventsLocation["-LOm2xND_bL0EFyncW4N"] = { address: "המכון לרפורמות מבניות" };
     // eventsLocation["-LOm2eLGiu5llbv6It3M"] = { address: "ידעיה הפניני 15 תל אביב" };
     // eventsLocation["-LOm2Ug40IVG-Xc3-ML-"] = { address: "Ahuzat Bayit Street 2, Tel Aviv-Yafo" };
+    eventsLocation["-LOwC70Kq3yfRlikdFCb"] = { address: "שוהם 2 רמת גן" };
+    eventsLocation["-LPKmWucsGnl_ZMblYVO"] = { address: "אלקטרה, יגאל אלון 98, תל אביב יפו" };
+    eventsLocation["-LPKmMRd3-ivitDBP9Bi"] = { address: "מנחם בגין 121, תל אביב יפו" };
+    eventsLocation["-LPKm9Zcvf6Lfh-_bquk"] = { address: "עיריית תל אביב, תל אביב יפו" };
+    eventsLocation["-LPKlxQyogJ1dhfXyNqA"] = { address: "אוסוולדו ארניה 29, תל אביב יפו" };
+    eventsLocation["-LPKlhuoDfxA_aySSeVj"] = { address: "בן אביגדור 3, תל אביב יפו" };
+    eventsLocation["-LPKlZdgpPlkwo23wZSL"] = { address: "קדם 109, תל אביב יפו" };
+    eventsLocation["-LPKlBJgk_R-s0M8Uo0y"] = { address: "בית חנה, שדרות בן גוריון, תל אביב יפו" };
+    eventsLocation["-LPKl-0jFRdtXv3lo-yy"] = { address: "בניין רקנאטי, תל אביב יפו" };
+    eventsLocation["-LP5SZmPwA5KjZc6Wzxl"] = { address: "Shoham Street 3, Ramat Gan" };
+    eventsLocation["-LP5S5syNw8mcWzZuB6A"] = { address: "הברזל 30, תל אביב יפו" };
+    eventsLocation["-LP5Rxv2Hooj64sXzO-q"] = { address: "עיריית תל אביב, תל אביב יפו" };
+    eventsLocation["-LP5ReC5-fyz8QBqPzhF"] = { address: "דרמה בר, נחלת בנימין, תל אביב יפו" };
+    eventsLocation["-LP5RQulmMe1TfPw_1lc"] = { address: "54 Ahad HaAm Street" };
+    eventsLocation["-LOwCS4xWgAHcXzQ7O-_"] = { address: "Yigal Alon 94, Tel Aviv-Yafo" };
+    eventsLocation["-LOwCJHnoU8lAa5HcKEh"] = { address: "התערוכה 3, תל אביב יפו" };
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;

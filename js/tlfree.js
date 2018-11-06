@@ -322,9 +322,8 @@ function createPhotos() {
                                 item1.appendChild(img);
                             }
                             else if (media.videos !== undefined) {
-                                debugger;
                                 var video = document.createElement("video");
-                                video.setAttribute("height", "288px");
+                                video.setAttribute("height", "250px");
                                 video.setAttribute("controls", "");
                                 var source = document.createElement("source");
                                 source.setAttribute("src", media.videos.low_resolution.url);

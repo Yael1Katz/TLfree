@@ -310,15 +310,28 @@ function createPhotos() {
                     carouselInner.setAttribute("class", "carousel-inner");
                     var couner = 0;
 
-                    item.carousel_media.forEach(image => {
-                        if (image.images !== undefined) {
+                    item.carousel_media.forEach(media => {
+                        if (media !== undefined) {
                             var li = document.createElement("li");
                             li.setAttribute("data-target", "#myCarousel_" + item.id);
                             li.setAttribute("data-slide-to", couner);
                             var item1 = document.createElement("div");
-                            var img = document.createElement("img");
-                            img.setAttribute("src", image.images.low_resolution.url);
-                            item1.appendChild(img);
+                            if (media.images !== undefined) {
+                                var img = document.createElement("img");
+                                img.setAttribute("src", media.images.low_resolution.url);
+                                item1.appendChild(img);
+                            }
+                            else if (media.videos !== undefined) {
+                                debugger;
+                                var video = document.createElement("video");
+                                video.setAttribute("height", "288px");
+                                video.setAttribute("controls", "");
+                                var source = document.createElement("source");
+                                source.setAttribute("src", media.videos.low_resolution.url);
+                                source.setAttribute("type", "video/mp4");
+                                video.appendChild(source);
+                                item1.appendChild(video);
+                            }
                             if (couner == 0) {
                                 item1.setAttribute("class", "item active");
                                 li.setAttribute("class", "active");

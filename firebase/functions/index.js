@@ -1,4 +1,8 @@
 
+//firebase deploy --only functions //deployment
+var dateFormat = require('dateformat');
+
+
 // Cut off time. Child nodes older than this will be deleted.
 const CUT_OFF_TIME = 2;
 
@@ -31,21 +35,26 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 exports.moveOldEvent = functions.https.onRequest((request, response) => {
+    console.log("moveOldEvent start");
     var refMain = admin.database().ref(MAIN_REFERENCE_NAME);
     var refMainOld = admin.database().ref(MAIN_OLD_REFERENCE_NAME);
 
     // get todays date as a string 'yyyymmdd' that could be translated to integer
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    const todayString = yyyy + mm + dd;
+    
+    // var today = new Date();
+    // var dd = today.getDate();
+    // var mm = today.getMonth() + 1; //January is 0!
+    // var yyyy = today.getFullYear();
+    // if (dd < 10) {
+    //     dd = '0' + dd;
+    // }
+    // if (mm < 10) {
+    //     mm = '0' + mm;
+    // }
+    // console.log("yyyy = " + yyyy);
+    // console.log("mm = " + mm);
+    // console.log("dd = " + dd);
+    const todayString = dateFormat(Date.now(), "yyyymmdd");
     console.log("today: " + todayString);
     var numberOfNodeMoved = 0;
 
@@ -56,9 +65,11 @@ exports.moveOldEvent = functions.https.onRequest((request, response) => {
 
             snapshot.forEach(snapshotChild => {
                 var fullDateString = snapshotChild.child("full_date").val();
-                var dateDifference = parseInt(todayString) - parseInt(fullDateString)
-                // console.log("fullDate = " + fullDate);
-                // console.log("difference = " + difference);
+                var dateDifference = parseInt(todayString) - parseInt(fullDateString);
+                //console.log("todayString = " + todayString);
+                //console.log("dateDifference = " + dateDifference);
+                //console.log("fullDateString = " + fullDateString);
+                //console.log("dateDifference = " + dateDifference);
 
                 if (dateDifference > CUT_OFF_TIME) {
                     console.log("node to be moved keys' = " + snapshotChild.key);

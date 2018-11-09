@@ -323,7 +323,7 @@ function createPhotos() {
                             }
                             else if (media.videos !== undefined) {
                                 var video = document.createElement("video");
-                                video.setAttribute("height", "250px");
+                                video.setAttribute("height", "247px");
                                 video.setAttribute("controls", "");
                                 var source = document.createElement("source");
                                 source.setAttribute("src", media.videos.low_resolution.url);

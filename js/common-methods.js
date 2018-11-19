@@ -299,17 +299,17 @@ function createEventLocationList() {
     // eventsLocation["-LP5RQulmMe1TfPw_1lc"] = { address: "54 Ahad HaAm Street" };
     // eventsLocation["-LOwCS4xWgAHcXzQ7O-_"] = { address: "Yigal Alon 94, Tel Aviv-Yafo" };
     // eventsLocation["-LOwCJHnoU8lAa5HcKEh"] = { address: "התערוכה 3, תל אביב יפו" };
-    eventsLocation["-LRaWSccOxAzOriCmv2p"] = { address: "HaYarkon Street 115, Tel Aviv-Yafo" };
-    eventsLocation["-LRaWIc1m9MHz-zE4hbm"] = { address: "HaUmanim 12, Tel Aviv-Yafo" };
-    eventsLocation["-LRaW4WUMcwQRO22W43h"] = { address: "Kaufmann Street 10, Tel Aviv-Yafo" };
-    eventsLocation["-LRaVvBSjNEn95GUL3E4"] = { address: "מקווה ישראל 10 תל אביב" };
-    eventsLocation["-LRaVjwyVQKcaC_bFUFm"] = { address: "HaUmanim Street 12, Tel Aviv-Yafo" };
-    eventsLocation["-LRaVVn9DPqzvp954CUk"] = { address: "אחד העם 70, תל אביב יפו" };
-    eventsLocation["-LRaVLWbdWFTMPO_EMow"] = { address: "מרכז הירידים תל אביב, שדרות רוקח, תל אביב יפו" };
-    eventsLocation["-LRaV8RAq2YlKqOI9dS4"] = { address: "HaSolelim 5, Tel Aviv-Yafo" };
-    eventsLocation["-LRaUyttRB_H802dmrQW"] = { address: "Maze Street 9, Tel Aviv-Yafo" };
-    eventsLocation["-LRaUqBrmdy3TL90o8lM"] = { address: "Sarona Market, אלוף קלמן מגן 3, Tel Aviv-Yafo" };
-    eventsLocation["-LRYKZYIZwbosmafTDcG"] = { address: "Yigal Alon Street 94, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaWSccOxAzOriCmv2p"] = { address: "HaYarkon Street 115, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaWIc1m9MHz-zE4hbm"] = { address: "HaUmanim 12, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaW4WUMcwQRO22W43h"] = { address: "Kaufmann Street 10, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaVvBSjNEn95GUL3E4"] = { address: "מקווה ישראל 10 תל אביב" };
+    // eventsLocation["-LRaVjwyVQKcaC_bFUFm"] = { address: "HaUmanim Street 12, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaVVn9DPqzvp954CUk"] = { address: "אחד העם 70, תל אביב יפו" };
+    // eventsLocation["-LRaVLWbdWFTMPO_EMow"] = { address: "מרכז הירידים תל אביב, שדרות רוקח, תל אביב יפו" };
+    // eventsLocation["-LRaV8RAq2YlKqOI9dS4"] = { address: "HaSolelim 5, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaUyttRB_H802dmrQW"] = { address: "Maze Street 9, Tel Aviv-Yafo" };
+    // eventsLocation["-LRaUqBrmdy3TL90o8lM"] = { address: "Sarona Market, אלוף קלמן מגן 3, Tel Aviv-Yafo" };
+    // eventsLocation["-LRYKZYIZwbosmafTDcG"] = { address: "Yigal Alon Street 94, Tel Aviv-Yafo" };
 
     //eventsLocation[""] = { address: "" };
     return eventsLocation;
